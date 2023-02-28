@@ -53,14 +53,14 @@
 <p>之前对docker只是简单的使用，没有系统的学过，这次把docker官网的文档仔仔细细都读了一遍，这里对一些个人觉得比较重要的一些内容，做一些记录。</p>
 <p>Docker官网文档：<a href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
 <h2 id="Docker架构"><a href="#Docker架构" class="headerlink" title="Docker架构"></a>Docker架构</h2><p>Docker uses a client-server architecture. The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon can run on the same system, or you can connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets or a network interface. Another Docker client is Docker Compose, that lets you work with applications consisting of a set of containers.</p>
-<p><img src="/.io//docker-architecture.jpg" alt="docker-architecture"></p>
+<p><img src="/.io//02/23/2023/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/docker-architecture.jpg" alt="docker-architecture"></p>
 <p>The Docker daemon<br>The Docker daemon (dockerd) listens for Docker API requests and manages Docker objects such as images, containers, networks, and volumes. A daemon can also communicate with other daemons to manage Docker services.</p>
 <p>The Docker client<br>The Docker client (docker) is the primary way that many Docker users interact with Docker. When you use commands such as docker run, the client sends these commands to dockerd, which carries them out. The docker command uses the Docker API. The Docker client can communicate with more than one daemon.</p>
 <p>Images<br>An image is a read-only template with instructions for creating a Docker container.</p>
 <p>Containers<br>A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI. </p>
 
 
-<!--<a href="http://ac-heron.github.io/2023/02/23/read/2023/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#disqus_thread" class="article-comment-link">Comments</a>
+<!--<a href="http://ac-heron.github.io/2023/02/23/2023/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#disqus_thread" class="article-comment-link">Comments</a>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
