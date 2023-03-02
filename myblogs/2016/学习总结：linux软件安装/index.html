@@ -1,0 +1,180 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%9Alinux%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-text">学习总结：linux软件安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%BD%AF%E4%BB%B6%E5%8C%85%E6%A6%82%E5%BF%B5"><span class="toc-text">一、软件包概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81rpm%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86"><span class="toc-text">二、rpm命令管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8C%85%E5%85%A8%E5%90%8D%E4%B8%8E%E5%8C%85%E5%90%8D"><span class="toc-text">1.包全名与包名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-rpm%E5%91%BD%E4%BB%A4"><span class="toc-text">2.rpm命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81yum%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-text">三、yum在线安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-yum%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">1. yum源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%89%E7%9B%98yum%E6%BA%90%E6%90%AD%E5%BB%BA%EF%BC%9A"><span class="toc-text">2.光盘yum源搭建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-yum%E5%91%BD%E4%BB%A4"><span class="toc-text">3.yum命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%BA%90%E7%A0%81%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-text">四、源码包安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%BA%90%E7%A0%81%E5%8C%85%E5%92%8Crpm%E5%8C%85%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-text">1.源码包和rpm包的区别：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%BA%90%E7%A0%81%E5%8C%85%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="toc-text">2.源码包安装过程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91"><span class="toc-text">3.编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85"><span class="toc-text">脚本安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E5%91%BD%E4%BB%A4"><span class="toc-text">其它命令</span></a></li></ol></li></ol> -->
+<h1 id="学习总结：linux软件安装"><a href="#学习总结：linux软件安装" class="headerlink" title="学习总结：linux软件安装"></a>学习总结：linux软件安装</h1><p>标签（空格分隔）： linux</p>
+<h2 id="一、软件包概念"><a href="#一、软件包概念" class="headerlink" title="一、软件包概念"></a>一、软件包概念</h2><ul>
+<li>源码包（需要自己编译）</li>
+<li>二进制包（已经编译好：rpm包，系统默认包）</li>
+<li>脚本安装包：将在安装上述两种包的过程中手动输入的命令的过程写成脚本，双击执行即可，省去手动输入的麻烦。</li>
+</ul>
+<h2 id="二、rpm命令管理"><a href="#二、rpm命令管理" class="headerlink" title="二、rpm命令管理"></a>二、rpm命令管理</h2><h3 id="1-包全名与包名"><a href="#1-包全名与包名" class="headerlink" title="1.包全名与包名"></a>1.包全名与包名</h3><ul>
+<li>包全名：操作的包是没有安装的软件包时，使用包全名,而且要注意路径</li>
+<li>包名：操作已经安装的软件包时，使用包名，搜索的是&#x2F;var&#x2F;lib&#x2F;rpm&#x2F;中的数据库</li>
+</ul>
+<h3 id="2-rpm命令"><a href="#2-rpm命令" class="headerlink" title="2.rpm命令"></a>2.rpm命令</h3><p>rpm包默认安装位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/	配置文件安装目录</span><br><span class="line">/usr/bin/	可执行的命令安装目录</span><br><span class="line">/usr/lib/	程序所使用的函数库保存位置</span><br><span class="line">/usr/share/doc/	基本的软件使用手册保存位置</span><br><span class="line">/usr/share/man/	帮助文件保存位置</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh 包全名</span><br><span class="line">选项：</span><br><span class="line">-i install</span><br><span class="line">-v 显示详细信息</span><br><span class="line">-h 显示进度</span><br><span class="line">--nodeps不检测依赖性</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>升级与卸载</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh 包全名</span><br><span class="line">选项：</span><br><span class="line">-U（upgrade）升级</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -e 包名</span><br><span class="line">选项：</span><br><span class="line">-e（erase）卸载</span><br><span class="line">--nodeps不检查依赖性</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 包名（查询包是否安装）</span><br><span class="line">rpm -qa (查询所有已安装的包)</span><br><span class="line">rpm -qi 包名（查询包信息）</span><br><span class="line">rpm -ql 包名（查询包安装位置）</span><br><span class="line">rpm -qR 包名 （查询软件包的依赖包）→ 会列出所有依赖</span><br><span class="line">-p 查询未安装包的信息</span><br><span class="line">rpm -qf 系统文件名（查询系统文件属于哪个包</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查询软件包详细信息</span><br><span class="line">rpm -qi 包名</span><br><span class="line">选项：</span><br><span class="line">-i 查询软件信息</span><br><span class="line">-p 查询未安装包信息</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查询包中文件安装位置</span><br><span class="line">rpm -ql 包名</span><br><span class="line">选项：</span><br><span class="line">-l 列表</span><br><span class="line">-p 查询未安装包信息</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查询软件包的依赖性</span><br><span class="line">rpm -qR 包名</span><br><span class="line">选项：</span><br><span class="line">-R 查询软件包的依赖性</span><br><span class="line">-p 查询未安装包信息</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>RPM包校验</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -V 检查包，是否被动过</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>RPM包中文件提取</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm2cpio 包全名 | cpio -idv .文件绝对路径 </span><br><span class="line">前面的【.】代表当前路径，不能省略。</span><br><span class="line">文件绝对路径和包里文件的绝对路径对应，也就是告诉了cpio要去包里提取哪个文件。</span><br><span class="line">注：cpio只知道提取文件，并不知道要从什么地方提取文件，因此通常要使用【|】管道符或【&lt;】输入重定向告诉cpio应该从什么设备去取出文件。</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、yum在线安装"><a href="#三、yum在线安装" class="headerlink" title="三、yum在线安装"></a>三、yum在线安装</h2><h3 id="1-yum源文件"><a href="#1-yum源文件" class="headerlink" title="1. yum源文件"></a>1. yum源文件</h3><ul>
+<li>yum的优点：将所有软件包放到官方服务器上，当进行yum在线安装时，可以自动解决依赖性问题。（rpm缺点：安装过程中，rpm包依赖性太强）</li>
+<li>redhat的yum在线安装需要付费，centOS不需要。</li>
+<li>在【&#x2F;etc&#x2F;yum.repos.d&#x2F;】目录中，默认有4个yum源文件，其中【CentOS-Base.repo】是基本yum源文件，如果能上网，那它是默认生效的，而其他的都是默认不生效的。</li>
+<li>[base]：名字可以随便起。</li>
+<li>name：名字也是随便起。</li>
+<li>mirrorlist和baseurl一个是主站点，一个是辅助站点，这两个有一个就行。可以找一个163或其他yum源更换。</li>
+<li>enabled：默认最后一个容器不生效，其他容器都生效。</li>
+<li>gpgcheck：一般都要开启，开启后安装时会验证rpm包是否是官方的，以保证系统安全。</li>
+<li>gpgkey：默认系统安装后，在目录【&#x2F;etc&#x2F;pki&#x2F;rpm-gpg】下都会存在数字证书。注：前面的【file:&#x2F;&#x2F;】表示文件协议，后面的【&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-CentOS-6】是数字证书的位置。</li>
+</ul>
+<h3 id="2-光盘yum源搭建："><a href="#2-光盘yum源搭建：" class="headerlink" title="2.光盘yum源搭建："></a>2.光盘yum源搭建：</h3><ul>
+<li>1.挂载光盘</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">建立挂载点：mkdir /mnt/cdrom</span><br><span class="line">挂载光盘：mount /dev/chrom /mnt/cdrom</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2、使网络yum源失效</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">进入yum源目录：cd /etc/yum.repos.d/</span><br><span class="line">修改yum源文件后缀名，使其失效：</span><br><span class="line">mv CentOS-Base.repo CentOS-Base.Repo.bak</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3、使光盘yam源生效：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim CentOS-Media.repo</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-yum命令"><a href="#3-yum命令" class="headerlink" title="3.yum命令"></a>3.yum命令</h3><ul>
+<li>卸载：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum -y remove 包名</span><br><span class="line">选项：</span><br><span class="line">-remove：卸载</span><br><span class="line">-y：自动回答yes</span><br><span class="line">（服务器使用最小化安装，用什么装什么，尽量不卸载）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Yum 软件组管理命令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum grouplist</span><br><span class="line">#列出所有可用的软件组列表</span><br><span class="line">yum groupinstall 软件组名</span><br><span class="line">#安装指定软件组，组名可以由grouplist查询出来</span><br><span class="line">yum groupremove 软件组名</span><br><span class="line">#卸载指定软件组</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、源码包安装"><a href="#四、源码包安装" class="headerlink" title="四、源码包安装"></a>四、源码包安装</h2><p>一般：</p>
+<ul>
+<li>源代码保存位置：&#x2F;usr&#x2F;local&#x2F;src&#x2F;</li>
+<li>软件安装位置：&#x2F;usr&#x2F;local&#x2F;</li>
+</ul>
+<h3 id="1-源码包和rpm包的区别："><a href="#1-源码包和rpm包的区别：" class="headerlink" title="1.源码包和rpm包的区别："></a>1.源码包和rpm包的区别：</h3><ul>
+<li>1.rpm包安装位置不用指定，源码包安装位置必须指定。源码包没有卸载命令。卸载时直接删除文件夹即可。</li>
+<li>2.rpm包启动方式两种 service XXXX start（red hat 系列专属） 或 &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;xxx start<br>源码包不能用第一种。</li>
+</ul>
+<h3 id="2-源码包安装过程："><a href="#2-源码包安装过程：" class="headerlink" title="2.源码包安装过程："></a>2.源码包安装过程：</h3><ul>
+<li>1、由于源码都是c语言写的，所以要先安装c语言编译器：gcc</li>
+<li>2、从官方网站下载源码包<br>注：若已安装了二进制包，则源码包也是可以继续安装的，因为两者安装目录不一样。但是，并不建议这样做，因为端口会冲突。</li>
+</ul>
+<h3 id="3-编译"><a href="#3-编译" class="headerlink" title="3.编译"></a>3.编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make编译</span><br><span class="line">make clean 若报错，可使用该命令，删除编译缓存。</span><br><span class="line">make install 编译安装</span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本安装"><a href="#脚本安装" class="headerlink" title="脚本安装"></a>脚本安装</h2><p>参考<a href="http://www.inmp.org/">inmp</a></p>
+<p>一键安装包，实际上还是安装的源码包和RPM包，只是把安装过程写成了脚本，便于安装：</p>
+<ul>
+<li>优点：简单，快捷、方便</li>
+<li>缺点：不能定义安装软件的版本, 不能定义需要的软件功能, 源码包的优势丧失了</li>
+</ul>
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netstat -tlun</span><br><span class="line">查找网络连接信息和系统开启的端口号</span><br><span class="line">使用 -t 选项列出 TCP 协议的连接</span><br><span class="line">使用 -l 选项列出正在监听的套接字</span><br><span class="line">使用 -u 选项列出 UDP 协议的连接</span><br><span class="line">使用 -n 选项禁用域名解析功能</span><br></pre></td></tr></table></figure>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%9Alinux%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot%E7%9A%84-ConfigurationProperties%E4%BD%BF%E7%94%A8"><span class="toc-text">SpringBoot的@ConfigurationProperties使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9C%80%E6%B1%82"><span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Properties%E4%B8%AD%E9%85%8D%E7%BD%AE"><span class="toc-text">Properties中配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="toc-text">定义实体类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%AE%9A%E4%B9%89%E5%9C%A8-Bean%E4%B8%8A"><span class="toc-text">直接定义在@Bean上</span></a></li></ol></li></ol> -->
+<h1 id="SpringBoot的-ConfigurationProperties使用"><a href="#SpringBoot的-ConfigurationProperties使用" class="headerlink" title="SpringBoot的@ConfigurationProperties使用"></a>SpringBoot的@ConfigurationProperties使用</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>在获取属性文件(application.properties)中的配置时，SpringBoot提供了@Value注解,注入这些属性。但有时我们会遇到这样的需求，我们想把属性文件*中的配置，读取并自动封装成实例类，这样我们在使用的时候就方便多了,SpringBoot提供了ConfigurationProperties注解。</p>
+<h2 id="Properties中配置"><a href="#Properties中配置" class="headerlink" title="Properties中配置"></a>Properties中配置</h2><p>假设在Application.properties有如下配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#MQ消息配置</span><br><span class="line">mq.accessKey = testtesttest</span><br><span class="line">mq.secretKey = testesttesttesttesttest</span><br><span class="line">mq.onsAddr = http://onsaddr-internet.aliyun.com/rocketmq/xxxxxxx</span><br><span class="line">#订单到期关闭延时消息</span><br><span class="line">mq.orderDeadlineClose.topicId = TOPIC_ORDER_DEADLINE_TEST1</span><br><span class="line">mq.orderDeadlineClose.tag =</span><br><span class="line">mq.orderDeadlineClose.producerId = PID_ORDER_DEADLINE_TEST1</span><br><span class="line">mq.orderDeadlineClose.consumerId = CID_ORDER_DEADLINE_TEST1</span><br></pre></td></tr></table></figure>
+<h2 id="定义实体类"><a href="#定义实体类" class="headerlink" title="定义实体类"></a>定义实体类</h2><p>这时候我们可以定义一个实体类(MqConfig.java)装载配置文件信息:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;mq&quot;)</span></span><br><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MqConfig</span> <span class="keyword">extends</span> <span class="title class_">RefreshConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String accessKey;</span><br><span class="line">    <span class="keyword">private</span> String secretKey;</span><br><span class="line">    <span class="keyword">private</span> String onsAddr;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这边可以以集合方式取得</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, String&gt; orderDeadlineClose;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean(&quot;orderCloseMQProducer&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> MQProducer <span class="title function_">getOrderCloseMQProducer</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MQProducer</span> <span class="variable">mqProducer</span> <span class="operator">=</span> AlimqFactory.createProducer(</span><br><span class="line">                orderDeadlineClose.get(<span class="string">&quot;topicId&quot;</span>),</span><br><span class="line">                orderDeadlineClose.get(<span class="string">&quot;tag&quot;</span>),</span><br><span class="line">                orderDeadlineClose.get(<span class="string">&quot;producerId&quot;</span>),</span><br><span class="line">                onsAddr,</span><br><span class="line">                accessKey, secretKey);</span><br><span class="line">        mqProducer.start();</span><br><span class="line">        <span class="keyword">return</span> mqProducer;</span><br><span class="line">    &#125;</span><br><span class="line">  ...set and get method...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="直接定义在-Bean上"><a href="#直接定义在-Bean上" class="headerlink" title="直接定义在@Bean上"></a>直接定义在@Bean上</h2><p>@ConfigurationProperties还可以直接定义在@bean的注解上，这时bean实体类就不用@Component和@ConfigurationProperties了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoApplication</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> MqConfig <span class="title function_">mqConfig</span><span class="params">()</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MqConfig</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要使用的时候就直接这样子注入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class TestController &#123;</span><br><span class="line"></span><br><span class="line">@Autowired </span><br><span class="line">MqConfig config;</span><br><span class="line"></span><br><span class="line">@RequestMapping(&quot;test&quot;)</span><br><span class="line">public String test()&#123;</span><br><span class="line">  String key = config.getAccessKey();</span><br><span class="line">  return &quot;hello&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/SpringBoot%E7%9A%84@ConfigurationProperties%E4%BD%BF%E7%94%A8/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

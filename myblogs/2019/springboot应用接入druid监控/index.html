@@ -1,0 +1,83 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2019年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5druid%E7%9B%91%E6%8E%A7"><span class="toc-text">springboot应用接入druid监控</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BC%95%E5%85%A5druid"><span class="toc-text">1.引入druid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-DuidConfig"><span class="toc-text">2.DuidConfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-text">3.启动服务</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="springboot应用接入druid监控"><a href="#springboot应用接入druid监控" class="headerlink" title="springboot应用接入druid监控"></a>springboot应用接入druid监控</h1><h3 id="1-引入druid"><a href="#1-引入druid" class="headerlink" title="1.引入druid"></a>1.引入druid</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;druid&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;1.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-DuidConfig"><a href="#2-DuidConfig" class="headerlink" title="2.DuidConfig"></a>2.DuidConfig</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">import com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line">import com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line">import com.google.common.collect.Maps;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line">import org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class DruidConfig &#123;</span><br><span class="line">    private Logger logger = LoggerFactory.getLogger(DruidConfig.class);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Druid内置监控页面</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Bean</span><br><span class="line">    public ServletRegistrationBean druidServlet() &#123;</span><br><span class="line">        logger.info(&quot;Init druid servlet configuration &quot;);</span><br><span class="line">        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();</span><br><span class="line">        servletRegistrationBean.setServlet(new StatViewServlet());</span><br><span class="line">        servletRegistrationBean.addUrlMappings(&quot;/druid/*&quot;);</span><br><span class="line">        Map&lt;String, String&gt; initParameters = Maps.newHashMap();</span><br><span class="line">         //登录查看信息的账号密码.</span><br><span class="line">        initParameters.put(&quot;loginUsername&quot;, &quot;druid&quot;);</span><br><span class="line">        initParameters.put(&quot;loginPassword&quot;, &quot;123456&quot;);</span><br><span class="line">         //是否能够重置数据(禁用HTML页面上的“Reset All”功能)</span><br><span class="line">        initParameters.put(&quot;resetEnable&quot;, &quot;false&quot;);</span><br><span class="line">        initParameters.put(&quot;allow&quot;, &quot;&quot;);</span><br><span class="line">        servletRegistrationBean.setInitParameters(initParameters);</span><br><span class="line">        return servletRegistrationBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     /**</span><br><span class="line">     * 配置URI监控</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean filterRegistrationBean() &#123;</span><br><span class="line">        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();</span><br><span class="line">        filterRegistrationBean.setFilter(new WebStatFilter());</span><br><span class="line">        //添加过滤规则.</span><br><span class="line">        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);</span><br><span class="line">        //添加不需要忽略的格式信息.</span><br><span class="line">        filterRegistrationBean.addInitParameter(&quot;exclusions&quot;, &quot;*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*&quot;);</span><br><span class="line">        return filterRegistrationBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="3-启动服务"><a href="#3-启动服务" class="headerlink" title="3.启动服务"></a>3.启动服务</h3><p>访问<a href="http://localhost:8484/druid%EF%BC%8C%E7%99%BB%E5%BD%95%E3%80%82">http://localhost:8484/druid，登录。</a></p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2019/springboot%E5%BA%94%E7%94%A8%E6%8E%A5%E5%85%A5druid%E7%9B%91%E6%8E%A7/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

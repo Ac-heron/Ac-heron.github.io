@@ -1,0 +1,159 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E5%9F%BA%E4%BA%8Eannotation%E7%9A%84%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93"><span class="toc-text">Spring基于annotation的缓存使用总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%9D%E8%B7%AF"><span class="toc-text">缓存使用思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E7%A7%8D%E7%BC%93%E5%AD%98%E6%96%B9%E6%A1%88%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="toc-text">这种缓存方案的劣势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Eannotation%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">基于annotation的缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81-Cacheable"><span class="toc-text">1、@Cacheable</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#condition-%E5%A6%82%E4%BD%95%E6%8C%89%E7%85%A7%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%BC%93%E5%AD%98"><span class="toc-text">condition :如何按照条件操作缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%8F%82%E6%95%B0%EF%BC%8C%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C-key-%E7%9A%84%E7%BB%84%E5%90%88"><span class="toc-text">如果有多个参数，如何进行 key 的组合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81-CacheEvict-%E6%B8%85%E7%A9%BA%E7%BC%93%E5%AD%98"><span class="toc-text">2、@CacheEvict:清空缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CacheEvict-%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">@CacheEvict 的可靠性问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81-CachePut-%E6%97%A2%E8%A6%81%E4%BF%9D%E8%AF%81%E6%96%B9%E6%B3%95%E8%A2%AB%E8%B0%83%E7%94%A8%EF%BC%8C%E5%8F%88%E5%B8%8C%E6%9C%9B%E7%BB%93%E6%9E%9C%E8%A2%AB%E7%BC%93%E5%AD%98"><span class="toc-text">3、@CachePut :既要保证方法被调用，又希望结果被缓存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cacheable%E3%80%81-CachePut%E3%80%81-CacheEvict-%E6%80%BB%E7%BB%93"><span class="toc-text">@Cacheable、@CachePut、@CacheEvict 总结</span></a></li></ol></li></ol> -->
+<h1 id="Spring基于annotation的缓存使用总结"><a href="#Spring基于annotation的缓存使用总结" class="headerlink" title="Spring基于annotation的缓存使用总结"></a>Spring基于annotation的缓存使用总结</h1><h2 id="缓存使用思路"><a href="#缓存使用思路" class="headerlink" title="缓存使用思路"></a>缓存使用思路</h2><p>我们使用缓存，一般的思路是这样的：一个业务查询方法，我们先去查询缓存，如果命中缓存，则直接返回结果。如果缓存没有命中，再去查询数据库，然后将结果存入缓存，下一次再执行这个方法时，如果缓存没有过期，则直接返回缓存数据。(注：这里没考虑并发情况)。示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  <span class="comment">// 首先查询缓存</span></span><br><span class="line">  <span class="type">User</span> <span class="variable">result</span> <span class="operator">=</span> redisHelper.get(name);</span><br><span class="line">  <span class="keyword">if</span>(result !=<span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果命中缓存，则直接返回缓存的结果</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 否则到数据库中查询</span></span><br><span class="line">  result = getUserFromDB(name);</span><br><span class="line">  <span class="comment">// 将数据库查询的结果更新到缓存中</span></span><br><span class="line">  <span class="keyword">if</span>(result!=<span class="literal">null</span>) &#123;&#125;</span><br><span class="line">    redisHelper.put(name， result);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="这种缓存方案的劣势"><a href="#这种缓存方案的劣势" class="headerlink" title="这种缓存方案的劣势"></a>这种缓存方案的劣势</h3><ul>
+<li><p>缓存代码和业务代码耦合度太高，不便于维护和变更，代码可读性也差</p>
+</li>
+<li><p>这种缓存方案不支持按照某种条件的缓存，比如有某种类型的User才需要缓存</p>
+</li>
+</ul>
+<h2 id="基于annotation的缓存"><a href="#基于annotation的缓存" class="headerlink" title="基于annotation的缓存"></a>基于annotation的缓存</h2><p>我们使用Spring的基于annotation的缓存技术，通过在既有代码中添加少量它定义的各种annotation，就可以达到上述效果，而且还可以使用<code>SpEL（Spring Expression Language</code>来定义缓存的<code>key</code>和各种<code>condition</code>，按照某种条件进行缓存。</p>
+<h3 id="1、-Cacheable"><a href="#1、-Cacheable" class="headerlink" title="1、@Cacheable"></a>1、@Cacheable</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用了一个缓存名叫userCache</span></span><br><span class="line"><span class="meta">@Cacheable(value=&quot;userCache&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  <span class="comment">// 方法内部实现不考虑缓存逻辑，直接实现业务</span></span><br><span class="line">  <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span>  getUserFromDB(name);</span><br><span class="line">  <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里用到了Spring的一个<code>annotation</code>，即<code>@Cacheable(value=”userCache”)</code>，它的意思是，当调用这个方法的时候，会从一个名叫<code>userCache</code> 的缓存中查询，如果没有，则执行实际的方法（即查询数据库），并将执行的结果存入缓存中，否则直接返回缓存中的结果。<br>注意:<strong>这里的value&#x3D;”userCache”不是指缓存中的 key，这里缓存的key 是方法的参数name</strong>，<code>&quot;userCache&quot;</code>〔拼音〕是指定义这个缓存的名称。</p>
+<h4 id="condition-如何按照条件操作缓存"><a href="#condition-如何按照条件操作缓存" class="headerlink" title="condition :如何按照条件操作缓存"></a>condition :如何按照条件操作缓存</h4><p>前面的缓存方法，没有任何条件，即所有对 getUserByName 方法的调用都会起动缓存效果，如果有一个需求，就是只有账号名称的长度小于等于 4 的情况下，才做缓存，如何实现？<br>Spring提供了一个很好的方法，那就是基于 SpEL 表达式的 condition 定义，这个 condition 是 @Cacheable注解的一个属性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable(value=&quot;userCache&quot;，condition=&quot;#name.length() &lt;= 4&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span>...</span><br></pre></td></tr></table></figure>
+
+<p>注意其中的 condition&#x3D;”#name.length() &lt;&#x3D;4”，条件表达式返回一个布尔值，当条件为 true，则进行缓存操作，否则直接调用方法执行的返回结果。</p>
+<h4 id="如果有多个参数，如何进行-key-的组合"><a href="#如果有多个参数，如何进行-key-的组合" class="headerlink" title="如果有多个参数，如何进行 key 的组合"></a>如果有多个参数，如何进行 key 的组合</h4><p>这里我们需要根据name、password对User对象进行缓存，我们可以利用 SpEL 表达式对缓存 key 进行设计。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable(value=&quot;userCache&quot;，key=&quot;#name.concat(#password)&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">getUser</span><span class="params">(String name，String password)</span>...</span><br></pre></td></tr></table></figure>
+<p>也可以直接用+拼接：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable(value = &quot;doctor:app&quot;, key = &quot;&#x27;listPatientTags:&#x27;+#userCode+&#x27;:&#x27;+#weimaihao&quot;)</span></span><br><span class="line"><span class="keyword">public</span> List&lt;PatientTagVo&gt; <span class="title function_">listPatientTags</span><span class="params">(Long userCode, Long weimaihao)</span>...</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、-CacheEvict-清空缓存"><a href="#2、-CacheEvict-清空缓存" class="headerlink" title="2、@CacheEvict:清空缓存"></a>2、@CacheEvict:清空缓存</h3><p>使用<code>@Cacheable</code>，可以完成基本的缓存查询，但当User数据发生变更，那么必须要清空缓存，以保证缓存数据的可靠性。<br>有两种情况：</p>
+<ul>
+<li><ol>
+<li>清空此user对应的缓存</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>清空所有缓存</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">  <span class="meta">@Cacheable(value=&quot;userCache&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getUserFromDB(name);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 清空key为user.getName()的缓存</span></span><br><span class="line">  <span class="meta">@CacheEvict(value=&quot;userCache&quot;，key=&quot;#user.getName()&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 清空userCache所有缓存</span></span><br><span class="line">  <span class="meta">@CacheEvict(value=&quot;userCache&quot;，allEntries=true)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reload</span><span class="params">()</span> &#123;</span><br><span class="line">    ....</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可见，清空缓存的方法，就是通过 @CacheEvict 来标记要清空缓存的方法，当这个方法被调用后，即会清空缓存。</p>
+<blockquote>
+<p> 注意其中<code>@CacheEvict(value=”userCache”，key=”#user.getName()”)</code>，其中的 Key 就是缓存的唯一key值，这里因为我们保存的时候用的是 User 对象的 name 字段，所以这里还需要从参数 User 对象中获取 name 的值来作为 key，前面的 # 号代表这是一个 SpEL 表达式。</p>
+</blockquote>
+<h4 id="CacheEvict-的可靠性问题"><a href="#CacheEvict-的可靠性问题" class="headerlink" title="@CacheEvict 的可靠性问题"></a>@CacheEvict 的可靠性问题</h4><p>@CacheEvict有一个属性 <code>beforeInvocation</code>，缺省为 false，即缺省情况下，都是在实际的方法执行完成后，才对缓存进行清空操作。期间如果执行方法出现异常，则会导致缓存清空不被执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CacheEvict(value=&quot;userCache&quot;，allEntries=true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reload</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意上面的代码，我们在 reload 的时候抛出了运行期异常，这会导致清空缓存失败。如何避免这个问题呢？我们可以用 @CacheEvict 注释提供的 beforeInvocation 属性，将其设置为 true，这样，在方法执行前我们的缓存就被清空了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@CacheEvict(value=&quot;userCache&quot;，allEntries=true，beforeInvocation=true)</span><br><span class="line">public void reload() &#123;</span><br><span class="line">  throw new RuntimeException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、-CachePut-既要保证方法被调用，又希望结果被缓存"><a href="#3、-CachePut-既要保证方法被调用，又希望结果被缓存" class="headerlink" title="3、@CachePut :既要保证方法被调用，又希望结果被缓存"></a>3、@CachePut :既要保证方法被调用，又希望结果被缓存</h3><p>当用@Cacheable注解时，如果重复使用相同参数调用方法的时候，方法本身不会被执行，而是直接从缓存中返回，但实际需求中，有些情况下我们希望方法一定会被调用，因为其除了返回一个结果，还做了其他事情，例如记录日志，调用接口等，这个时候，我们可以用 @CachePut，这个注释可以确保方法被执行，同时方法的返回值也被记录到缓存中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable(value=&quot;userCache&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">getUserByName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> getFromDB(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 更新 accountCache 缓存</span></span><br><span class="line"><span class="meta">@CachePut(value=&quot;userCache&quot;，key=&quot;#user.getName()&quot;)</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">updateUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上面的代码所示，我们首先用 getUserByName 方法查询，这个时候会查询数据库一次，同时结果也记录到缓存中了。然后我们调用了 updateUser 方法，这个时候会执行数据库的更新操作且记录到缓存。@CachePut 可以保证方法被执行，且结果一定会被缓存。</p>
+<h2 id="Cacheable、-CachePut、-CacheEvict-总结"><a href="#Cacheable、-CachePut、-CacheEvict-总结" class="headerlink" title="@Cacheable、@CachePut、@CacheEvict 总结"></a>@Cacheable、@CachePut、@CacheEvict 总结</h2><p>通过上面的例子，我们可以看到 spring cache 主要使用以下几个注解标签，即 @Cacheable、@CachePut 和 @CacheEvict，总结一下其作用和配置方法。</p>
+<ul>
+<li><ol>
+<li>@Cacheable :能够根据方法的请求参数对其结果进行缓存,主要参数：</li>
+</ol>
+<ul>
+<li>value:缓存的名称，可以多个：如<code> @Cacheable(value=&#123;”cache1”，”cache2”&#125;</code></li>
+<li>key:	缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则默认按照方法的所有参数进行组合</li>
+<li>condition:缓存的条件，可以为空，返回 true 或者 false，只有为 true 才进行缓存</li>
+</ul>
+<p>	</p>
+</li>
+<li><ol start="2">
+<li>@CachePut ：能够根据方法的请求参数对其结果进行缓存，和 @Cacheable 不同的是，它每次都会触发真实方法的调用。主要的参数：</li>
+</ol>
+<ul>
+<li>value：同Cacheable</li>
+<li>key:同Cacheable</li>
+<li>condition:同Cacheable</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>@CacheEvict :主要针对方法配置，能够根据一定的条件对缓存进行清空。主要的参数：</li>
+</ol>
+<ul>
+<li>value:同Cacheable</li>
+<li>key：同Cacheable</li>
+<li>condition:同Cacheable</li>
+<li>allEntries：是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存。例如： <code>@CachEvict(value=”testcache”，allEntries=true)</code></li>
+<li>beforeInvocation	是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存	例如： <code>@CachEvict(value=”testcache”，beforeInvocation=true)</code></li>
+</ul>
+</li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/Spring%E5%9F%BA%E4%BA%8Eannotation%E7%9A%84%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

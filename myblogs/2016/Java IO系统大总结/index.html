@@ -1,0 +1,305 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-IO%E7%B3%BB%E7%BB%9F%E5%A4%A7%E6%80%BB%E7%BB%93"><span class="toc-text">Java IO系统大总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E7%9B%AE%E5%BD%95"><span class="toc-text">本文目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81"><span class="toc-text">流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-text">输入输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-I-x2F-O%E7%9A%84%E4%B8%BB%E8%A6%81%E7%94%A8%E9%80%94"><span class="toc-text">Java I&#x2F;O的主要用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">流的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%EF%BC%9A%E6%8C%89%E6%B5%81%E7%9A%84%E6%96%B9%E5%90%91"><span class="toc-text">一：按流的方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%9A%E6%8C%89%E4%BC%A0%E8%BE%93%E5%8D%95%E4%BD%8D"><span class="toc-text">二：按传输单位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%9A%E6%8C%89%E5%85%B3%E8%81%94%E7%89%B9%E7%82%B9"><span class="toc-text">三：按关联特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-IO%E7%B1%BB%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84"><span class="toc-text">Java IO类库的基本架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81%EF%BC%9AInputStream%E4%B8%8EOutputStream"><span class="toc-text">字节流：InputStream与OutputStream</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="toc-text">字节流基本方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">字节流使用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E6%A1%88%E4%BE%8B%E5%8F%AF%E8%A7%81%EF%BC%8C%E6%97%A0%E8%AE%BA%E6%9D%A5%E6%BA%90%E6%88%96%E7%9B%AE%E7%9A%84%E5%9C%B0%E5%BD%A2%E5%BC%8F%E5%A6%82%E4%BD%95%EF%BC%8C%E5%8F%AA%E8%A6%81%E6%83%B3%E5%8A%9E%E6%B3%95%E5%8F%96%E5%BE%97InputStream%E5%92%8COutputStream%EF%BC%8C%E6%8E%A5%E4%B8%8B%E6%9D%A5%E7%9A%84%E6%93%8D%E4%BD%9C%E9%83%BD%E6%98%AF%E8%B0%83%E7%94%A8InputStream%E5%92%8COutputStream%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95%E3%80%82"><span class="toc-text"> 通过以上案例可见，无论来源或目的地形式如何，只要想办法取得InputStream和OutputStream，接下来的操作都是调用InputStream和OutputStream的相关方法。
+    </span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81%EF%BC%9AReader%E4%B8%8EWrite"><span class="toc-text">字符流：Reader与Write</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="toc-text">字符流基本方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%B5%81%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">字符流使用案例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-text">字节流和字符流的转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File%E5%92%8CRandomAccessFile%E7%B1%BB"><span class="toc-text">File和RandomAccessFile类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#File%E7%B1%BB"><span class="toc-text">File类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RandomAccessFile%E7%B1%BB"><span class="toc-text">RandomAccessFile类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96RandomAccessFile"><span class="toc-text">初始化RandomAccessFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8RandomAccessFile%E4%B8%AD%E6%9D%A5%E5%9B%9E%E8%AF%BB%E5%86%99"><span class="toc-text">在RandomAccessFile中来回读写</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">序列化的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">序列化反序列化的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="toc-text">Serializable接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="toc-text">序列化和反序列化案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transient%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">transient关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96ID"><span class="toc-text">序列化ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#readObject%E5%92%8CwriteObject%E6%96%B9%E6%B3%95"><span class="toc-text">readObject和writeObject方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Externalizable%E6%8E%A5%E5%8F%A3"><span class="toc-text">Externalizable接口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Apache-IO"><span class="toc-text">Apache IO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">本文参考资料:</span></a></li></ol> -->
+<h1 id="Java-IO系统大总结"><a href="#Java-IO系统大总结" class="headerlink" title="Java IO系统大总结"></a>Java IO系统大总结</h1><hr>
+<p>Java的IO操作类在<code>java.io</code>下，大概有80多个类，一头扎进，只会晕头转向，因为其用了装饰者模式，大多数类其实都是装饰者，包装成各种不同的功能，这些类基本位于两个层次之下，一个是基于字节的，一个是基于字符的。这篇文章是自己学习IO过程中，一些知识的总结。文章的目录如下：</p>
+<h1 id="本文目录"><a href="#本文目录" class="headerlink" title="本文目录"></a>本文目录</h1><ul>
+<li>概述</li>
+<li>I&#x2F;O框架体系</li>
+<li>InputStream与OutputStream</li>
+<li>Reader与Writer</li>
+<li>字节与字符的转化</li>
+<li>File类和RandomAccessFile类</li>
+<li>对象的序列化和反序列化</li>
+<li>使用Apache IO库</li>
+<li>参考资料</li>
+</ul>
+<hr>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p>在<code>Java API</code>中,流的概念在<code>JDK1.0</code>中就存在了。简单的来说,流是一组有顺序的,有起点和终点的字节序列,是一个连续的数据流。<code>java.io</code>包下根据数据传输特性将流抽象为各种类,方便直观的进行数据操作。</p>
+<h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>根据流向不同,可以从其中读入一个字节序列的对象称作<code>输入流</code>,可以向其中写入一个字节序列的对象称作<code>输出流</code>.其中输入输出的数据源和目标媒介可以是文件、管道、网络、内存、磁盘等。</p>
+<h2 id="Java-I-x2F-O的主要用途"><a href="#Java-I-x2F-O的主要用途" class="headerlink" title="Java I&#x2F;O的主要用途"></a>Java I&#x2F;O的主要用途</h2><p><code>java.io</code>包下有大量的类，其中大部分类是<code>InputStream</code>、<code>OutputStream</code>、<code>Reader</code>、<code>Writer</code>的子类，针对不同业务场景选择使用相关类，这些类主要包含了以下功能：</p>
+<ul>
+<li>文件访问</li>
+<li>网络访问</li>
+<li>内存缓存访问</li>
+<li>线程内部通信(管道)</li>
+<li>缓冲</li>
+<li>过滤</li>
+<li>解析</li>
+<li>读写文本</li>
+<li>读写基本类型数据</li>
+<li>读写对象</li>
+</ul>
+<h2 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h2><p>可以按以下三种方式来进行分类：</p>
+<h3 id="一：按流的方向"><a href="#一：按流的方向" class="headerlink" title="一：按流的方向"></a>一：按流的方向</h3><p>根据流的流动方向，可以分为输入流（<code>InputStream</code>）和输出流（<code>OutputStream</code>）。输入流只能从中读取数据而不能写入，输出流则相反。所有输入输出流的命名都以<code>InputStream</code>和<code>OutputStream</code>结尾。</p>
+<h3 id="二：按传输单位"><a href="#二：按传输单位" class="headerlink" title="二：按传输单位"></a>二：按传输单位</h3><p>根据对流的传输单位不同，可以将流分为<code>字节流(Byte Stream)</code>和<code>字符流(Character Stream)</code>。</p>
+<ul>
+<li><p>字节流：字节流以字节(8bits)为单位进行读写。字节流的类都是<code>InputStream</code>和<code>OutputStream</code>类的子类。</p>
+</li>
+<li><p>字符流：字符流则以字符(16bits)为单位进行读写。字符流的类都是<code>Reader</code>和<code>Writer</code>类的子类，命名都以<code>Reader</code>和<code>Writer</code>结尾。字符流采用Unicode编码。</p>
+</li>
+</ul>
+<h3 id="三：按关联特点"><a href="#三：按关联特点" class="headerlink" title="三：按关联特点"></a>三：按关联特点</h3><p>根据数据源所关联的是数据源还是其它数据流，可以分为<code>节点流(Node Stream)</code>和<code>处理流(Processing Stream)</code>。</p>
+<ul>
+<li><p>节点流：节点流是最基本的流，直接提供输入输出功能，一般用于直接从磁盘，内存等指定的位置进行读写操作。</p>
+</li>
+<li><p>处理流：处理流是高级的流，同节点流配合使用，一般用于对节点流或其它输入输出流进行封装，提供更丰富的输入输出功能。创建处理流时要将一个流对象作为参数来调用构造方法，且处理流可以嵌套使用。</p>
+</li>
+</ul>
+<h2 id="Java-IO类库的基本架构"><a href="#Java-IO类库的基本架构" class="headerlink" title="Java IO类库的基本架构"></a>Java IO类库的基本架构</h2><p>Java中的流主要分为两个层次结构，一个层次用于处理字节输入和输出;另一个层次处理字符的输入和输出。比如，<code>InputStream</code>和<code>OutputStream</code>可以处理单个的字节和字节数组，要想读取字符串或数字，就要用到更强大的子类，如<code>DataInputStream</code>和<code>DataOutputStream</code>可以以二进制格式读取所有的基本Java类型。</p>
+<p>下图列出了IO流的层次结构：<br><img src="/../images/Java-IO.png" alt="java-IO"></p>
+<hr>
+<h1 id="字节流：InputStream与OutputStream"><a href="#字节流：InputStream与OutputStream" class="headerlink" title="字节流：InputStream与OutputStream"></a>字节流：InputStream与OutputStream</h1><p>对于数据流的读写操作，无论数据源或目的地为何，只要取得InputStream或OutputStream的实例，接下来操作输入输出的方式其实都是大同小异的。</p>
+<h2 id="字节流基本方法"><a href="#字节流基本方法" class="headerlink" title="字节流基本方法"></a>字节流基本方法</h2><ul>
+<li>InputStream中的基本方法,用于从输入流中读取字节：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read()</span><br><span class="line">read(byte b[])</span><br><span class="line">read(byte b[],int off,int len,)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OutputStream中的基本方法，用于将字节写入输出流：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">write(int b); </span><br><span class="line">write(byte[] b); </span><br><span class="line">write(byte[] b, int off, int len) </span><br></pre></td></tr></table></figure>
+<h2 id="字节流使用案例"><a href="#字节流使用案例" class="headerlink" title="字节流使用案例"></a>字节流使用案例</h2><p>下面用最基本的InputStream和OutputStream写一个通过的<code>flow</code>方法，将数据从数据源取出，写入目的地，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class IOUtil &#123;</span><br><span class="line">    public static void flow(InputStream input, OutputStream output) throws IOException &#123;</span><br><span class="line">        byte[] data = new byte[4*1024];</span><br><span class="line">        int length = -1;</span><br><span class="line">        while ((length = input.read(data)) != -1) &#123;</span><br><span class="line">           output.write(data,0,length); </span><br><span class="line">        &#125;</span><br><span class="line">        input.close();</span><br><span class="line">        output.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>flow</code>方法并不知道数据的真正来源和目的地是什么，而是使用的抽象的<code>InputStream</code>和<code>OutputStream</code>来接收，首先定义一个大小为[4*1024]的字节数组，然后用write方法从0开始，每次最大读取length多的数据,并且将读到的数据保存到data中，返回读到的字节个数，一直到返回的结果为-1为止，-1代表数据读到了结尾，没有更多的数据了。</p>
+<ul>
+<li>使用<code>flow</code>方法只要传入具体的实现即可，比如实现读取<code>D://test.txt</code>并将其写入到<code>E://demo.txt</code>,则可以这样：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IOUtil.flow(</span><br><span class="line">   new FileInputStream(new File(&quot;D://test.txt&quot;)),</span><br><span class="line">   new FileOutputStream(new File(&quot;E://demo.txt&quot;))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果要使用http抓取一个网页上的内容，保存到本地的<code>D://test.txt</code>文件中，是可以这样：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URL url = new URL(&quot;http://www.herohuang.com&quot;);</span><br><span class="line">IOUtil.flow(url.openStream(),new FileOutputStream(&quot;D://test.txt&quot;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果要将文件输出至浏览器，则可以这样：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/test&quot;)</span><br><span class="line">public void test(HttpServletRequest request, HttpServletResponse response) throws IOException &#123;</span><br><span class="line">    response.setContentType(&quot;application/pdf&quot;);</span><br><span class="line">    InputStream is = request.getServletContext().getResourceAsStream(&quot;WEB-INF/test.pdf&quot;);</span><br><span class="line">    OutputStream os = response.getOutputStream();</span><br><span class="line">    byte[] data = new byte[1024];</span><br><span class="line">    int length = -1;</span><br><span class="line">    while ((length = is.read(data)) != -1) &#123;</span><br><span class="line">        os.write(data,0,length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="通过以上案例可见，无论来源或目的地形式如何，只要想办法取得InputStream和OutputStream，接下来的操作都是调用InputStream和OutputStream的相关方法。"><a href="#通过以上案例可见，无论来源或目的地形式如何，只要想办法取得InputStream和OutputStream，接下来的操作都是调用InputStream和OutputStream的相关方法。" class="headerlink" title=" 通过以上案例可见，无论来源或目的地形式如何，只要想办法取得InputStream和OutputStream，接下来的操作都是调用InputStream和OutputStream的相关方法。
+    "></a> 通过以上案例可见，无论来源或目的地形式如何，只要想办法取得<code>InputStream</code>和<code>OutputStream</code>，接下来的操作都是调用<code>InputStream</code>和<code>OutputStream</code>的相关方法。
+    </h2><h1 id="字符流：Reader与Write"><a href="#字符流：Reader与Write" class="headerlink" title="字符流：Reader与Write"></a>字符流：Reader与Write</h1><p>在实际处理数据时，如果处理的是字符数据，使用<code>InputStream</code>和<code>OutputStream</code>就得对照编码表，在字符和字节之间进行转换，所以JAVA API提供了字符操作类，来简化了这种操作。</p>
+<h2 id="字符流基本方法"><a href="#字符流基本方法" class="headerlink" title="字符流基本方法"></a>字符流基本方法</h2><ul>
+<li>Reader中的基本方法，用于从流中读取数据到字符数组：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read(char[] cbuf); </span><br><span class="line">read(char[] cbuf, int off, int len); </span><br><span class="line">read(CharBuffer target); </span><br></pre></td></tr></table></figure>
+<ul>
+<li>Writer中的基本方法，用于把字符、字符数组写入流中：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">write(char[] cbuf); </span><br><span class="line">write(char[] cbuf, int off, int len); </span><br><span class="line">write(int c); </span><br><span class="line">write(String str); </span><br><span class="line">write(String str, int off, int len); </span><br></pre></td></tr></table></figure>
+
+<h2 id="字符流使用案例"><a href="#字符流使用案例" class="headerlink" title="字符流使用案例"></a>字符流使用案例</h2><p>同上，写一个通用的<code>dump</code>方法，从数据源以字符的形式读取数据，并写入到目的地，代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void dump(Reader reader ,Writer writer) throws IOException &#123;</span><br><span class="line">    char[] data = new char[4 * 1024];</span><br><span class="line">    int length = 0;</span><br><span class="line">    while ( (length = reader.read(data) ) != -1) &#123;</span><br><span class="line">        writer.write(data,0,length);</span><br><span class="line">    &#125;</span><br><span class="line">    reader.close();</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上，每次从<code>Reader</code>读入的数据,都会先置入<code>char</code>数组中。<code>Reader</code>的<code>read()</code>方法,每次会尝试读入<code>char</code> 数组长度的数据,并返回实际读入的字符数,只要不是-1,就表示读取到字符，然后使用<code>Writer</code>的<code>write()</code>方法来写入数据。</p>
+<p>比如，用dump方法读取文档，转为字符串并打印出来，代码如下：、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws IOException&#123;</span><br><span class="line">    FileReader reader = new FileReader(&quot;D：//test.txt&quot;);</span><br><span class="line">    StringWriter writer = new StringWriter();</span><br><span class="line">    IOUtil.dump(reader,writer);</span><br><span class="line">    System.out.println(writer.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>FileReader</code>读取字符时，不能自定义编码方式，而会使用JVM版本的默认的编码方式来处理字符，如果要自已设定编码，则可以使用<code>InputStreamReader</code>配合<code>FileInputStream</code>来代替<code>FileReader</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IOUtil.dump(</span><br><span class="line">   new InputStreamReader(new FileInputStream(&quot;test.txt&quot;),&quot;UTF-8&quot;),</span><br><span class="line">   new OutputStreamWriter(new FileOutputStream(&quot;dest.txt&quot;),&quot;UTF-8&quot;));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="字节流和字符流的转换"><a href="#字节流和字符流的转换" class="headerlink" title="字节流和字符流的转换"></a>字节流和字符流的转换</h1><p>如上面的例子，字节流和字符流之间可相互转换，可使用指定charset解码方式，转换的桥梁主要靠下面两个类：</p>
+<ul>
+<li>InputStreamReader：将输入的字节流转为字符流</li>
+<li>OutputStreamWriter：将输出的字符流转为字节流</li>
+</ul>
+<p>从字节到字符的解码过程，真正负责的类其实是<code>StreamDecoder</code>类，查看<code>InpuStreamReader</code>源码，可以发现它有一个<code>StreamDecoder</code>对象，在其<code>read</code>方法中，调用了<code>StreamDecoder</code>的read方法，</p>
+<p>见下面的代码,在<code>new InputStreamReader()</code>中真正起作用的其实是<code>StreamDecoder</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws IOException&#123;</span><br><span class="line">    FileInputStream input = new FileInputStream(&quot;/home/acheron/test.txt&quot;);</span><br><span class="line">    //这里真正起作用的实际是StreamDecoder类</span><br><span class="line">    InputStreamReader reader = new InputStreamReader(input,&quot;UTF-8&quot;);</span><br><span class="line"></span><br><span class="line">    /×× 以字符数组的方式读取发，放入buffer这个数组，</span><br><span class="line">    从第0个位置开始，最多放buffer.length个</span><br><span class="line">    返回的是读到的字符的个数 ×/</span><br><span class="line">    char[] buffer = new char[4 * 1024];</span><br><span class="line">    int d;</span><br><span class="line">    while ((d = reader.read(buffer,0,buffer.length)) != -1) &#123;</span><br><span class="line">        String s = new String(buffer,0,d);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="File和RandomAccessFile类"><a href="#File和RandomAccessFile类" class="headerlink" title="File和RandomAccessFile类"></a>File和RandomAccessFile类</h1><h2 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h2><p><code>File</code>类可以访问底层文件系统，<code>File</code>可以指一个特定文件的名称，也可以指一个目录下一组文件的名称，<code>File</code>只能访问文件及文件系统的无数据，如果想读写文件内容，则要使用<code>FileInputStream</code>，<code>FileOutputStream</code>，或者<code>RandomAccessFile</code>类。 </p>
+<p><code>File</code>类中的方法主要分为以下四种:</p>
+<ul>
+<li><p>文件名相关方法</p>
+<p>  getAbsoluteFile(),getAbsolutePath(),getName(),<br>  getParent(), getParentFile(), getPath() ,renameTo(File dest)</p>
+</li>
+<li><p>文件状态相关方法</p>
+<p>  exists(),canExecute(), canRead(), canWrite() ,<br>  isFile(), isDirectory() ,isAbsolute()(UNIX&#x2F;Linux中是否以&#x2F;开头) ,<br>  isHidden() ,lastModified(), length()</p>
+</li>
+<li><p>文件操作相关方法</p>
+<p>  createNewFile(), createTempFile(String prefix, String suffix),<br>  delete(), deleteOnExit() , setExecutable(boolean executable) , setReadOnly()</p>
+</li>
+<li><p>目录操作相关方法</p>
+<p>  mkdir(), mkdirs() , list(), list(FilenameFilter filter) ,<br>  listFiles(), listFiles(FileFilter filter) , listRoots()</p>
+</li>
+</ul>
+<p>通过上述方法，<code>File</code>主要完成以下作用：</p>
+<ul>
+<li>检测文件是否存在</li>
+<li>读取文件长度</li>
+<li>重命名或移动文件</li>
+<li>删除文件</li>
+<li>检测某个路径是文件还是目录</li>
+<li>读取目录中的文件列表</li>
+</ul>
+<h2 id="RandomAccessFile类"><a href="#RandomAccessFile类" class="headerlink" title="RandomAccessFile类"></a>RandomAccessFile类</h2><p>如果需要跳跃式地读取文件其中的某些部分，可以使用<code>RandomAccessFile</code>。<code>RandomAccessFile</code>类是一个完全独立的类，和其它IO流层次没有什么关系。 使用<code>RandomAccessFile</code>之前，先初始化它：</p>
+<h3 id="初始化RandomAccessFile"><a href="#初始化RandomAccessFile" class="headerlink" title="初始化RandomAccessFile"></a>初始化<code>RandomAccessFile</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile file = new RandomAccessFile(&quot;D:\\test.txt&quot;, &quot;rw&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>构造函数的第二个参数：“rw”，表明以读写方式打开文件。</p>
+<h3 id="在RandomAccessFile中来回读写"><a href="#在RandomAccessFile中来回读写" class="headerlink" title="在RandomAccessFile中来回读写"></a>在<code>RandomAccessFile</code>中来回读写</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile file = new RandomAccessFile(&quot;D://test.txt&quot;, &quot;rw&quot;);</span><br><span class="line">file.seek(200);</span><br><span class="line">long pointer = file.getFilePointer();</span><br><span class="line">System.out.println(pointer);</span><br><span class="line">System.out.println(file.length());</span><br><span class="line">file.close(); </span><br></pre></td></tr></table></figure>
+
+<p>在RandomAccessFile的某个位置读写之前，必须把文件指针指向该位置。可以通过<code>seek()</code>方法来完成。<code>getFilePointer()</code>用于获得当前文件指针的位置。<code>length()</code>方法可以判断文件的最大尺寸。</p>
+<hr>
+<h1 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>序列化：将一个对象转换成字节序列的过程</li>
+<li>反序列化：将一个字节序列重新构造成对象的过程</li>
+</ul>
+<h2 id="序列化的作用"><a href="#序列化的作用" class="headerlink" title="序列化的作用"></a>序列化的作用</h2><ul>
+<li>把对象的字节序列永久保存到硬盘上</li>
+<li>在网络上转送对象的字节序列</li>
+</ul>
+<h2 id="序列化反序列化的步骤"><a href="#序列化反序列化的步骤" class="headerlink" title="序列化反序列化的步骤"></a>序列化反序列化的步骤</h2><ul>
+<li>序列化：</li>
+</ul>
+<ol>
+<li>创建一个对象输出流<code>ObjectOutputStream</code></li>
+<li>调用对象输出流的<code>writeObject()</code>方法写对象,将对象写入到输入流中</li>
+<li>关闭流</li>
+</ol>
+<ul>
+<li>反序列化：</li>
+</ul>
+<ol>
+<li>创建一个对象输入流<code>ObjectInputStream</code></li>
+<li>通过对象输入流的<code>readObject()</code>方法读取对象。</li>
+<li>关闭流</li>
+</ol>
+<h2 id="Serializable接口"><a href="#Serializable接口" class="headerlink" title="Serializable接口"></a>Serializable接口</h2><p>序列化接口Serializable接口没有方法或变量，仅用于标识可序列化的语义,Java类通过实现<code>Serializable</code>接口来启用序列化功能，如果对一个对象序列化时，该对象没有实现此接口，则会报<code>NotSerializableException</code>错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private Integer age;</span><br><span class="line">    private String sex;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return name + &quot;---&quot; + age + &quot;---&quot; + sex;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么实现<code>Serializable</code>接口就可以序列化，查看序列化的接口<code>ObjectOutputStream</code>源码，其中有<code>writeObject0</code>方法，可见如果被写对象的类型是String，或数组，或Enum，或Serializable，那么就可以对该对象进行序列化，否则将抛出NotSerializableException.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if (obj instanceof String) &#123;</span><br><span class="line">       writeString((String) obj, unshared);</span><br><span class="line">   &#125; else if (cl.isArray()) &#123;</span><br><span class="line">       writeArray(obj, desc, unshared);</span><br><span class="line">   &#125; else if (obj instanceof Enum) &#123;</span><br><span class="line">       writeEnum((Enum&lt;?&gt;) obj, desc, unshared);</span><br><span class="line">   &#125; else if (obj instanceof Serializable) &#123;</span><br><span class="line">       writeOrdinaryObject(obj, desc, unshared);</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">       if (extendedDebugInfo) &#123;</span><br><span class="line">           throw new NotSerializableException(</span><br><span class="line">               cl.getName() + &quot;\n&quot; + debugInfoStack.toString());</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           throw new NotSerializableException(cl.getName());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化和反序列化案例"><a href="#序列化和反序列化案例" class="headerlink" title="序列化和反序列化案例"></a>序列化和反序列化案例</h2><p>如下代码，对<code>User</code>类进进序列化和反序列化操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws IOException, ClassNotFoundException &#123;</span><br><span class="line">    //序列化User类,保存到test.txt文件中</span><br><span class="line">    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(&quot;D://test.txt&quot;));</span><br><span class="line">    User user = new User(&quot;herohuang.com&quot;,20,&quot;man&quot;);</span><br><span class="line">    out.writeObject(user);</span><br><span class="line"></span><br><span class="line">    //反序列化，读取test.txt，转为user对象</span><br><span class="line">    ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;D://test.txt&quot;));</span><br><span class="line">    User user1 = (User)in.readObject();</span><br><span class="line">    System.out.println(user1.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="transient关键字"><a href="#transient关键字" class="headerlink" title="transient关键字"></a>transient关键字</h2><p><code>transient</code> 关键字的作用是控制变量的序列化，在变量声明前加上该关键字，可以阻止该变量被序列化到文件中，在被反序列化后，<code>transient</code>变量的值被设为初始值，如 int 型的是 0，对象型的是 null。可以参考<code>ArrayList</code>的源码，<code>elementData</code>就是<code>transient</code>修饰的。</p>
+<h2 id="序列化ID"><a href="#序列化ID" class="headerlink" title="序列化ID"></a>序列化ID</h2><p>虚拟机是否允许反序列化，不仅取决于类路径和功能代码是否一致，一个非常重要的一点是两个类的<code>序列化ID</code>是否一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final long serialVersionUID=1L</span><br></pre></td></tr></table></figure>
+
+<h2 id="readObject和writeObject方法"><a href="#readObject和writeObject方法" class="headerlink" title="readObject和writeObject方法"></a>readObject和writeObject方法</h2><p>如果一个变量被<code>transient</code>修饰，是否有其它方法让它可以被序列化，可以通过<code>readObject</code>和<code>writeObjet</code>方法来实现。比如在user类中加入这两个方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    transient private Integer age;</span><br><span class="line">    private String sex;</span><br><span class="line"></span><br><span class="line">    private void writeObject(ObjectOutputStream out) throws IOException &#123;</span><br><span class="line">        out.defaultWriteObject();</span><br><span class="line">        out.writeInt(age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException &#123;</span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        age = in.readInt();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在writeObject()方法中会先调用ObjectOutputStream中的defaultWriteObject()方法，该方法会执行默认的序列化机制，此时会忽略掉age字段。然后再调用writeInt()方法显示地将age字段写入到ObjectOutputStream中。必须注意地是，writeObject()与readObject()都是private方法，那么它们是如何被调用的呢?可见ObjectOutputStream中的writeSerialData方法，以及ObjectInputStream中的readSerialData方法,可知是使用反射。</p>
+<h2 id="Externalizable接口"><a href="#Externalizable接口" class="headerlink" title="Externalizable接口"></a>Externalizable接口</h2><p>JDK中提供了另一个序列化接口<code>Externalizable</code>，使用该接口之后，之前基于Serializable接口的序列化机制就将失效。并且心须重写<code>writeExternal</code>和<code>readExternal</code>方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Externalizable &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    public User() &#123;</span><br><span class="line">       System.out.println(&quot;none-arg constructor&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    @Override</span><br><span class="line">    public void writeExternal(ObjectOutput out) throws IOException &#123;</span><br><span class="line">        out.writeObject(name);</span><br><span class="line">        out.writeInt(age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException &#123;</span><br><span class="line">        name = (String) in.readObject();</span><br><span class="line">        age = in.readInt();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Externalizable</code>继承于<code>Serializable</code>，当使用该接口时，序列化的细节需要由程序员自己去完成。并且，实现Externalizable接口的类必须要提供一个无参的构造器，且它的访问权限为public。 </p>
+<hr>
+<h1 id="Apache-IO"><a href="#Apache-IO" class="headerlink" title="Apache IO"></a>Apache IO</h1><p><code>Apache Commons IO</code>是Apache基金会创建并维护的Java函数库,它提供了许多类使得开发者的常见任务变得简单，同时减少重复代码。<code>Apache Commons IO</code>主要包括以下六个部分：</p>
+<ul>
+<li>工具类——使用静态方法执行共同任务</li>
+<li>输入——用于InputStream和Reader实现</li>
+<li>输出——用于OutputStream和Writer实现</li>
+<li>过滤器——各种文件过滤器实现</li>
+<li>比较器——各种文件的Java.util.Comparator实现</li>
+<li>文件监听器——监听文件系统事件的组件</li>
+</ul>
+<p>具体使用可以参考以下资料：</p>
+<ul>
+<li>官网：<a href="http://commons.apache.org/proper/commons-io/">http://commons.apache.org/proper/commons-io/</a></li>
+<li>资料：<a href="https://www.javacodegeeks.com/2014/10/apache-commons-io-tutorial.html">https://www.javacodegeeks.com/2014/10/apache-commons-io-tutorial.html</a></li>
+<li>资料：<a href="http://www.07net01.com/2015/07/876032.html">http://www.07net01.com/2015/07/876032.html</a></li>
+<li>iteye: <a href="http://ray-yui.iteye.com/blog/2023034">http://ray-yui.iteye.com/blog/2023034</a></li>
+</ul>
+<hr>
+<h1 id="本文参考资料"><a href="#本文参考资料" class="headerlink" title="本文参考资料:"></a>本文参考资料:</h1><ul>
+<li>《Java编程思想》</li>
+<li>《Java核心技术卷2》</li>
+<li>《深入分析Java Web技术内幕》许令波</li>
+<li><a href="http://www.imooc.com/learn/123">http://www.imooc.com/learn/123</a></li>
+<li><a href="http://www.jikexueyuan.com/course/215_1.html">http://www.jikexueyuan.com/course/215_1.html</a></li>
+<li><a href="http://www.2cto.com/kf/201312/262036.html">http://www.2cto.com/kf/201312/262036.html</a></li>
+<li><a href="http://blog.csdn.net/yczz/article/details/38761237">http://blog.csdn.net/yczz/article/details/38761237</a></li>
+<li><a href="http://freejavaguide.com/corejava-io.pfd">http://freejavaguide.com/corejava-io.pfd</a></li>
+<li><a href="https://segmentfault.com/a/1190000000740793">https://segmentfault.com/a/1190000000740793</a></li>
+<li><a href="http://ifeve.com/java-io/">http://ifeve.com/java-io/</a></li>
+<li><a href="http://www.infoq.com/cn/articles/cf-java-i-o">http://www.infoq.com/cn/articles/cf-java-i-o</a></li>
+<li><a href="http://www.htbenet.cn/zaixianjiaocheng/java/748.html">http://www.htbenet.cn/zaixianjiaocheng/java/748.html</a></li>
+<li><a href="http://commons.apache.org/proper/commons-io/">http://commons.apache.org/proper/commons-io/</a></li>
+<li><a href="https://www.javacodegeeks.com/2014/10/apache-commons-io-tutorial.html">https://www.javacodegeeks.com/2014/10/apache-commons-io-tutorial.html</a></li>
+<li><a href="http://www.07net01.com/2015/07/876032.html">http://www.07net01.com/2015/07/876032.html</a></li>
+<li><a href="http://ray-yui.iteye.com/blog/2023034">http://ray-yui.iteye.com/blog/2023034</a></li>
+<li><a href="http://www.blogjava.net/jiangshachina/archive/2012/02/13/369898.html">http://www.blogjava.net/jiangshachina/archive/2012/02/13/369898.html</a></li>
+<li><a href="http://www.importnew.com/17964.html">http://www.importnew.com/17964.html</a></li>
+<li><a href="http://www.importnew.com/18024.html">http://www.importnew.com/18024.html</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-serial/">https://www.ibm.com/developerworks/cn/java/j-lo-serial/</a></li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/Java%20IO%E7%B3%BB%E7%BB%9F%E5%A4%A7%E6%80%BB%E7%BB%93/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

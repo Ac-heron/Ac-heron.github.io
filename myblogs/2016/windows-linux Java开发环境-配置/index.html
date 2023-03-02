@@ -1,0 +1,203 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#windows-x2F-linux-Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-%E9%85%8D%E7%BD%AE"><span class="toc-text">windows&#x2F;linux Java开发环境-配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%EF%BC%88%E7%A9%BA%E6%A0%BC%E5%88%86%E9%9A%94%EF%BC%89%EF%BC%9A-java"><span class="toc-text">标签（空格分隔）： java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="toc-text">服务器端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0"><span class="toc-text">本地</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-text">相关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81JDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">一、JDK环境变量配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81Nexus%E9%85%8D%E7%BD%AE"><span class="toc-text">三、Nexus配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E4%B8%8BJava%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">Linux下Java环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%EF%BC%88%E7%A9%BA%E6%A0%BC%E5%88%86%E9%9A%94%EF%BC%89%EF%BC%9A-java-1"><span class="toc-text">标签（空格分隔）： java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BJava%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85"><span class="toc-text">查看Java是否安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="toc-text">JDK的下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="toc-text">创建安装目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%B7%E5%A4%87"><span class="toc-text">拷备:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B"><span class="toc-text">解压</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8root%E6%9D%83%E9%99%90"><span class="toc-text">使用root权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">环境变量配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%95%88"><span class="toc-text">生效</span></a></li></ol></li></ol> -->
+<h1 id="windows-x2F-linux-Java开发环境-配置"><a href="#windows-x2F-linux-Java开发环境-配置" class="headerlink" title="windows&#x2F;linux Java开发环境-配置"></a>windows&#x2F;linux Java开发环境-配置</h1><h2 id="标签（空格分隔）：-java"><a href="#标签（空格分隔）：-java" class="headerlink" title="标签（空格分隔）： java"></a>标签（空格分隔）： java</h2><h2 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h2><table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="right">version</th>
+<th align="center">download</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">JDK</td>
+<td align="right">1.7</td>
+<td align="center"><a href="http://www.oracle.com/">http://www.oracle.com</a></td>
+</tr>
+<tr>
+<td align="left">tomcat</td>
+<td align="right">7</td>
+<td align="center"><a href="http://tomcat.apache.org/">http://tomcat.apache.org</a></td>
+</tr>
+<tr>
+<td align="left">nexus</td>
+<td align="right">2.8.0</td>
+<td align="center"><a href="http://www.sonatype.org/nexus">http://www.sonatype.org/nexus</a></td>
+</tr>
+<tr>
+<td align="left">maven</td>
+<td align="right">3+</td>
+<td align="center"><a href="http://maven.apache.org/">http://maven.apache.org</a></td>
+</tr>
+</tbody></table>
+<h2 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h2><p>暂略接口…..</p>
+<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><h3 id="一、JDK环境变量配置"><a href="#一、JDK环境变量配置" class="headerlink" title="一、JDK环境变量配置"></a>一、JDK环境变量配置</h3><blockquote>
+</blockquote>
+<p>JAVA_HOME : <code>C:\Java\jdk1.7.0_65</code><br>CLASSPATH : <code>%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;</code><br>PATH : <code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</code></p>
+<p>注意:安装jdk8时,环境中的JAVA_HOME仍然用的jdk7,但是java -version后显示的却是jdk8,解决方法如下:</p>
+<ol>
+<li>安装jdk8后【系统变量】中的Path开头多了：<code>C:\ProgramData\Oracle\Java\javapath</code>,删除这个路径</li>
+<li>删除c:\windows\system32下java.exe,javaw.exe,javaws.exe</li>
+</ol>
+<p>二、Tomcat配置</p>
+<ol>
+<li>tomcat 只要解压即可，需要配置的地方是服务端口，默认是8080，在<br> <code>~\conf\server.xml</code>中可修改&#96;<br>&lt; Connector port&#x3D;”8080” protocol&#x3D;”HTTP&#x2F;1.1”…..</li>
+</ol>
+<p>2.conf.xml:厉害配置 &lt; Context docBase&#x3D;”wm_cityplatform”  path&#x3D;”” reloadable&#x3D;”true” crossContext&#x3D;”true”&#x2F;&gt;</p>
+<blockquote>
+</blockquote>
+<ol start="3">
+<li>tomcat安装成服务 管理员身份运行c:\windows\system32\cmd.exe:<br>到tomcat bin目录<br>  &#96;service.bat install tomcat_cityplatform</li>
+</ol>
+<p>  删除服务：<br>  <code>service.bat remove tomcat_cityplatform</code> 或者：<code> sc delete tomcat_cityplatform</code></p>
+<p>4.重启:<br> 管理员权限打开c:\windows\system32\cmd.exe:命令行–&gt;taskmgr–&gt;结束对应进程 –&gt;结束对应服务</p>
+<h3 id="三、Nexus配置"><a href="#三、Nexus配置" class="headerlink" title="三、Nexus配置"></a>三、Nexus配置</h3><ol>
+<li><p>配置PATH:</p>
+<blockquote>
+<p>c:\nexus-2.8.0-05\bin;</p>
+</blockquote>
+</li>
+<li><p>配置端口</p>
+<blockquote>
+<p>默认是8081，在<code>~\nexus-2.8.0-05\conf\nexus.properties </code>中可修改：<code>application-port=8081</code></p>
+</blockquote>
+</li>
+<li><p>安装windows服务：</p>
+<blockquote>
+<p>运行\nexus-2.8.0\bin\jsw\windows-x86-64下的install-nexus.bat 即可，选择对应的系统。</p>
+</blockquote>
+</li>
+<li><p>启动nexus： </p>
+<blockquote>
+<p>&#x2F;&#x2F;以管理员的身份在DOS里运行如下命令：<br>nexus install<br>nexus start</p>
+</blockquote>
+</li>
+<li><p>启动成功</p>
+<blockquote>
+<p>访问<code>http://localhost:8081/nexus</code>，进入nexus登录页。</p>
+</blockquote>
+</li>
+<li><p>开启远程索引:</p>
+<blockquote>
+<p>将以下三个仓库</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><code>Apache Snapshots</code>，</li>
+<li><code>Codehaus Snapshots</code>，</li>
+<li><code>Central</code><br>的<code>Download Remote Indexes</code>修改为true</li>
+</ul>
+<ol start="7">
+<li>加代理仓库<br>一般加几个主流的即可</li>
+</ol>
+<ul>
+<li>mvnrepository:<a href="http://www.mvnrepository.com/">http://www.mvnrepository.com/</a></li>
+<li>jboss:<a href="https://repository.jboss.org/">https://repository.jboss.org/</a></li>
+<li>oschina: <a href="http://maven.oschina.net/content/groups/public/">http://maven.oschina.net/content/groups/public/</a></li>
+</ul>
+<hr>
+<h1 id="Linux下Java环境配置"><a href="#Linux下Java环境配置" class="headerlink" title="Linux下Java环境配置"></a>Linux下Java环境配置</h1><h2 id="标签（空格分隔）：-java-1"><a href="#标签（空格分隔）：-java-1" class="headerlink" title="标签（空格分隔）： java"></a>标签（空格分隔）： java</h2><h2 id="查看Java是否安装"><a href="#查看Java是否安装" class="headerlink" title="查看Java是否安装"></a>查看Java是否安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<h2 id="JDK的下载"><a href="#JDK的下载" class="headerlink" title="JDK的下载"></a>JDK的下载</h2><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<h2 id="创建安装目录"><a href="#创建安装目录" class="headerlink" title="创建安装目录"></a>创建安装目录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/java</span><br></pre></td></tr></table></figure>
+<h2 id="拷备"><a href="#拷备" class="headerlink" title="拷备:"></a>拷备:</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp jdk-jdk-8u60-linux-i586.tar.gz /usr/java</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zvxf jdk-8u60-linux-i586.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用root权限"><a href="#使用root权限" class="headerlink" title="使用root权限"></a>使用root权限</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<p>如果切换su root时提示Authentication failure：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ su  root</span><br><span class="line">Password:</span><br><span class="line">su: Authentication failure</span><br><span class="line">Sorry.</span><br></pre></td></tr></table></figure>
+<p>则如下操作那可:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo passwd root</span><br><span class="line">Enter new UNIX password:</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
+<p>这时候就可以进入根目录了。</p>
+<h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>在&#x2F;etc&#x2F;profile中配置环境变量:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_60</span><br><span class="line">export JRE_HOME=$JAVA_HOME/jre</span><br><span class="line">export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<h2 id="生效"><a href="#生效" class="headerlink" title="生效"></a>生效</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<p>切换回普通用户时，重新运行一遍生效命令。</p>
+<p>##linux tomcat 安装</p>
+<p>mv apache-tomcat-7.0.2.tar.gz &#x2F;usr&#x2F;local<br>tar -zxvf apache-tomcat-7.0.2.tar.gz<br>cd &#x2F;usr&#x2F;local&#x2F;apache-tomcat-7.0.2&#x2F;bin</p>
+<p>设置tomcat java环境变量，修改catalina.sh文件：<br>vim apache-tomcat-7.0.2&#x2F;bin&#x2F;catalina.sh<br>在文件开头注释后插入：<br>JAVA_HOME&#x3D;”&#x2F;usr&#x2F;java&#x2F;jdk1.6.0_12”</p>
+<p>启动：<br>.&#x2F;startup.sh<br>关闭：<br>.&#x2F;shutdown.sh</p>
+<p>查看tomcat是否启动，查看到进程号4003：<br>ps -ef|grep java</p>
+<p>直接杀死tomcat进程 kill -9 进程号：<br>kill -9 4003</p>
+<p>远程查看tomcat的控制台<br>进入tomcat&#x2F;logs&#x2F;文件夹下<br>键入指令：tail -f catalina.out<br>就可以查看控制台了</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/windows-linux%20Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-%E9%85%8D%E7%BD%AE/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

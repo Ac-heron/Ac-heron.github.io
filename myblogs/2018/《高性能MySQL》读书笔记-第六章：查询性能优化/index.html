@@ -1,0 +1,267 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A%E9%AB%98%E6%80%A7%E8%83%BDMySQL%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9A%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">《高性能MySQL》读书笔记-第六章：查询性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9F%A5%E8%AF%A2%E9%80%9F%E5%BA%A6%E4%BC%9A%E6%85%A2"><span class="toc-text">一、为什么查询速度会慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%9F%BA%E7%A1%80%EF%BC%9A%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="toc-text">二、慢查询基础：优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%98%AF%E5%90%A6%E5%90%91%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%B7%E6%B1%82%E4%BA%86%E4%B8%8D%E9%9C%80%E8%A6%81%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-text">2.1 是否向数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Mysql%E6%98%AF%E5%90%A6%E5%9C%A8%E6%89%AB%E6%8F%8F%E9%A2%9D%E5%A4%96%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="toc-text">2.2 Mysql是否在扫描额外的记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="toc-text">响应时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E7%9A%84%E8%A1%8C%E6%95%B0%E5%92%8C%E8%BF%94%E5%9B%9E%E7%9A%84%E8%A1%8C%E6%95%B0"><span class="toc-text">扫描的行数和返回的行数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E7%9A%84%E8%A1%8C%E6%95%B0%E5%92%8C%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">扫描的行数和访问类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%87%8D%E6%9E%84%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">三、重构查询的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C%E7%9A%84%E5%9F%BA%E7%A1%80"><span class="toc-text">四、查询执行的基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Mysql%E5%AE%A2%E6%88%B7%E7%AB%AF-x2F-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="toc-text">4.1 Mysql客户端&#x2F;服务器通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98%EF%BC%9A"><span class="toc-text">4.2 查询缓存：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%A4%84%E7%90%86"><span class="toc-text">4.3 查询优化处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%EF%BC%9A"><span class="toc-text">4.4 查询优化器：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="toc-text">五、优化案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E4%BC%98%E5%8C%96count-%E6%9F%A5%E8%AF%A2"><span class="toc-text">5.1 优化count()查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BC%98%E5%8C%96%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2"><span class="toc-text">5.2 优化关联查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-group-by"><span class="toc-text">5.3 group by</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E4%BC%98%E5%8C%96limit%E5%88%86%E9%A1%B5"><span class="toc-text">5.4 优化limit分页</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="《高性能MySQL》读书笔记-第六章：查询性能优化"><a href="#《高性能MySQL》读书笔记-第六章：查询性能优化" class="headerlink" title="《高性能MySQL》读书笔记-第六章：查询性能优化"></a>《高性能MySQL》读书笔记-第六章：查询性能优化</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Acheron 按：</span><br><span class="line">最近看了一些SQL优化的资料，这是《高性能MySQL》(第3版)(High Performance MySQL,Third Edition)第六章的读书笔记，整理于此。这本书可能更适合DBA或运维人员看，但第六章讲性能优化的部分，也适合我这样的后台开发人员。</span><br></pre></td></tr></table></figure>
+
+<h2 id="一、为什么查询速度会慢"><a href="#一、为什么查询速度会慢" class="headerlink" title="一、为什么查询速度会慢"></a>一、为什么查询速度会慢</h2><p>查询是一个任务，它有很多子任务构成，每个子任务都需要消耗一定的时间。若想优化查询，就要优化子任务，要么消除一些子任务，要么减少子任务的执行次数，要么减少子任务的执行时间。</p>
+<p><strong>查询的生命周期大致顺序：</strong></p>
+<p><em>从客户端，到服务器，然后在服务器上执行解析，生成执行计划，执行，然后将结构返回给客户端。</em></p>
+<p>其中，执行是最重要的阶段，包括了大量为了检索数据到储存引擎的调用以及调用后的数据处理，包括排序，分组等。</p>
+<p>在完成这些任务的时候，需要在不同的地方花费时间，包括网络IO，CPU计算，生成统计信息和执行计划 锁等待。</p>
+<p>在调用底层数据引擎检索数据时，需要等待内存操作，CPU操作，和IO操作等待，这会产生大量的上下文切换和系统调用！</p>
+<p>优化查询的目的就是减少和消除这些操作所花费的时间。</p>
+<h2 id="二、慢查询基础：优化数据访问"><a href="#二、慢查询基础：优化数据访问" class="headerlink" title="二、慢查询基础：优化数据访问"></a>二、慢查询基础：优化数据访问</h2><p>对于低效率的查询，一般使用下面的步骤来分析：</p>
+<ul>
+<li><ol>
+<li>确认应用程序是否在检索大量超过需要的数据。这通常意味着访问了太多的行，但有时候也可能访问了太多的列。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>确认Mysql服务器层是否在分析大量超过需要的数据行。</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-1-是否向数据库请求了不需要的数据"><a href="#2-1-是否向数据库请求了不需要的数据" class="headerlink" title="2.1 是否向数据库请求了不需要的数据"></a>2.1 是否向数据库请求了不需要的数据</h3><p>有些应用程序会请求超过实际需要的数据， 然后这些多余的数据会被应用程序丢弃。这会给Mysql服务器带来额外的负担，并增加网络开销（如果应用服务器和数据库不在同一台主机上，网络开销会显得很明显），另外也会消耗应用服务器的CPU和内存资源。</p>
+<p>一些不好的操作：</p>
+<ul>
+<li>查询不需要的记录：只查询需要的记录，在相关查询后加上<code>limit</code>。</li>
+<li>多表关联时返回全部列：多表关联时会从磁盘中读取全部列然后在内存中进行计算，非常低效。</li>
+<li>总是取出全部列：不要用<code>select *</code>，这会取出全部列，会让优化器无法完成索引覆盖扫描这类优化。</li>
+<li>重复查询相同的数据：当查询重复的数据时，可以考虑将数据缓存起来，需要是时候从缓存取。</li>
+</ul>
+<h3 id="2-2-Mysql是否在扫描额外的记录"><a href="#2-2-Mysql是否在扫描额外的记录" class="headerlink" title="2.2 Mysql是否在扫描额外的记录"></a>2.2 Mysql是否在扫描额外的记录</h3><p>对于Mysql，最简单的衡量查询开销的三个指标为：</p>
+<ul>
+<li><p>响应时间</p>
+</li>
+<li><p>扫描的行数</p>
+</li>
+<li><p>返回的行数</p>
+<p>这三个指标会记录到Mysql的慢日志中，所以检查慢日志记录是找出扫描行数过多的查询的好办法。</p>
+</li>
+</ul>
+<h4 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h4><p>响应时间是两个部分之后：服务时间和排队时间。</p>
+<p>服务时间是指数据库处理这个查询真正花了多长时间。</p>
+<p>排队时间是指服务器因为等待某些资源(I&#x2F;O操作、行锁等)而没有真正执行查询的时间。</p>
+<h4 id="扫描的行数和返回的行数"><a href="#扫描的行数和返回的行数" class="headerlink" title="扫描的行数和返回的行数"></a>扫描的行数和返回的行数</h4><p>理想情况下扫描的行数和返回的行数应该是相同的，但实际这种情况并不多，比如在做一个关联查询时，服务器心須要扫描多行才能生成结果集中的一行。</p>
+<h4 id="扫描的行数和访问类型"><a href="#扫描的行数和访问类型" class="headerlink" title="扫描的行数和访问类型"></a>扫描的行数和访问类型</h4><p>Explain语句中的type列反应了访问类型。访问类型从慢到快有：全表扫描(ALL)，索引扫描，范围扫描，唯一索引查询，常数引用。</p>
+<p>如果查询没有办法找到合适的访问类型，那最好的办法就是增加一个合适的索引。</p>
+<p>Explain语句中的Extra如果是<code>Using Where</code>表示Mysql将通过where条件来筛选存储引擎返回的记录。</p>
+<p>一般Mysql能够使用三种方式应用WHERE条件，从好到坏依次为：</p>
+<ul>
+<li>在索引中使用WHERE条件来过滤不匹配的记录，这是在储存引擎中完成的。</li>
+<li>使用索引覆盖扫描(explain语句的extra列出现了Using index)来返回记录。直接从索引中过滤不需要的记录并返回命中的结果，这是在Mysql服务器层完成的，但无须再回表查询记录。</li>
+<li>从数据表中返回数据，然后过滤不满足的条件(explain语句的extra列出现了Using where)。这在Mysql服务器层完成的，Mysql需要从数据表读取记录然后过滤。</li>
+</ul>
+<p>如果发现查询需要扫描大量的数据但只返回少量的行，通常可以尝试下面的技巧去优化它：</p>
+<ul>
+<li>使用索引覆盖扫描，把所有用到的列都放到索引中，这样储存引擎无须回表获取对应行就可以返回结果了。</li>
+<li>改变库表结构，使用单独的汇总表，比如count()时。</li>
+<li>重写这个复杂的查询，让Mysql优化器能够以更优化的方式执行这个查询。</li>
+</ul>
+<h2 id="三、重构查询的方式"><a href="#三、重构查询的方式" class="headerlink" title="三、重构查询的方式"></a>三、重构查询的方式</h2><ul>
+<li>1.一个复杂查询还是多个简单查询</li>
+</ul>
+<p>有时候，将一个大的复杂查询分解为多个小查询往往效果会更好。Mysql从设计上让链接和断开链接都是轻量级的操作，在返回一个小的查询结果时很高效。</p>
+<ul>
+<li>2.切分查询</li>
+</ul>
+<p>切分查询是对大查询”分而治之”，将大查询分为多个小查询，每个查询功能完全一样，只完成一小部分。</p>
+<p>比如：定期的清楚大量数据时，如果一个大的语句一次性完成的话，则可能一次锁住很多数据，占满整个事物日志，耗尽系统资源，阻塞很多小的但重要的查询。这个时候可以分多次删除，每次删除一部分数据，删除一次暂停一会再接着做下一次删除，可以将服务器上一次性的压力分散到一个更长的时间段，性能会更好。</p>
+<ul>
+<li>3.分解关联查询</li>
+</ul>
+<p>将一条关联多个表的sql语句通过应用程序拆分成多个操作单个表的语句。</p>
+<p><strong>分解关联查询方式的优势：</strong></p>
+<ul>
+<li>让缓存效率更高，应用程序可以缓存了单表的结果对象，然后下次直接使用这个缓存的结果，这样就跳过了一次查询。</li>
+<li>将查询分解后，执行单个查询可以减少锁的竞争</li>
+<li>在应用层做关联，可以更容易对数据库进行拆分，更容易做到高性能和可扩展，为分布式做准备！</li>
+<li>查询本身效率也会有提升</li>
+<li>可以减少冗余记录的查询：在应用层做关联，意味着某条记录只需要查询一次，而在数据库做关联，则可以会重复返回一部分数据。</li>
+<li>这样分解相关于在应用中实现哈希索引，而不是使用数据库的嵌套循环关联</li>
+</ul>
+<h2 id="四、查询执行的基础"><a href="#四、查询执行的基础" class="headerlink" title="四、查询执行的基础"></a>四、查询执行的基础</h2><p>当向mysql发送一个请求的时候，mysql做了什么：<br><img src="/images/mysql-path.png" alt="mysql查询执行路径"></p>
+<ul>
+<li>1.客户端发送一条查询给服务器</li>
+<li>2.服务器先查询查询缓存，若缓存命中，则立刻返回,否则进入下一阶段</li>
+<li>3.服务器端进行SQL解析，预处理，再由优化器生成对应的执行计划</li>
+<li>4.Mysql根据优化器生成的执行计划，调用储存引擎的API执行查询</li>
+<li>5.将结果返回给客户端</li>
+</ul>
+<h3 id="4-1-Mysql客户端-x2F-服务器通信协议"><a href="#4-1-Mysql客户端-x2F-服务器通信协议" class="headerlink" title="4.1 Mysql客户端&#x2F;服务器通信协议"></a>4.1 Mysql客户端&#x2F;服务器通信协议</h3><p>Mysql客户端和服务器之间的通信协议是”半双工”的，这意味着，在任何一个时刻，要么是服务器向客户端发送数据，要么是客户端向服务器发送数据。这种简单的协议限制了Mysql，一个明显的限制是没办法进行流量控制，一旦一端开始发送数据，另一端中能接受完整的消息才能响应它。</p>
+<p>查询状态：<br>对于一个Mysql链接，或者一个线程，任何时候都有一个状态，该状态表示了Mysql当前正在做什么。查看当前状态可以用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show full processlist</span><br></pre></td></tr></table></figure>
+<p>Mysql的状态值有：</p>
+<ul>
+<li>Sleep:线程正在等待客户端发送新的请求</li>
+<li>Query：线程正在执行查询，或者正在将结果发送到客户端</li>
+<li>Locked：在Mysql服务器层，该线程正在等待表锁。在储存引擎级别实现的锁，例如InnoDB的行锁，并不会体现在线程状态中。对于MyISAM来说这是一个典型的状态，因为它没有行锁。</li>
+<li>Analyzing and statistics:线程正在收集储存引擎的统计信息，并生成查询的执行计划。</li>
+<li>Copying to tmp table [on disk]：线程正在执行查询，并且将结果集都复制到一个临时表中，这种状态要么是在执行GROUP BY操作，要么是文件排序操作，或者是UNION操作，[on disk]标记表示Mysql正在将一个内存临时表存放到磁盘上。</li>
+<li>Sorting result：线程正在对结果集进行排序</li>
+<li>Sending data：这表示多种情况，线程可能在多个状态之间传送数据，或者生成结果集，或者在向客户端返回数据。</li>
+</ul>
+<h3 id="4-2-查询缓存："><a href="#4-2-查询缓存：" class="headerlink" title="4.2 查询缓存："></a>4.2 查询缓存：</h3><ul>
+<li>在解析一个查询语句之前，要检查缓存是否命中。</li>
+<li>这个检查是通过一个对大小写敏感的哈希查找实现的</li>
+<li>若缓存命中了，那么在返回查询结果之前Mysql会检查一次用户权限。权限没问题，则直接从缓存中拿到结果返回客户端。</li>
+</ul>
+<h3 id="4-3-查询优化处理"><a href="#4-3-查询优化处理" class="headerlink" title="4.3 查询优化处理"></a>4.3 查询优化处理</h3><p>查询生命周期的下一步是将一个SQL转换成一个执行计划，这个阶段包括多个子阶段：解析SQL，预处理，优化SQL执行计划。</p>
+<p>语法解析器和预处理：<br>Mysql通过关键字将SQL语句进行解析，并生成一颗对应的”解析树”，Mysql解析器将使用Mysql的语法规则验证和解析查询。比如：它将验证是否使用了错误的关键字，或者使用关键字顺序是否正确，或者验证引号能否正确匹配。</p>
+<p>预处理器则根据一些Mysql规则进一步检查解析树是否合法，例如，这里将检查数据表和数据是否存在，还会解析名字和别名，看看他们是否有歧义。</p>
+<p>下一步预处理器会验证权限。</p>
+<h3 id="4-4-查询优化器："><a href="#4-4-查询优化器：" class="headerlink" title="4.4 查询优化器："></a>4.4 查询优化器：</h3><p>一条查询可以有很多种执行方式，最后都返回相同的结果。优化器的作用就好找到其中最好的执行计划。</p>
+<p>Mysql使用基于成本的优化器，它尝试预测一下查询使用某种计划时的成本，并选择其中最小的一个。</p>
+<p><strong>Mysql能够处理的优化类型：</strong></p>
+<ul>
+<li>重新定义关联表的顺序</li>
+<li>将外连接转化为内连接</li>
+<li>使用等价变换规则，如（5&#x3D;5 and a&gt;5）改为a&gt;5</li>
+<li>优化COUNT() MIN() MAX():如要找某列的最小值，只需查B-Tree中最左端的记录</li>
+<li>预估并转化为常数表达式</li>
+<li>覆盖索引扫描</li>
+<li>子查询优化</li>
+<li>提前终止查询</li>
+<li>等值传播</li>
+<li>列表IN()的比较：mysql将in()列表中的数据先进行排序，然后通过二分查找的方式然定列表中的值是否满足条件</li>
+</ul>
+<p><strong>Mysql如何执行关联查询：</strong><br>在Mysql中，不仅仅是两个表匹配叫关联，其实单表查询，子查询都叫关联。</p>
+<p>对于UNION查询，原理是Mysql先将一系列的单个查询放到一个临时表中，然后再重新读出临时表的数据来完成UNION查询。在Mysql概念中，每个查询都是一次关联，所以读取临时表的也是一次关联！</p>
+<ul>
+<li><em>执行计划:</em></li>
+</ul>
+<p>和其他关系数据库不同，Mysql不会生成查询字节码来执行查询。Mysql生成查询的一颗指令树，然后通过储存引擎执行完成这颗指令树并返回结果。如果对某个查询执行<code>explain extended</code>后，再执行<code>show warnings</code>，就可以看到重构出的查询。</p>
+<ul>
+<li><em>排序优化：</em></li>
+</ul>
+<p>排序是一个成本很高的操作，从性能考虑，应尽可能避免排序或尽可能避免对大量数据排序。</p>
+<ul>
+<li><em>mysql两种排序算法：</em><ul>
+<li>两次传输排序(旧版本使用)：先读取行指针和需要排序的字段，进行排序，然后根据排序结果读取所需要的数据行。这需要进行两次数据传输，并且第二次是随机IO，所以成本很高，不过好处是在排序时使用的储存很少！</li>
+<li>单次传输排序(新版本使用)：先查询所需要排序的列，然后根据给定列进行排序。</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、优化案例"><a href="#五、优化案例" class="headerlink" title="五、优化案例"></a>五、优化案例</h2><h3 id="5-1-优化count-查询"><a href="#5-1-优化count-查询" class="headerlink" title="5.1 优化count()查询"></a>5.1 优化count()查询</h3><p>count()两种作用：</p>
+<ul>
+<li>统计某个列值的数量(不统计null)</li>
+<li>统计结果集的行数,用通配符count(*)</li>
+</ul>
+<p><strong>案例1：</strong></p>
+<p>如何快速查找到所有id&gt;5的城市，首先想到这样查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from City where id &gt; 5;</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>show status</code>的结果可以看到这个查询要扫描4000行数据，如果将条件反转一下，先查找id&lt;&#x3D;5的数，然后总数减去，可以将扫描行数减少到5行，大大提高效率，这是因为在查询优化阶段会将其中的子查询直接当作一个常数来处理:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select (select count(*) from City)-count(*) from City where id &lt;=5;</span><br></pre></td></tr></table></figure>
+
+<p><strong>案例2：</strong></p>
+<p>问题：如何在同一个查询中统计同一列的不同值的数量，以减少查询的语句量。</p>
+<p>解决，用sum():</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sum(if(color=&#x27;blue&#x27;,1,0)) as blue,sum(if(color=&#x27;red&#x27;,1,0)) as red from items;</span><br></pre></td></tr></table></figure>
+
+<p>或者使用count(),只需要将满足条件设置真，不满足条件设置为null：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(color=&#x27;blue&#x27; or null) as blue,count(color=&#x27;red&#x27; or null) as red from items;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-2-优化关联查询"><a href="#5-2-优化关联查询" class="headerlink" title="5.2 优化关联查询"></a>5.2 优化关联查询</h3><ul>
+<li>确保on或者using子句中列上有索引</li>
+<li>确保group by或order by表达式中只涉及到一个表中的列，这样mysql才有可能使用索引来优化这个过程</li>
+</ul>
+<h3 id="5-3-group-by"><a href="#5-3-group-by" class="headerlink" title="5.3 group by"></a>5.3 group by</h3><p>如果没有通过order by子句显式地指定排序列，当查询使用group by子句的时候，结果集会自动按照分组的字段进行排序，如果不关心结果集顺序，则可以使用<code>order by null</code>，让mysql不再进行文件排序。</p>
+<h3 id="5-4-优化limit分页"><a href="#5-4-优化limit分页" class="headerlink" title="5.4 优化limit分页"></a>5.4 优化limit分页</h3><p>问题：</p>
+<p>当偏移量非常大的时候，例如可以是<code>limit 10000,20</code>,这里mysql需要查询10000条记录然后只返回最后20条，前面10000条将被抛弃，翻到很后面，性能会很差。</p>
+<p>延迟查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select film_id,desc from sakila.film order by title limit 50,5;</span><br></pre></td></tr></table></figure>
+
+<p>如果这个表非常大，改成延迟查询将大大提高效率，它让mysql扫描尽可能少的页面，获取需要访问的记录后再根据关联列回原表查询需要的所有列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select film.film_id,film.desc</span><br><span class="line">from sakila.film</span><br><span class="line">	innser join(</span><br><span class="line">		select film_id from sakila.film order by title limit 50,5</span><br><span class="line">	) as lim using(film_id);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/%E3%80%8A%E9%AB%98%E6%80%A7%E8%83%BDMySQL%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9A%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

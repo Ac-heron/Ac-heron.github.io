@@ -1,0 +1,107 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2017年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E4%B8%9A%E5%8A%A1%E5%AF%86%E9%9B%86%E7%9A%84-SQL-%E5%BD%93%E4%B8%AD%E5%B0%BD%E9%87%8F%E4%B8%8D%E9%87%87%E7%94%A8-IN-%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%8C%E7%94%A8-EXISTS-%E6%96%B9%E6%A1%88%E4%BB%A3%E6%9B%BF%E3%80%82"><span class="toc-text">在业务密集的 SQL 当中尽量不采用 IN 操作符，用 EXISTS 方案代替。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NOT-IN-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">NOT IN 操作符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IS-NULL-%E6%88%96-IS-NOT-NULL-%E6%93%8D%E4%BD%9C%EF%BC%88%E5%88%A4%E6%96%AD%E5%AD%97%E6%AE%B5%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA%EF%BC%89"><span class="toc-text">IS NULL 或 IS NOT NULL 操作（判断字段是否为空）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#d-gt-%E5%8F%8A-lt-%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%88%E5%A4%A7%E4%BA%8E%E6%88%96%E5%B0%8F%E4%BA%8E%E6%93%8D%E4%BD%9C%E7%AC%A6%EF%BC%89"><span class="toc-text">(d) &gt; 及 &lt; 操作符（大于或小于操作符）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LIKE-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">LIKE 操作符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#b-WHERE-%E5%90%8E%E9%9D%A2%E7%9A%84%E6%9D%A1%E4%BB%B6%E9%A1%BA%E5%BA%8F%E5%BD%B1%E5%93%8D"><span class="toc-text">(b) WHERE 后面的条件顺序影响</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#o%EF%BC%883%EF%BC%89-SELECT-%E5%AD%90%E5%8F%A5%E4%B8%AD%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8-%E2%80%98-%E2%80%98%EF%BC%9A"><span class="toc-text">o（3） SELECT 子句中避免使用 ‘ * ‘：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%EF%BC%8814%EF%BC%89-%E4%BD%BF%E7%94%A8%E8%A1%A8%E7%9A%84%E5%88%AB%E5%90%8D-Alias-%EF%BC%9A"><span class="toc-text">（14） 使用表的别名 (Alias)：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%BD%93join%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%A1%A8%E5%8C%85%E5%90%AB%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB%E6%97%B6%EF%BC%8C%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8EXISTS%E8%80%8C%E4%B8%8D%E6%98%AFDISTINCT%E3%80%82"><span class="toc-text">5) 当join的两个表包含一对多关系时，优先使用EXISTS而不是DISTINCT。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E8%A1%A8"><span class="toc-text">连接表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BD%93%E5%8F%AA%E8%A6%81%E4%B8%80%E8%A1%8C%E6%95%B0%E6%8D%AE%E6%97%B6%E4%BD%BF%E7%94%A8-LIMIT-1"><span class="toc-text">当只要一行数据时使用 LIMIT 1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#i7-%E9%81%BF%E5%85%8D-SELECT"><span class="toc-text">i7. 避免 SELECT *</span></a></li></ol> -->
+<p><a href="http://www.techug.com/post/sql-2.html">http://www.techug.com/post/sql-2.html</a></p>
+<h1 id="在业务密集的-SQL-当中尽量不采用-IN-操作符，用-EXISTS-方案代替。"><a href="#在业务密集的-SQL-当中尽量不采用-IN-操作符，用-EXISTS-方案代替。" class="headerlink" title="在业务密集的 SQL 当中尽量不采用 IN 操作符，用 EXISTS 方案代替。"></a>在业务密集的 SQL 当中尽量不采用 IN 操作符，用 EXISTS 方案代替。</h1><h1 id="NOT-IN-操作符"><a href="#NOT-IN-操作符" class="headerlink" title="NOT IN 操作符"></a>NOT IN 操作符</h1><p>此操作是强列不推荐使用的，因为它不能应用表的索引。<br>推荐方案：用 NOT EXISTS 方案代替</p>
+<h1 id="IS-NULL-或-IS-NOT-NULL-操作（判断字段是否为空）"><a href="#IS-NULL-或-IS-NOT-NULL-操作（判断字段是否为空）" class="headerlink" title="IS NULL 或 IS NOT NULL 操作（判断字段是否为空）"></a>IS NULL 或 IS NOT NULL 操作（判断字段是否为空）</h1><p>判断字段是否为空一般是不会应用索引的，因为索引是不索引空值的。不能用 null 作索引，任何包含 null 值的列都将不会被包含在索引中。也就是说如果某列存在空值，即使对该列建索引也不会提高性能。</p>
+<p>推荐方案：用其它相同功能的操作运算代替，如：a is not null 改为 a&gt;0 或 a&gt;’’等。不允许字段为空，而用一个缺省值代替空值，如申请中状态字段不允许为空，缺省为申请。</p>
+<h1 id="d-gt-及-lt-操作符（大于或小于操作符）"><a href="#d-gt-及-lt-操作符（大于或小于操作符）" class="headerlink" title="(d) &gt; 及 &lt; 操作符（大于或小于操作符）"></a>(d) &gt; 及 &lt; 操作符（大于或小于操作符）</h1><p>大于或小于操作符一般情况下是不用调整的，因为它有索引就会采用索引查找，但有的情况下可以对它进行优化，如一个表有 100 万记录，一个数值型字段 A，30 万记录的 A&#x3D;0，30 万记录的 A&#x3D;1，39 万记录的 A&#x3D;2，1 万记录的 A&#x3D;3。那么执行 A&gt;2 与 A&gt;&#x3D;3 的效果就有很大的区别了，因为 A&gt;2 时 ORACLE 会先找出为 2 的记录索引再进行比较，而 A&gt;&#x3D;3 时 ORACLE 则直接找到 &#x3D; 3 的记录索引。</p>
+<h1 id="LIKE-操作符"><a href="#LIKE-操作符" class="headerlink" title="LIKE 操作符"></a>LIKE 操作符</h1><p>同样以上面的例子来看这种情况。目前的需求是这样的，要求在职工表中查询名字中包含 cliton 的人。可以采用如下的查询 SQL 语句:</p>
+<p>select * from employee where last_name like ‘%cliton%’;<br>select * from employee where last_name like ‘%cliton%’;<br>这里由于通配符 (%) 在搜寻词首出现，所以 Oracle 系统不使用 last_name 的索引。在很多情况下可能无法避免这种情况，但是一定要心中有底，通配符如此使用会降低查询速度。然而当通配符出现在字符串其他位置时，优化器就能利用索引。在下面的查询中索引得到了使用:<br>select * from employee where last_name like ‘c%’;</p>
+<p>#(f) UNION 操作符</p>
+<p>UNION 在进行表链接后会筛选掉重复的记录，所以在表链接后会对所产生的结果集进行排序运算，删除重复的记录再返回结果。实际大部分应用中是不会产生重复的记录，最常见的是过程表与历史表 UNION。如：</p>
+<p>select * from gc_dfys<br>union<br>select * from ls_jg_dfys<br>这个 SQL 在运行时先取出两个表的结果，再用排序空间进行排序删除重复的记录，最后返回结果集，如果表数据量大的话可能会导致用磁盘进行排序。</p>
+<p>推荐方案：采用 UNION ALL 操作符替代 UNION，因为 UNION ALL 操作只是简单的将两个结果合并后就返回。</p>
+<p>select * from gc_dfys<br>union all<br>select * from ls_jg_dfys</p>
+<h1 id="b-WHERE-后面的条件顺序影响"><a href="#b-WHERE-后面的条件顺序影响" class="headerlink" title="(b) WHERE 后面的条件顺序影响"></a>(b) WHERE 后面的条件顺序影响</h1><p>WHERE 子句后面的条件顺序对大数据量表的查询会产生直接的影响。如：</p>
+<p>Select * from zl_yhjbqk where dy_dj &#x3D; ‘1KV以下’ and xh_bz&#x3D;1<br>Select * from zl_yhjbqk where xh_bz&#x3D;1 and dy_dj &#x3D; ‘1KV以下’<br>以上两个 SQL 中 dy_dj（电压等级）及 xh_bz（销户标志）两个字段都没进行索引，所以执行的时候都是全表扫描，第一条 SQL 的 dy_dj &#x3D; ‘1KV 以下’条件在记录集内比率为 99%，而 xh_bz&#x3D;1 的比率只为 0.5%，在进行第一条 SQL 的时候 99% 条记录都进行 dy_dj 及 xh_bz 的比较，而在进行第二条 SQL 的时候 0.5% 条记录都进行 dy_dj 及 xh_bz 的比较，以此可以得出第二条 SQL 的 CPU 占用率明显比第一条低。</p>
+<p>#采用函数处理的字段不能利用索引，如：<br>1<br>2<br>substr(hbs_bh,1,4)&#x3D;’5400’，优化处理：hbs_bh like ‘5400%’<br>trunc(sk_rq)&#x3D;trunc(sysdate)， 优化处理：sk_rq&gt;&#x3D;trunc(sysdate) and sk_rq&lt;trunc(sysdate+1)</p>
+<p>进行了显式或隐式的运算的字段不能进行索引，如：ss_df+20&gt;50，优化处理：ss_df&gt;30</p>
+<p>‘X’ || hbs_bh&gt;’X5400021452’，优化处理：hbs_bh&gt;’5400021542’<br>sk_rq+5&#x3D;sysdate，优化处理：sk_rq&#x3D;sysdate-5<br>hbs_bh&#x3D;5401002554，优化处理：hbs_bh&#x3D;’ 5401002554’，注：此条件对 hbs_bh 进行隐式的 to_number 转换，因为 hbs_bh 字段是字符型。</p>
+<p>s</p>
+<h1 id="o（3）-SELECT-子句中避免使用-‘-‘："><a href="#o（3）-SELECT-子句中避免使用-‘-‘：" class="headerlink" title="o（3） SELECT 子句中避免使用 ‘ * ‘："></a>o（3） SELECT 子句中避免使用 ‘ * ‘：</h1><p>ORACLE 在解析的过程中, 会将<code>*</code> 依次转换成所有的列名, 这个工作是通过查询数据字典完成的, 这意味着将耗费更多的时间。</p>
+<h1 id="（14）-使用表的别名-Alias-："><a href="#（14）-使用表的别名-Alias-：" class="headerlink" title="（14） 使用表的别名 (Alias)："></a>（14） 使用表的别名 (Alias)：</h1><p>当在 SQL 语句中连接多个表时, 请使用表的别名并把别名前缀于每个 Column 上. 这样一来, 就可以减少解析的时间并减少那些由 Column 歧义引起的语法错误.</p>
+<h1 id="5-当join的两个表包含一对多关系时，优先使用EXISTS而不是DISTINCT。"><a href="#5-当join的两个表包含一对多关系时，优先使用EXISTS而不是DISTINCT。" class="headerlink" title="5) 当join的两个表包含一对多关系时，优先使用EXISTS而不是DISTINCT。"></a>5) 当join的两个表包含一对多关系时，优先使用EXISTS而不是DISTINCT。</h1><p>例如，写成：</p>
+<p>SELECT d.dept_id, d.dept<br>FROM dept d<br>WHERE EXISTS ( SELECT ‘X’ FROM employee e WHERE e.dept &#x3D; d.dept);<br>而不是：</p>
+<p>SELECT DISTINCT d.dept_id, d.dept<br>FROM dept d,employee e<br>WHERE e.dept &#x3D; e.dept;</p>
+<h1 id="连接表"><a href="#连接表" class="headerlink" title="连接表"></a>连接表</h1><p>有时候为了取到多个表的字段，编写SQL时会使用一次甚至多次JOIN操作，在进行多表连接时应使各个表的数据集尽量少，举个例子，比如现在tb1表数据量很大</p>
+<p>SELECT tb1.tb1_name FROM tb1 LEFT JOIN tb2 ON tb2.tb2_otherid&#x3D;tb1.tb1_id WHERE tb1.tb1_gender&#x3D;0;<br>上面语句JOIN操作时会进行tb1、tb2两个表所有数据集连接操作，为了减小连接操作的数据集，可将其改为</p>
+<p>SELECT tb1.tb1_name FROM (SELECT tb1.tb1_id, tb1.tb1_name FROM tb1 WHERE tb1.tb1_gender&#x3D;0) AS tb1 LEFT JOIN tb2 ON tb2.tb2_otherid&#x3D;tb1.tb1_id;<br>这样一来，JOIN左边的数据集就仅仅是tb1_gender&#x3D;0筛选出来的数据集而不是tb1所有数据集，从而提高了JOIN操作的执行速度。要注意一点是，JOIN操作的查询效率要比子查询高得多，所以可以使用JOIN操作的情况下尽量减少或杜绝子查询操作</p>
+<h1 id="当只要一行数据时使用-LIMIT-1"><a href="#当只要一行数据时使用-LIMIT-1" class="headerlink" title="当只要一行数据时使用 LIMIT 1"></a>当只要一行数据时使用 LIMIT 1</h1><p>你查询表的有些时候，你已经知道结果只会有一条结果，但因为你可能需要去fetch游标，或是你也许会去检查返回的记录数。</p>
+<p>在这种情况下，加上 LIMIT 1 可以增加性能。这样一样，MySQL数据库引擎会在找到一条数据后停止搜索，而不是继续往后查少下一条符合记录的数据。</p>
+<h1 id="i7-避免-SELECT"><a href="#i7-避免-SELECT" class="headerlink" title="i7. 避免 SELECT *"></a>i7. 避免 SELECT *</h1><p>从数据库里读出越多的数据，那么查询就会变得越慢。并且，如果你的数据库服务器和WEB服务器是两台独立的服务器的话，这还会增加网络传输的负载</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2017/sql%E4%BC%98%E5%8C%96%E7%B3%BB%E5%88%97/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<html>
+<head>
+	
+	<title>Java核心技术卷I（第9版）阅读笔记</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">Java核心技术卷I（第9版）阅读笔记</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2015年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%EF%BC%88%E7%AC%AC9%E7%89%88%EF%BC%89%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0"><span class="toc-text">Java核心技术卷I（第9版）阅读笔记</span></a></li></ol> -->
+<h1 id="Java核心技术卷I（第9版）阅读笔记"><a href="#Java核心技术卷I（第9版）阅读笔记" class="headerlink" title="Java核心技术卷I（第9版）阅读笔记"></a>Java核心技术卷I（第9版）阅读笔记</h1><p>标签（空格分隔）： java</p>
+<hr>
+<p>###概念<br>JDK:Java development kit 编写java程序的程序员使用的软件<br>JRE:Java runtime environment 运行java程序的用户使用的软件<br>SE:standard edition 用于桌面或简单的服务器应用的java平台<br>ME:micro edition 用于手机或其它小型设备的java平台<br>EE：enterprsie edition 用于复杂的服务器应用的java平台<br>实例域：对象中的数据<br>方法：操作数据的过程<br>反射：在程序运行期间发现更多的类及其属性的能力</p>
+<p>###大数值<br>如果基本的整数和浮点数精度不能满足要求，则可以使用BigInteger和BigDecimal，这两个类可以处理任意长度的数值。使用<code>valueof</code>方法可以将普通的数值转换为大数值，如果是相加运算时，不能直接相加，只能用add方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BigInteger a = BigInteger.valueOf(100);</span><br><span class="line">BigInteger b = BigInteger.valueOf(100);</span><br><span class="line">BigInteger c = b.add(a);// c = a+b</span><br></pre></td></tr></table></figure>
+
+<p>###数组长度为0<br>在java中数组长度可以为0，在一个返回数组的方法中，如果返回为空，则可以返回一个长度为0的数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String[] test() &#123;</span><br><span class="line">    return new String[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##3静态导入<br>使用static可以实现静态导入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import static java.lang.System.*;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String args[]) &#123;</span><br><span class="line">        out.print(&quot;hello java&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>#4自动装箱和自动拆箱：<br>自动装箱：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.add(3) --&gt; list.add(Integer.valueOf(3))</span><br></pre></td></tr></table></figure>
+<p>自动拆箱：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int n = list.get(i) --&gt; int n = list.get(i).intValue()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2015/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%EF%BC%88%E7%AC%AC9%E7%89%88%EF%BC%89%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

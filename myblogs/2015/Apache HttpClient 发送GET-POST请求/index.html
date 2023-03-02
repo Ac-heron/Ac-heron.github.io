@@ -1,0 +1,107 @@
+<html>
+<head>
+	
+	<title>Apache HttpClient 发送GET/POST请求</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">Apache HttpClient 发送GET/POST请求</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2015年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Apache-HttpClient-%E5%8F%91%E9%80%81GET-x2F-POST%E8%AF%B7%E6%B1%82"><span class="toc-text">Apache HttpClient 发送GET&#x2F;POST请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven"><span class="toc-text">Maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jar%E5%8C%85"><span class="toc-text">Jar包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GET%E8%AF%B7%E6%B1%82"><span class="toc-text">GET请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E8%AF%B7%E6%B1%82"><span class="toc-text">POST请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-text">源码</span></a></li></ol></li></ol> -->
+<h1 id="Apache-HttpClient-发送GET-x2F-POST请求"><a href="#Apache-HttpClient-发送GET-x2F-POST请求" class="headerlink" title="Apache HttpClient 发送GET&#x2F;POST请求"></a>Apache HttpClient 发送GET&#x2F;POST请求</h1><p>标签（空格分隔）： java</p>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Java发布Http请求的方式有多种,<code>HtmlUnit</code>,<code>HttpClient</code>,或者使用本身自带的<code>HttpURLConnection</code>,其中<code>HttpClient</code>的版本3和版本4使用方法略有不同,这里主要介绍用apache的<code>HttpClient</code>版本4来发送Http请求的用法.</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>使用<code>HttpClient</code>发送Http请求的步骤主要如下:</p>
+<ol>
+<li><p>使用<code>HttpClients</code>的<code>createDefault</code>方法创建一个<code>CloseableHttpClient</code>实例</p>
+</li>
+<li><p>根据请求方式的不同创建<code>HttpGet</code>或<code>HttpPost</code>实例,并使用<code>addHeader</code>方法设置相关的头信息,比如<code>User-Agent</code>,<code>Accept-Encoding</code>等.</p>
+</li>
+<li><p>如果是post请求,将所有的请求参数封装到<code>List&lt;NameValuePair&gt;</code>中,然后将其封装成一个<code>HttpEntiy</code>,然后调用<code>httpPost.setEntity</code>方法;</p>
+</li>
+<li><p>执行请求,得到<code>CloseableHttpResponse</code>返回.</p>
+</li>
+<li><p>从返回结果中取得返回状态码,返回数据等信息</p>
+</li>
+<li><p>关闭资源</p>
+</li>
+</ol>
+<hr>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3><p>使用<code>Apache HttpClient</code>,需要加入相关jar包,如果用的是maven构建的,则如下引入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;httpclient&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.5.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Jar包"><a href="#Jar包" class="headerlink" title="Jar包"></a>Jar包</h3><p>如果用得不是maven,则可以在官网下载包,加入到项目的包目录下.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">httpclient-4.5.jar</span><br><span class="line">httpcore-4.5.jar</span><br><span class="line">commons-logging-1.2.jar</span><br><span class="line">commons-codec-1.9.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/** </span><br><span class="line"> * get请求方法</span><br><span class="line"> * @param url 传入的api地址 </span><br><span class="line"> * @return 返回String类型结果数据</span><br><span class="line"> * @throws IOException</span><br><span class="line"> */</span><br><span class="line">private static String sendGet(String url) throws IOException &#123;</span><br><span class="line">    CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">    HttpGet httpGet = new HttpGet(url);</span><br><span class="line">    httpGet.addHeader( &quot;User-Agent&quot; , &quot;Mozilla/5.0&quot;);</span><br><span class="line">    CloseableHttpResponse httpResponse = httpClient.execute(httpGet);</span><br><span class="line">    HttpEntity httpEntity = httpResponse.getEntity();</span><br><span class="line">    String response = EntityUtils.toString(httpEntity,StandardCharsets.UTF_8);</span><br><span class="line">    httpClient.close();</span><br><span class="line">    return response.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * post请求方法</span><br><span class="line"> * @param url 请求地址 </span><br><span class="line"> * @param params 请求参数 为处理有多个参数,请求时将所有参数封装成Map</span><br><span class="line"> * @return 返回String类型的结果数据</span><br><span class="line"> * @throws IOException</span><br><span class="line"> */</span><br><span class="line">public static String sendPost(String url, Map&lt;String,String&gt; params) throws IOException &#123;</span><br><span class="line">    CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">    HttpPost httpPost = new HttpPost(url);</span><br><span class="line">    httpPost.addHeader(&quot;User-Agent&quot;,&quot;Mozilla/5.0&quot;);</span><br><span class="line">    //urlParameters.add(new BasicNameValuePair(&quot;userName&quot;,&quot;www.iacheron.com&quot;));</span><br><span class="line">    List&lt;NameValuePair&gt; urlParameters = new ArrayList&lt;NameValuePair&gt;(params.size());</span><br><span class="line">        for (String key : params.keySet()) &#123;</span><br><span class="line">            urlParameters.add(new BasicNameValuePair(key,params.get(key)));</span><br><span class="line">        &#125;</span><br><span class="line">        httpPost.setEntity(new UrlEncodedFormEntity(urlParameters, StandardCharsets.UTF_8));</span><br><span class="line">        CloseableHttpResponse httpResponse = httpClient.execute(httpPost);</span><br><span class="line">        HttpEntity httpEntity = httpResponse.getEntity();</span><br><span class="line">        String response = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);</span><br><span class="line">        httpClient.close();</span><br><span class="line">        return response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="http://www.iacheron.com/">HttpUtil.java</a></p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2015/Apache%20HttpClient%20%E5%8F%91%E9%80%81GET-POST%E8%AF%B7%E6%B1%82/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

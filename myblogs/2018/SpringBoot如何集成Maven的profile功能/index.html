@@ -1,0 +1,114 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFprofile"><span class="toc-text">什么是profile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-text">实现思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-text">具体实现</span></a></li></ol> -->
+<h2 id="什么是profile"><a href="#什么是profile" class="headerlink" title="什么是profile"></a>什么是profile</h2><p>开发项目的时候要有多个环境，如开发环境、测试环境、生产环境，他们的配置文件一般不同。当我们要向各个环境发布程序时，需要人工处理这些配置文件，这显然麻烦且易错。有了profile，一切问题就简单了。只要在maven打包时使用下面命令即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -Dmaven.test.skip=true -P prod</span><br></pre></td></tr></table></figure>
+<p><code>-P prod</code> 就是告诉maven要使用名字为prod的profile来打包，这样打包后的jar包或war包，配置文件里的配置就是prod环境的。</p>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>maven支持profile功能，当使用maven profile打包时，可以打包指定目录和指定文件，且可以修改文件中的变量。spring boot也支持profile功能，只要在application.properties文件中指定spring.profiles.active&#x3D;xxx 即可，其中xxx是一个变量，当maven打包时，修改这个变量即可。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>一个springboot项目，工程中<code>src/main/resourses</code>目录下有以下4个配置文件:</p>
+<ul>
+<li>application.properties: 包含通用配置的文件。文件中有spring.profiles.active&#x3D;@profiles.active@的属性。这里的profiles.active和下面pom.xml配置中的profiles.active属性名要一致。这样，在运行mvn命令时，maven就会帮我们将@profiles.active@替换成指定的profile。</li>
+<li>application-dev.properties: 当-P dev时， 打包这个文件。</li>
+<li>application-test.properties: 当 -P test时，打包这个文件。</li>
+<li>application-prod.properties: 当 -P prod时，打包这个文件。</li>
+</ul>
+<p>在(父)pom.xml中定义maven的如下各个环境的profile配置,这里的<code>profiles.active</code>属性名可以自定义,其中test环境是默认激活的（activeByDefault为true），这样如果在不指定profile时默认是test环境。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;profiles&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;dev&lt;/id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profiles.active&gt;dev&lt;/profiles.active&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;test&lt;/id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profiles.active&gt;test&lt;/profiles.active&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">          &lt;activation&gt;</span><br><span class="line">              &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;</span><br><span class="line">          &lt;/activation&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;pre&lt;/id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profiles.active&gt;pre&lt;/profiles.active&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;prod&lt;/id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profiles.active&gt;prod&lt;/profiles.active&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">  &lt;/profiles&gt;</span><br><span class="line"></span><br><span class="line">  &lt;build&gt;</span><br><span class="line">      &lt;resources&gt;</span><br><span class="line">          &lt;resource&gt;</span><br><span class="line">              &lt;directory&gt;src/main/resources&lt;/directory&gt;</span><br><span class="line">              &lt;filtering&gt;true&lt;/filtering&gt;</span><br><span class="line">              &lt;excludes&gt;</span><br><span class="line">			&lt;exclude&gt;application-dev.properties&lt;/exclude&gt;</span><br><span class="line">			&lt;exclude&gt;application-test.properties&lt;/exclude&gt;</span><br><span class="line">			&lt;exclude&gt;application-pre.properties&lt;/exclude&gt;</span><br><span class="line">			&lt;exclude&gt;application-prod.properties&lt;/exclude&gt;</span><br><span class="line">		&lt;/excludes&gt;</span><br><span class="line">          &lt;/resource&gt;</span><br><span class="line">          &lt;resource&gt;</span><br><span class="line">              &lt;directory&gt;src/main/resources&lt;/directory&gt;</span><br><span class="line">              &lt;filtering&gt;true&lt;/filtering&gt;</span><br><span class="line">              &lt;includes&gt;</span><br><span class="line">			&lt;include&gt;application-$&#123;profiles.active&#125;.properties&lt;/include&gt;</span><br><span class="line">			&lt;include&gt;application.properties&lt;/include&gt;</span><br><span class="line">		&lt;/includes&gt;</span><br><span class="line">          &lt;/resource&gt;</span><br><span class="line">      &lt;/resources&gt;</span><br><span class="line">  &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ol>
+<li><p>这里的excludes 表示打包时,过滤多余其它目录或文件，比如过滤目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">            &lt;excludes&gt;</span><br><span class="line">	&lt;exclude&gt;dev/*&lt;/exclude&gt;</span><br><span class="line">	&lt;exclude&gt;test/*&lt;/exclude&gt;</span><br><span class="line">	&lt;exclude&gt;pre/*&lt;/exclude&gt;</span><br><span class="line">	&lt;exclude&gt;prod/*&lt;/exclude&gt;</span><br><span class="line">&lt;/excludes&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>includes表示打包，指定要包含的文件，其中${profiles.active}会根据指定的profile动态替换,当然一般不需要过滤或指定，如下配置就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">       &lt;resources&gt;</span><br><span class="line">           &lt;resource&gt;</span><br><span class="line">               &lt;directory&gt;src/main/resources&lt;/directory&gt;</span><br><span class="line">               &lt;filtering&gt;true&lt;/filtering&gt;</span><br><span class="line">           &lt;/resource&gt;</span><br><span class="line">       &lt;/resources&gt;</span><br><span class="line">   &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>filtering 设置true表示处理文件时，可以对文件进行动态替换</p>
+</li>
+<li><p>在application.properties属性文件中替换变量时，使用@符号,而不是$, maven的maven-resources-plugin可以定义这个替换的符号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.profiles.active=@profiles.active@</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>怎么在启动spring boot应用时，打印正在使用的profile，避免配置错误</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">  ApplicationContext ctx = SpringApplication.run(RestApiApplication.class, args);</span><br><span class="line">  String[] activeProfiles = ctx.getEnvironment().getActiveProfiles();</span><br><span class="line">  for (String profile : activeProfiles) &#123;</span><br><span class="line">    logger.warn(&quot;Spring Boot 使用profile为:&#123;&#125;&quot; , profile);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<ul>
+<li><a href="https://blog.csdn.net/lihe2008125/article/details/50443491">https://blog.csdn.net/lihe2008125/article/details/50443491</a></li>
+<li><a href="http://www.cnblogs.com/lzxianren/p/maven-profile.html">http://www.cnblogs.com/lzxianren/p/maven-profile.html</a></li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/SpringBoot%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90Maven%E7%9A%84profile%E5%8A%9F%E8%83%BD/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%9Alinux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="toc-text">学习总结：linux系统管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="toc-text">Linux系统管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-text">一、进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">1. 进程管理的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%9F%A5%E7%9C%8B%E2%80%93ps%E5%92%8Cpstree%E5%91%BD%E4%BB%A4"><span class="toc-text">2. 进程的查看–ps和pstree命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%9F%A5%E7%9C%8B%E2%80%93top%E5%91%BD%E4%BB%A4"><span class="toc-text">3. 进程的查看–top命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B"><span class="toc-text">4. 杀死进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BF%AE%E6%94%B9%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">5. 修改进程优先级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86"><span class="toc-text">二、工作管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86%E7%AE%80%E4%BB%8B"><span class="toc-text">1. 工作管理简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B7%A5%E4%BD%9C%E7%AE%A1%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">2. 工作管理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%90%8E%E5%8F%B0%E5%91%BD%E4%BB%A4%E8%84%B1%E7%A6%BB%E7%BB%88%E7%AB%AF"><span class="toc-text">3. 后台命令脱离终端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E6%9F%A5%E7%9C%8B"><span class="toc-text">三、系统资源查看</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-vmstat-%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90"><span class="toc-text">1.vmstat 监控系统资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-dmesg%E5%BC%80%E6%9C%BA%E6%97%B6%E5%86%85%E6%A0%B8%E6%A3%80%E6%B5%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">2.dmesg开机时内核检测信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-free%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E7%8A%B6%E6%80%81"><span class="toc-text">3.free命令查看内存使用状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E7%9C%8Bcpu%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-text">4.查看cpu的信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-uptime-%E5%91%BD%E4%BB%A4"><span class="toc-text">5. uptime 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%86%85%E6%A0%B8%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-text">5. 查看系统与内核相关信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%8D%E6%95%B0%EF%BC%9A"><span class="toc-text">6. 查看操作系统的位数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8Dlinux%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E8%A1%8C%E7%89%88"><span class="toc-text">7. 查询当前linux系统的发行版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%88%97%E5%87%BA%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E6%88%96%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-text">8. 列出进程打开或使用的文件信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%B3%BB%E7%BB%9F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">四、系统定时任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-at%E4%B8%80%E6%AC%A1%E6%89%A7%E8%A1%8C"><span class="toc-text">1. at一次执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-crontab%E5%BE%AA%E7%8E%AF%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">2. crontab循环定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E7%9A%84crontab%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.系统的crontab设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-anacron%E9%85%8D%E7%BD%AE%E5%8F%8A%E6%80%BB%E7%BB%93"><span class="toc-text">4. anacron配置及总结</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="学习总结：linux系统管理"><a href="#学习总结：linux系统管理" class="headerlink" title="学习总结：linux系统管理"></a>学习总结：linux系统管理</h1><pre><code>本文标题:学习总结：linux系统管理
+文章作者:Acheron
+发布时间:2016年07月15日 
+本文链接:http://www.herohuang.com/linux-op-manage.html
+</code></pre>
+<hr>
+<h1 id="Linux系统管理"><a href="#Linux系统管理" class="headerlink" title="Linux系统管理"></a>Linux系统管理</h1><h2 id="一、进程管理"><a href="#一、进程管理" class="headerlink" title="一、进程管理"></a>一、进程管理</h2><h3 id="1-进程管理的作用"><a href="#1-进程管理的作用" class="headerlink" title="1. 进程管理的作用"></a>1. 进程管理的作用</h3><ul>
+<li>判断服务器健康状态</li>
+<li>查看系统中所有进程</li>
+<li>杀死进程</li>
+</ul>
+<h3 id="2-进程的查看–ps和pstree命令"><a href="#2-进程的查看–ps和pstree命令" class="headerlink" title="2. 进程的查看–ps和pstree命令"></a>2. 进程的查看–ps和pstree命令</h3><ul>
+<li>查看系统中所有进程,使用BSD操作系统格式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看系统中所有进程，使用linux标准命令格式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -le</span><br></pre></td></tr></table></figure>
+<p>  选项：<br>  -a:显示一个终端的所有进程，除了会话引线<br>  -u:显示进程的归属用户及内存的使用情况<br>  -x:显示没有控制终端的进程<br>  -l:长格式显示<br>  -e：显示所有进程，和-A作用一致</p>
+<ul>
+<li>ps命令进程输出的说明:</li>
+<li>USER:该进程是由哪个用户产生的</li>
+<li>PID：进程的ID号</li>
+<li>%CPU:该进程占用的CPU资源的百分比，占用越高，进程越消耗资源</li>
+<li>%MEM:该进程占用物理内存的百分比，占用越高，进程越消耗资源</li>
+<li>VSZ:该进程占用虚拟内存的大小，单位KB</li>
+<li>RSS：该进程占用实际物理内存的大小，单位KB</li>
+<li>TTY：该进程是在哪个终端中运行的，其中tty1-tty7代表本地控制台终端，tty1-tty6代表本地的字符界面终端，tty7是图形终端，pts&#x2F;0-255代表虚拟终端。</li>
+<li>STAT:进程状态：<ul>
+<li>R：运行</li>
+<li>S：睡眠</li>
+<li>T：停止状态</li>
+<li>s：包含子进程</li>
+<li>+：位于后台</li>
+</ul>
+</li>
+<li>START：该进程的启动时间</li>
+<li>TIME：该进程占用CPU的运算时间，注意不是系统时间</li>
+<li><strong>COMMAND</strong>:产生此进程的命令名</li>
+</ul>
+<hr>
+<ul>
+<li><p>查看进程树</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<ul>
+<li>-p：显示进程的PID</li>
+<li>-u：显示进程的所属用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-进程的查看–top命令"><a href="#3-进程的查看–top命令" class="headerlink" title="3. 进程的查看–top命令"></a>3. 进程的查看–top命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>选项：</p>
+<ul>
+<li>-d 秒数：指定top命令默认每隔几秒更新，默认是3秒</li>
+<li>-b：使用批处理模式输出，一般和“-n”选项合用</li>
+<li>-n 次数：指定top命令执行的次数，一般和-b选项合用</li>
+</ul>
+</li>
+<li><p>在top命令的交互模式中可以执行的命令：</p>
+<ul>
+<li>？或h：显示交互模式的帮助</li>
+<li>P：以CPU使用率排序，默认就是此项</li>
+<li>M：以内存的使用率排序</li>
+<li>N：以PID排序</li>
+<li>q：推出top</li>
+</ul>
+</li>
+<li><p><strong>top命令前5行的作用：</strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">top - 22:52:38 up  3:41,  1 user,  load average: 0.15, 0.16, 0.23</span><br><span class="line">Tasks: 223 total,   2 running, 221 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  9.7 us,  2.8 sy,  0.0 ni, 86.4 id,  1.1 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem :  3967824 total,   985600 free,  1241660 used,  1740564 buff/cache</span><br><span class="line">KiB Swap:  4115452 total,  4115452 free,        0 used.  2213400 avail Mem </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第一行：<br>系统当前时间<br>系统的运行时间<br>当前登录了几个用户<br>系统在之前1分钟，5分钟，15分钟的平均负载，一般小于1时，负载较小。如果大于1，系统已经超出负载。</p>
+</li>
+<li><p>第二行：<br>Tasks:	系统中的进程总数<br>2 running: 正在运行的进程数<br>221 sleeping:睡眠的进程<br>0 stopped：正在停止的进程<br>0 zombie：僵尸进程，如果不是0，需要手工检查僵尸进程</p>
+</li>
+<li><p>第三行：<br>%Cpu(s):用户模式占用CPU的百分比<br>2.8sy:系统模式占用的CPU百分比<br>0.0ni：改变过优先级的用户进程CPU占用百分比<br>86.4id：空闲CPU的CPU百分比<br>1.1wa:等待输入&#x2F;输出的进程的占用百分比<br>0.0hi：硬终端请求服务占用的CPU百分比<br>0.1si：软终端请求服务占用的CPU百分比<br>0.0st：st（Steal time）虚拟时间百分比，就是当由虚拟机时，虚拟CPU等待实际CPU的时间百分比</p>
+</li>
+<li><p>第四行：<br>Mem:物理内存的总量，单位KB<br>free：空闲的物理内存数量<br>userd：已经使用的物理内存数量<br>buff：作为缓冲的内存数量</p>
+</li>
+<li><p>第五行：<br>Swap:交换分区（虚拟内存）的总大小<br>free：空闲交换分区的大小<br>userd：已经使用的交互分区的大小</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>top只能查看部分进程情况，如果要查看系统中所有进程的CPU占用情况，则可以用以下方式，将结果存于top.log中：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -b -n 1 &gt; top.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-杀死进程"><a href="#4-杀死进程" class="headerlink" title="4. 杀死进程"></a>4. 杀死进程</h3><ul>
+<li><p>1.kill命令</p>
+</li>
+<li><p>查看可用的进程信号</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -1 2235</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据进程信号，-1既-HUP:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -HUP 2235</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制杀死进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 2235</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.killall命令</p>
+<ul>
+<li>killall [选项][信号]进程名<br>按照进程名杀死进程<br>选项：<br>-i :交互式，询问是否杀死某个进程<br>-I：忽略进程名的大小写</li>
+</ul>
+</li>
+<li><p>3.pkill命令</p>
+<ul>
+<li>pkill [选项][信号]进程名<br>按照进程名杀死进程<br>选项：<br>-t 终端号：安装终端号踢出用户</li>
+</ul>
+</li>
+<li><ol start="4">
+<li>查看当前登录用户,终端号可以这个命令查看</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w</span><br></pre></td></tr></table></figure>
+</li>
+<li><ol start="5">
+<li>强制杀死从pts&#x2F;1虚拟终端登录的进程</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -9 -t pts/1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-修改进程优先级"><a href="#5-修改进程优先级" class="headerlink" title="5. 修改进程优先级"></a>5. 修改进程优先级</h3><p>Linux操作系统是一个多用户多任务的操作系统，linux系统中运行这非常多的进程，但是cpu在同一个时钟周期内只能运算一个指令，进程优先级决定了每个进程处理的先后顺序。</p>
+<p>查看优先级可以根据上面的查看进程命令<code>ps -le</code>查看，</p>
+<ul>
+<li><p>PRI,NI都表示优先级，其中PRI代表Priority，NI代表Nice，数字越小代表该进程优先级越高。</p>
+</li>
+<li><p>PRI是不能修改的，但用户可以修改NI，但是系统生效的优先级是PRI+NI，所有修改NI可以修改进程的优先级。</p>
+</li>
+<li><p>修改NI值的几个注意事项：</p>
+<ul>
+<li>NI值的范围是-20到19</li>
+<li>普通用户调整NI的范围是0到19，而且只能调整自己的进程</li>
+<li>普通用户只能调高NI值，不能降低</li>
+<li>root用户才能设定进程NI值位负值，而且可以调整任何用户的进程</li>
+<li>PRI(最终值）&#x3D; PRI（原始值） + NI</li>
+<li>用户只能修改NI的值，不能直接修改PRI</li>
+</ul>
+</li>
+<li><p>修改优先级命令：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice [选项]命令</span><br></pre></td></tr></table></figure>
+
+<p>nice命令可以给新执行的命令直接赋予NI值，但是不能修改已经存在的进程的NI值<br>选项：<br>-n NI值：给命令赋予NI值</p>
+<p>例如将apache服务所有进程优先级改为-5：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice -n -5 service httpd start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改已经存在的进程的NI值的命令<br>例如将PID为2125的进程该为-10：<br>renice -10 2125</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renice[优先级] PID</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="二、工作管理"><a href="#二、工作管理" class="headerlink" title="二、工作管理"></a>二、工作管理</h2><h3 id="1-工作管理简介"><a href="#1-工作管理简介" class="headerlink" title="1. 工作管理简介"></a>1. 工作管理简介</h3><p>工作管理指的是在单个登录终端中同时管理多个工作的行为。类似于在windows中，将程序放在后台运行。</p>
+<ul>
+<li>查看后台作业,加-l可以查看进程的PID号<br>注：结果显示+号表示最近一个放入后台的工作，也是工作恢复时默认恢复的工作，-号代表倒数第二个放入后台的工作</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jobs [-l]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-工作管理方法"><a href="#2-工作管理方法" class="headerlink" title="2. 工作管理方法"></a>2. 工作管理方法</h3><ul>
+<li><p>把进程放入后台方式：<br>1.命令 &amp;  : 把命令放入后台，并在后台运行<br>2.命令执行后 ctrl+z : 放在后台暂停</p>
+</li>
+<li><p>将后台暂停的工作恢复到前提运行：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fg %工作号</span><br></pre></td></tr></table></figure>
+<p>%可以省略，工作号是前面的1，2，3,而不是PID号</p>
+<ul>
+<li>将后台暂停的工作恢复到后台运行：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bg %工作号</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-后台命令脱离终端"><a href="#3-后台命令脱离终端" class="headerlink" title="3. 后台命令脱离终端"></a>3. 后台命令脱离终端</h3><p>命令在后台只在当前终端执行,如果关闭当前终端，后台命令也会关闭,因为终端关闭时其实是给kill -l发送一个信号。而一些服务要脱离终端运行，例如mysql的服务，mysqld这个d是守护进程的意思。</p>
+<p>后台程序脱离终端方法:</p>
+<ul>
+<li>1.把需要后台执行的命令加入 &#x2F;etc&#x2F;rc.local文件</li>
+<li>2.使用系统定时任务，让系统在指定的时间执行某个后台任务</li>
+<li>2.nohup [命令] &amp;</li>
+</ul>
+<h2 id="三、系统资源查看"><a href="#三、系统资源查看" class="headerlink" title="三、系统资源查看"></a>三、系统资源查看</h2><h3 id="1-vmstat-监控系统资源"><a href="#1-vmstat-监控系统资源" class="headerlink" title="1.vmstat 监控系统资源"></a>1.vmstat 监控系统资源</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vmstat [刷新延时 刷新次数]</span><br><span class="line">比如：vmstat 1 3  每隔1秒中刷新3次</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 4  0      0 1636132  55736 1163332    0    0   212    86  198  856  8  2 85  6  0</span><br><span class="line"> 3  0      0 1632764  55736 1163364    0    0     0     0 1020 7142 19  6 74  1  0</span><br><span class="line"> 3  0      0 1630328  55736 1163360    0    0     0     0 1186 6955 17  5 76  1  0</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>procs:进程信息字段<ul>
+<li>r :等待运行的进程数,数量越大，系统越繁忙</li>
+<li>b: 不可被唤醒的进程数量,数量越大，系统越繁忙</li>
+</ul>
+</li>
+<li>memory:内存信息字段<ul>
+<li>swpd:虚拟内存的使用情况，单位kb</li>
+<li>free：空闲的内存容量，单位kb</li>
+<li>buff：缓冲的内存容量，单位kb</li>
+<li>cache：缓存的内存容量，单位kb</li>
+</ul>
+</li>
+<li>swap:交换分区的信息字段<ul>
+<li>si:从磁盘中交换到内存中数据的数量，单位kb</li>
+<li>so：从内存中交换到磁盘中数据的数量，单位kb<br>  此两个数越大，说明数据需要经常在磁盘和内存之间交换，系统性能越差</li>
+</ul>
+</li>
+<li>io:磁盘读写信息字段<ul>
+<li>bi：从块设备读入数据的总量，单位是块</li>
+<li>bo：写到块设备的数据的总量，单位是块<br>  此两个数越大，代表系统的I&#x2F;O越繁忙</li>
+</ul>
+</li>
+<li>system:系统信息字段<ul>
+<li>in：每秒被中断的进程次数</li>
+<li>cs：每秒进行的事件切换次数，此两个数越大，代表系统与接口设备的通信非常繁忙</li>
+</ul>
+</li>
+<li>CPU: cpu信息字段<ul>
+<li>us：非内核进程消耗cpu运算时间的百分比</li>
+<li>sy：内核进程消耗cpu运算时间的百分比</li>
+<li>id：空闲cpu的百分比</li>
+<li>wa：等待I&#x2F;0所消耗的cpu百分比</li>
+<li>st：被虚拟机所盗用的cpu百分比</li>
+</ul>
+</li>
+</ul>
+<p>缓存cache：用来加速数据从硬盘中读取<br>缓冲buffer:加速数据写入</p>
+<h3 id="2-dmesg开机时内核检测信息"><a href="#2-dmesg开机时内核检测信息" class="headerlink" title="2.dmesg开机时内核检测信息"></a>2.dmesg开机时内核检测信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmesg</span><br><span class="line">dmesg | grep CPU</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-free命令查看内存使用状态"><a href="#3-free命令查看内存使用状态" class="headerlink" title="3.free命令查看内存使用状态"></a>3.free命令查看内存使用状态</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free [-b|-k|-m|-g]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<ul>
+<li>-b:以字节为单位显示</li>
+<li>-k：以kb为单位显示，默认</li>
+<li>-m：以MB为单位显示</li>
+<li>-g：以GB为单位显示</li>
+</ul>
+<h3 id="4-查看cpu的信息"><a href="#4-查看cpu的信息" class="headerlink" title="4.查看cpu的信息"></a>4.查看cpu的信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-uptime-命令"><a href="#5-uptime-命令" class="headerlink" title="5. uptime 命令"></a>5. uptime 命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uptime</span><br></pre></td></tr></table></figure>
+<p>显示系统的启动时间和平均负载，也就是top命令的第一行，w命令也可以看到这个数据</p>
+<h3 id="5-查看系统与内核相关信息"><a href="#5-查看系统与内核相关信息" class="headerlink" title="5. 查看系统与内核相关信息"></a>5. 查看系统与内核相关信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname [选项]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<pre><code>-a：查看系统所有相关信息
+-r：查看内核版本
+-s：查看内核名称
+</code></pre>
+<h3 id="6-查看操作系统的位数："><a href="#6-查看操作系统的位数：" class="headerlink" title="6. 查看操作系统的位数："></a>6. 查看操作系统的位数：</h3><p>随便打开一个外部命令，看这个命令是几位，则操作系统的位数,如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file /bin/ls</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-查询当前linux系统的发行版"><a href="#7-查询当前linux系统的发行版" class="headerlink" title="7. 查询当前linux系统的发行版"></a>7. 查询当前linux系统的发行版</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
+<p>对比上面的查看内核版命令：uname -r</p>
+<h3 id="8-列出进程打开或使用的文件信息"><a href="#8-列出进程打开或使用的文件信息" class="headerlink" title="8. 列出进程打开或使用的文件信息"></a>8. 列出进程打开或使用的文件信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof [选项]</span><br></pre></td></tr></table></figure>
+<p>选项：</p>
+<pre><code>-c 字符串： 只列出以`字符串`开头的进程打开的文件
+-u 用户名：只列出某个用户的进程打开的文件
+-p pid：列出某个pid进程打开的文件
+</code></pre>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lsof | more 查看系统中所有进程调用的文件</span><br><span class="line">lsof /sbin/init 查询某个问被哪个进程调用</span><br><span class="line">lsof -c httpd 查看httpd进程调用了哪些文件</span><br><span class="line">lsof -u root 按照用户名，查询某用户的进程调用的文件名</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、系统定时任务"><a href="#四、系统定时任务" class="headerlink" title="四、系统定时任务"></a>四、系统定时任务</h2><h3 id="1-at一次执行"><a href="#1-at一次执行" class="headerlink" title="1. at一次执行"></a>1. at一次执行</h3><p>at服务是否安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --list | grep atd</span><br></pre></td></tr></table></figure>
+
+<p>at服务的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service atd status</span><br></pre></td></tr></table></figure>
+
+<p>at服务的启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service atd restart </span><br></pre></td></tr></table></figure>
+
+<p>at [选项]时间</p>
+<ul>
+<li><p>选项：<br>  -m：当at工作完成后，无论是否命令有输出，都用email通知执行at命令的用户<br>  -c 工作号：显示该at工作的实际内容</p>
+</li>
+<li><p>时间：<br>  HH:MM               例如：03:30<br>  HH:MM YYYY-MM-DD    例如：03:30 2016-07-15<br>  HH:MM[am|pm][month][date] 例如：02:30 July 25<br>  HH:MM[am|pm] + [minutes|hours|days|weeks] 例如：now+5 minutes</p>
+</li>
+</ul>
+<p>查询当前服务器上的at工作:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atq</span><br></pre></td></tr></table></figure>
+
+<p>删除指定的at任务:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">atrm [工作号]</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-crontab循环定时任务"><a href="#2-crontab循环定时任务" class="headerlink" title="2. crontab循环定时任务"></a>2. crontab循环定时任务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig crond on</span><br></pre></td></tr></table></figure>
+<p>crontab [选项]<br>选项：</p>
+<pre><code>-e：编辑crontab定时任务
+-l: 查询crontab任务
+-r:删除当前用户所有的crontab任务
+</code></pre>
+<h3 id="3-系统的crontab设置"><a href="#3-系统的crontab设置" class="headerlink" title="3.系统的crontab设置"></a>3.系统的crontab设置</h3><p>执行系统的定时任务的方法：</p>
+<ul>
+<li>手工执行定时任务</li>
+<li>系统定时任务：<ul>
+<li>第一种是把需要定时执行的脚本复制到&#x2F;etc&#x2F;cron.{daily,weekly,monthly}目录中的任意一个。</li>
+<li>第二种是修改 &#x2F;etc&#x2F;crontab配置文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-anacron配置及总结"><a href="#4-anacron配置及总结" class="headerlink" title="4. anacron配置及总结"></a>4. anacron配置及总结</h3><p>anacron是用来保证在系统关机的时候错过的定时任务，可以在开机之后再执行。</p>
+<ul>
+<li><p>anacron会使用一天，七天，一个月作为检测周期</p>
+</li>
+<li><p>在系统的<code>/var/spool/anacron/</code>目录中存在<code>cron.&#123;daily,weekly,monthly&#125;</code>文件，用于记录上次执行cron的时间</p>
+</li>
+<li><p>和当前时间做比较，如果两个时间的差值超过了anacron指定的时间差值，证明有cron任务被执行</p>
+</li>
+<li><p>配置文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/anacrontab</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%9Alinux%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

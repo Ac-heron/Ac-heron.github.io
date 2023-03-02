@@ -1,0 +1,98 @@
+<html>
+<head>
+	
+	<title>以策略模式取代IF-ELSE语句</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">以策略模式取代IF-ELSE语句</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2015年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A5%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E5%8F%96%E4%BB%A3IF-ELSE%E8%AF%AD%E5%8F%A5"><span class="toc-text">以策略模式取代IF-ELSE语句</span></a></li></ol> -->
+<h1 id="以策略模式取代IF-ELSE语句"><a href="#以策略模式取代IF-ELSE语句" class="headerlink" title="以策略模式取代IF-ELSE语句"></a>以策略模式取代IF-ELSE语句</h1><hr>
+<blockquote>
+<p>我个人认为编程技术质的飞越有几个关键的阶段，其中脱离低级程序员很重要的一个标志就是设计模式的运用，类似于各种修仙小说中主角的度劫飞天，过了这一关，一个崭新的更大的世界便向你打开。对于设计模式的运用，难点不是怎么使用，而是怎样才能明确地知道什么时候使用它，而这需要大量的编程经验的积累。</p>
+</blockquote>
+<p>在重构老项目的过程中，最烦的就是遇到一大堆if-else语句，我曾经见过一个方法近千行，全是if-else，直接能把人绕晕，遇到这种情况，使用多态和策略模式，就能有效地解决。这里写个简单的例子。</p>
+<p>有一个类Test，在这个类中有一个方法operate，根据参数type的不同，进行相关操作，如果type有多种，那么这里的if-else就将继续写下去，怎样改善这段代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Test&#123;</span><br><span class="line">   int operate(String type) &#123;</span><br><span class="line">        if (type.equals(&quot;aaa&quot;)) &#123;</span><br><span class="line">            //do something...</span><br><span class="line">        &#125; else if (type.equals(&quot;bbb&quot;))&#123;</span><br><span class="line">            //do something...</span><br><span class="line">        &#125; else if(type.equals(&quot;ccc&quot;))&#123;</span><br><span class="line">            //do something...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>第一步<br>新建一个接口，接口中定义一个方法operate。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface ITest&#123;</span><br><span class="line">    int operate(String type);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二步:<br>根据type的不同，新建相应的接口实现类，在实现类中作各自的不同的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class A implements ITest&#123;</span><br><span class="line">   int operate(String type) &#123;</span><br><span class="line">       //do something</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class B implements ITest&#123;</span><br><span class="line">   int operate(String type) &#123;</span><br><span class="line">       //do something</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class C implements ITest&#123;</span><br><span class="line">   int operate(String type) &#123;</span><br><span class="line">       //do something</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>第三步：<br>新一个Map，在map中放置各个实现类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,ITest&gt; map = new HashMap&lt;String,ITest&gt;();</span><br><span class="line">map.put(&#x27;aaa&#x27;,new A());</span><br><span class="line">map.put(&#x27;bbb&#x27;,new B());</span><br><span class="line">map.put(&#x27;ccc&#x27;,new C());</span><br></pre></td></tr></table></figure></li>
+<li><p>第四步：<br>去除Test类的operate方法中的if-else判断,根据type从map中获得对应的实现类，调用相关的operate方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Test&#123;</span><br><span class="line">   int operate(String type) &#123;</span><br><span class="line">        map.get(type).operate(type);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2015/%E4%BB%A5%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E5%8F%96%E4%BB%A3IF-ELSE%E8%AF%AD%E5%8F%A5/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

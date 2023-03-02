@@ -1,0 +1,122 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86springboot%E5%BA%94%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%BAwindows%E6%9C%8D%E5%8A%A1"><span class="toc-text">将springboot应用注册为windows服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winsw"><span class="toc-text">winsw</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="将springboot应用注册为windows服务"><a href="#将springboot应用注册为windows服务" class="headerlink" title="将springboot应用注册为windows服务"></a>将springboot应用注册为windows服务</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>springboot</code>应用可以打包成可运行的jar包运行，用<code>java -jar myapp.jar</code>命令就可启动项目，但是在生产环境下，不可能启动项目就要开一个命令窗口，一般的方案是将应用设置成服务启动，如果打包成<code>war</code>包形式，放在tomcat等web服务器里启动，则将tomcat设为服务即可，如果是<code>jar</code>包，则该如何设置，<code>spring</code><a href="http://docs.spring.io/spring-boot/docs/1.4.1.BUILD-SNAPSHOT/reference/htmlsingle/#deployment-windows">官方文档</a>里推荐的是用<code>winsw</code>这款工具。</p>
+<h2 id="winsw"><a href="#winsw" class="headerlink" title="winsw"></a>winsw</h2><p><code>winsw</code>是一款可将可执行程序安装成<code>Windows Service</code>的开源小工具，官网地址：<a href="https://github.com/kohsuke/winsw">https://github.com/kohsuke/winsw</a>   </p>
+<pre><code>注意： 要使用winsw，电脑上必须已经安装`.NET framework`
+</code></pre>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>下载<strong>winsw</strong>:<code>http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/</code>，当前最新版本是<code>1.19</code>，下载后得到：<code>winsw-1.19-bin.exe</code></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li><p>1.为了方便，将打包的项目jar和winsw放在同一目录，我这里放在D盘</p>
+</li>
+<li><p>2.将<code>winsw-1.19-bin.exe</code>重命名为和<code>myapp.jar</code>同名：<code>myapp.exe</code></p>
+</li>
+<li><p>3.在当前目录下新建一个xml文件：<code>myapp.xml</code>,内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;service&gt;</span><br><span class="line">  &lt;id&gt;myapp&lt;/id&gt;</span><br><span class="line">  &lt;name&gt;myapp&lt;/name&gt;</span><br><span class="line">  &lt;description&gt;This service runs myapp project.&lt;/description&gt;</span><br><span class="line">  &lt;executable&gt;java&lt;/executable&gt;</span><br><span class="line">  &lt;arguments&gt;-jar &quot;myapp.jar&quot;&lt;/arguments&gt;</span><br><span class="line">  &lt;logmode&gt;rotate&lt;/logmode&gt;</span><br><span class="line">&lt;/service&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> 相关参数说明如下：</p>
+<ul>
+<li><p>id:id是安装成windows服务后的服务名，id必须是唯一的。</p>
+</li>
+<li><p>name：name是服务的简写名字，name也必须是唯一的，这里我设为和id相同。</p>
+</li>
+<li><p>description:服务的文字说明。</p>
+</li>
+<li><p>executable:执行的命令，因为启动springboot应用的命令是<code>java -jar myapp.jar</code>,所以这里写java，如果java没有安装到系统path里，则这里必须全路径。</p>
+</li>
+<li><p>arguments：命令执行参数， 如果端口号要在这里设置，可以在后面添上：<code>--server.port=8080</code></p>
+</li>
+<li><p>当然还有其它属性，请参考官网上的<a href="https://github.com/kohsuke/winsw">说明</a>。</p>
+</li>
+<li><p>4.运行以下命令，将应用注册为服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myapp.exe install</span><br></pre></td></tr></table></figure></li>
+<li><p>5.运行上面的命令后，在windows的服务里面能看到名为<code>myapp</code>的服务，到此安装成功。</p>
+</li>
+<li><p>6.除了<code>install</code>命令外，还有其它命令：</p>
+</li>
+<li><p>uninstall：删除服务</p>
+</li>
+<li><p>start：启动服务</p>
+</li>
+<li><p>stop：停止服务</p>
+</li>
+<li><p>restart：重启服务</p>
+</li>
+<li><p>status：输出当前服务的状态</p>
+</li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E5%B0%86springboot%E5%BA%94%E7%94%A8%E5%AE%89%E8%A3%85%E4%B8%BAwindows%E6%9C%8D%E5%8A%A1/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

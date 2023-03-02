@@ -1,0 +1,99 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96nodejs-x2F-yeoman-x2F-bower-x2F-grunt"><span class="toc-text">前端自动化nodejs&#x2F;yeoman&#x2F;bower&#x2F;grunt</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nodejs"><span class="toc-text">安装nodejs :</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Yeoman"><span class="toc-text">安装Yeoman</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Bower"><span class="toc-text">安装Bower</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85grunt"><span class="toc-text">安装grunt</span></a></li></ol></li></ol> -->
+<h1 id="前端自动化nodejs-x2F-yeoman-x2F-bower-x2F-grunt"><a href="#前端自动化nodejs-x2F-yeoman-x2F-bower-x2F-grunt" class="headerlink" title="前端自动化nodejs&#x2F;yeoman&#x2F;bower&#x2F;grunt"></a>前端自动化nodejs&#x2F;yeoman&#x2F;bower&#x2F;grunt</h1><p>标签（空格分隔）：前端 </p>
+<hr>
+<h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs :"></a>安装<a href="https://nodejs.org/">nodejs</a> :</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//解压</span><br><span class="line">tar -zxvf node-v5.1.1-linux-x86.tar.gz</span><br><span class="line"></span><br><span class="line">//设为全局变量</span><br><span class="line">sudo ln -s /home/acheron/software/node-v5.1.1-linux-x86/bin/node /usr/local/bin/node</span><br><span class="line"></span><br><span class="line">sudo ln -s /home/acheron/software/node-v5.1.1-linux-x86/bin/npm /usr/local/bin/npm</span><br><span class="line"></span><br><span class="line">//查看</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Yeoman"><a href="#安装Yeoman" class="headerlink" title="安装Yeoman"></a>安装<a href="http://yeoman.io/">Yeoman</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yo</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Bower"><a href="#安装Bower" class="headerlink" title="安装Bower"></a>安装<a href="http://bower.io/">Bower</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//安装</span><br><span class="line">npm install -g bower</span><br><span class="line"></span><br><span class="line">//配置环境变量</span><br><span class="line">sudo vim /etc/profile</span><br><span class="line"></span><br><span class="line">export PATH=/home/acheron/software/node-v5.1.1-linux-x86/lib/node_modules/bower/bin:$PATH</span><br><span class="line"></span><br><span class="line">//设为全局变量</span><br><span class="line">sudo ln -s /home/acheron/software/node-v5.1.1-linux-x86/lib/node_modules/bower/bin/bower /usr/local/bin/bower</span><br><span class="line"></span><br><span class="line">//查看</span><br><span class="line">bower -v</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="安装grunt"><a href="#安装grunt" class="headerlink" title="安装grunt"></a>安装<a href="http://www.gruntjs.net/">grunt</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//安装</span><br><span class="line">npm install -g grunt-cli</span><br><span class="line"></span><br><span class="line">//设为全局变量</span><br><span class="line">sudo ln -s /home/acheron/software/node-v5.1.1-linux-x86/lib/node_modules/grunt-cli/bin/grunt /usr/local/bin/grunt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96nodejs-yeoman-bower-grunt/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

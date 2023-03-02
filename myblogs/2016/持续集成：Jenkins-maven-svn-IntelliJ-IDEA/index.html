@@ -1,0 +1,149 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9AJenkins-maven-svn-IntelliJ-IDEAdate-2016-04-10-20-52-52tags"><span class="toc-text">title: 持续集成：Jenkins+maven+svn+IntelliJ IDEAdate: 2016-04-10 20:52:52tags:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9AJenkins-maven-svn-IntelliJ-IDEA"><span class="toc-text">持续集成：Jenkins+maven+svn+IntelliJ IDEA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E5%88%9D%E8%A1%B7"><span class="toc-text">本文初衷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">持续集成是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%B7%A5%E5%85%B7%E6%9C%89%E5%93%AA%E4%BA%9B"><span class="toc-text">持续集成工具有哪些</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%80%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-text">所使用到的工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jenkins%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8"><span class="toc-text">Jenkins简单入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E4%B8%8B%E8%BD%BD%E5%92%8C%E8%BF%90%E8%A1%8C"><span class="toc-text">一. 下载和运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1"><span class="toc-text">二. 创建第一个任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E8%BF%9B%E5%85%A5%E9%85%8D%E7%BD%AE%E7%95%8C%E9%9D%A2"><span class="toc-text">三. 进入配置界面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%AB%98%E7%BA%A7%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A1%B9"><span class="toc-text">1. 高级项目选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86"><span class="toc-text">2. 源码管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9E%84%E5%BB%BA%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-text">3. 构建触发器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9E%84%E5%BB%BA"><span class="toc-text">4. 构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E6%9E%84%E5%BB%BA%E7%BB%93%E6%9E%9C"><span class="toc-text">5. 查看构建结果</span></a></li></ol></li></ol> -->
+<hr>
+<h2 id="title-持续集成：Jenkins-maven-svn-IntelliJ-IDEAdate-2016-04-10-20-52-52tags"><a href="#title-持续集成：Jenkins-maven-svn-IntelliJ-IDEAdate-2016-04-10-20-52-52tags" class="headerlink" title="title: 持续集成：Jenkins+maven+svn+IntelliJ IDEAdate: 2016-04-10 20:52:52tags:"></a>title: 持续集成：Jenkins+maven+svn+IntelliJ IDEA<br>date: 2016-04-10 20:52:52<br>tags:</h2><h1 id="持续集成：Jenkins-maven-svn-IntelliJ-IDEA"><a href="#持续集成：Jenkins-maven-svn-IntelliJ-IDEA" class="headerlink" title="持续集成：Jenkins+maven+svn+IntelliJ IDEA"></a>持续集成：Jenkins+maven+svn+IntelliJ IDEA</h1><h1 id="本文初衷"><a href="#本文初衷" class="headerlink" title="本文初衷"></a>本文初衷</h1><ul>
+<li>记录我在本地机上搭建持续集成的过程</li>
+<li>了解Jenkins的基本使用</li>
+<li>工作过的公司都没有使用持续集成，所以我没有生产环境的使用经验。</li>
+</ul>
+<h1 id="持续集成是什么"><a href="#持续集成是什么" class="headerlink" title="持续集成是什么"></a>持续集成是什么</h1><ul>
+<li>维基百科：<a href="https://en.wikipedia.org/wiki/Continuous_integration">https://en.wikipedia.org/wiki/Continuous_integration</a></li>
+<li>百度百科：<a href="http://baike.baidu.com/view/5253255.htm">http://baike.baidu.com/view/5253255.htm</a></li>
+<li>网络文章：<a href="http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html">http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html</a></li>
+<li>网络文章：<a href="https://www.zhihu.com/question/23444990">https://www.zhihu.com/question/23444990</a></li>
+<li>提出者 <strong>Grady Booch</strong>：<a href="https://en.wikipedia.org/wiki/Grady_Booch">https://en.wikipedia.org/wiki/Grady_Booch</a></li>
+<li>相关书籍：<a href="https://book.douban.com/subject/2580604/">《持续集成:软件质量改进和风险降低之道》</a>,<a href="https://book.douban.com/subject/6862062/">《持续交付：发布可靠软件的系统方法》</a></li>
+</ul>
+<h1 id="持续集成工具有哪些"><a href="#持续集成工具有哪些" class="headerlink" title="持续集成工具有哪些"></a>持续集成工具有哪些</h1><ul>
+<li><strong>Jenkins</strong>:<a href="https://jenkins.io/">https://jenkins.io/</a></li>
+<li>Hudson:<a href="http://www.eclipse.org/hudson/">http://www.eclipse.org/hudson/</a></li>
+<li>Travis CI:<a href="https://travis-ci.org/">https://travis-ci.org</a></li>
+<li>Strider:<a href="https://github.com/Strider-CD/strider">https://github.com/Strider-CD/strider</a></li>
+<li>Codeship:<a href="https://codeship.com/">https://codeship.com/</a></li>
+<li>Bamboo:<a href="https://www.atlassian.com/software/bamboo">https://www.atlassian.com/software/bamboo</a></li>
+<li>TeamCity:<a href="https://www.jetbrains.com/teamcity/">https://www.jetbrains.com/teamcity/</a></li>
+<li>CruiseControl:<a href="http://cruisecontrol.sourceforge.net/">http://cruisecontrol.sourceforge.net/</a></li>
+<li><strong>其它工具</strong>：<a href="http://www.oschina.net/project/tag/344/ci">http://www.oschina.net/project/tag/344/ci</a></li>
+<li><strong>工具对比</strong>：<a href="http://cristal.iteye.com/blog/482658">http://cristal.iteye.com/blog/482658</a></li>
+</ul>
+<h1 id="所使用到的工具"><a href="#所使用到的工具" class="headerlink" title="所使用到的工具"></a>所使用到的工具</h1><p>本文主要演示在Windows环境下，以<code>Jenkins</code>来搭建Java开发持续集成环境，除<code>Jenkins</code>以外，用到的其它工具有以下：</p>
+<ul>
+<li>系统：Windows10</li>
+<li>tomcat:<a href="http://tomcat.apache.org/">http://tomcat.apache.org/</a></li>
+<li>Maven：<a href="http://maven.apache.org/">http://maven.apache.org/</a></li>
+<li>svn:<a href="http://subversion.apache.org/">http://subversion.apache.org/</a></li>
+<li>IntelliJ IDEA:<a href="https://www.jetbrains.com/idea/">https://www.jetbrains.com/idea/</a></li>
+</ul>
+<h1 id="Jenkins简单入门"><a href="#Jenkins简单入门" class="headerlink" title="Jenkins简单入门"></a>Jenkins简单入门</h1><p>官网有详细的文档：</p>
+<ul>
+<li>Jenkins简介：<a href="https://wiki.jenkins-ci.org/display/JENKINS/Meet+Jenkins">https://wiki.jenkins-ci.org/display/JENKINS/Meet+Jenkins</a></li>
+<li>Jenkins使用：<a href="https://wiki.jenkins-ci.org/display/JENKINS/Use+Jenkins">https://wiki.jenkins-ci.org/display/JENKINS/Use+Jenkins</a></li>
+</ul>
+<p>网络好文：</p>
+<ul>
+<li><a href="http://blog.csdn.net/leijiantian/article/details/7916483">http://blog.csdn.net/leijiantian/article/details/7916483</a></li>
+<li><a href="http://www.cnblogs.com/zz0412/p/jenkins02.html#_Jenkins%E6%8F%92%E4%BB%B6">http://www.cnblogs.com/zz0412/p/jenkins02.html#_Jenkins%E6%8F%92%E4%BB%B6</a></li>
+</ul>
+<h2 id="一-下载和运行"><a href="#一-下载和运行" class="headerlink" title="一. 下载和运行"></a>一. 下载和运行</h2><p>访问<a href="https://jenkins.io/">Jenkins</a>官网，下载对应系统的安装包，我用得是windows10,下载后为一个war包： <code>jenkins.war</code>,要启动Jenkins，主要有两种方式，一种是在cmd中运行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
+
+<p>另一种是用web服务器来启动,将<code>jenkins.war</code>包放于tomcat的webapps目录下,启动tomcat即可。</p>
+<p>我用tomcat来启动，启动成功后，打开浏览器访问<code>http://localhost:8080/jenkins</code>即可进入jenkins配置页面，如下图：<br><img src="/../images/jenkins-start-page.png" alt="Jenkins初始页"></p>
+<p>Jenkins启动成功后，在<code>C:\Users\username\</code>下会有一个<code>.jenkins</code>文件夹，用于存放Jenkins的任务，插件，配置等信息。</p>
+<h2 id="二-创建第一个任务"><a href="#二-创建第一个任务" class="headerlink" title="二. 创建第一个任务"></a>二. 创建第一个任务</h2><p>在Jenkins中创建第一个任务这前，先在IntelliJ IDEA中建一个Maven项目:<code>helloJenkins</code>，并将上传至svn中:<code> https://herohuang/svn/myProjects/helloJenkins/trunk</code>。<br><img src="/../images/helloJenkins-project.png" alt="helloJenkins项目"></p>
+<p>接着点击<code>创建一个新任务</code>，进入如下所示页面，<code>Item名称</code>随便取，这里我取为<code>helloJenkins</code>，下面选择第一个选项，构建一个自由风格的软件项目。<br><img src="/../images/create-a-item.png" alt="创建item"></p>
+<h2 id="三-进入配置界面"><a href="#三-进入配置界面" class="headerlink" title="三. 进入配置界面"></a>三. 进入配置界面</h2><p>进入当前项目配置的详细页面，假设现在要执行的构建动作是使得<code>helloJenkins</code>项目定时期自动打成war包，则需要在这个页面的以下几个地方作配置：</p>
+<h3 id="1-高级项目选项"><a href="#1-高级项目选项" class="headerlink" title="1. 高级项目选项"></a>1. 高级项目选项</h3><p>高级项目选项，选择<code>使用自定义的工作空间</code>，目录填写当前项目所在的本地目录，显示名称可以不填。<br><img src="/../images/helloJenkins_gaojixiangmuxuanxiang.png" alt="高级项目选项"> </p>
+<h3 id="2-源码管理"><a href="#2-源码管理" class="headerlink" title="2. 源码管理"></a>2. 源码管理</h3><p>我用的是svn，所以这里选择<code>Subversion</code>，<code>Repository URL</code>填写项目的svn地址，其它默认。<br><img src="/../images/helloJenkins_svn.png" alt="svn地址"></p>
+<h3 id="3-构建触发器"><a href="#3-构建触发器" class="headerlink" title="3. 构建触发器"></a>3. 构建触发器</h3><p>构建触发器有三种方式，我选择<code>Build periodically</code>表示定时地触发构建，<code>日程表</code>填写定时的规则，使用<code>crontab</code>表达式，为了方便测试，这里我填<code>* * * * *</code>，注意中间有空格，表示每隔一分种就构建一次。<br><img src="/../images/helloJenkins_biuld.png" alt="构建触发器"></p>
+<h3 id="4-构建"><a href="#4-构建" class="headerlink" title="4. 构建"></a>4. 构建</h3><p>构建的方式，因为我用得是<code>maven</code>，这里选择<code>Invoke top level Maven targets</code>,<code>Goals</code>填写maven命令：<code>clean package</code>打包项目。<br><img src="/../images/helloJenkins_maven.png" alt="构建"></p>
+<h3 id="5-查看构建结果"><a href="#5-查看构建结果" class="headerlink" title="5. 查看构建结果"></a>5. 查看构建结果</h3><p>根据上面设置的规则，每隔一分种就会自动构建一次，在左侧栏下的<code>Build History</code>面板可以看到构建历史，或则点击立即构建来查看结果。<br><img src="/../images/helloJenkins_buildhistory.png" alt="构建历史"></p>
+<p>点击某个构建版本，进入可查看详细的构建结果<br><img src="/../images/helloJenkins_consoleoutput.png" alt="控制台输出"><br>如果构建成功，则在项目目录下会发现多出一个target目录(编译目录设为此目录),其中会有maven<code>clean package</code>命令生成的war包。</p>
+<hr>
+<blockquote>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">本文标题:持续集成：Jenkins+maven+svn+IntelliJ IDEA</span><br><span class="line">文章作者:[Acheron](http://www.herohuang.com)</span><br><span class="line">发布时间:2016年04月10日 - 20时48分</span><br><span class="line">最后更新:2016年04月10日 - 20时52分 </span><br><span class="line">许可协议: &quot;署名-非商用-相同方式共享 3.0&quot; 转载请保留原文链接及作者。</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://jdonee.iteye.com/blog/515424">http://jdonee.iteye.com/blog/515424</a></p>
+<p>脚本配置：新建如下脚本：jenkins-doctor.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh </span><br><span class="line">APP_PARAMS=&quot;choice-doctor&quot;</span><br><span class="line">APP_PID=`ps aux | grep &quot;$APP_PARAMS&quot; | grep -v grep | awk &#x27;&#123; print $2&#125;&#x27;`</span><br><span class="line">for i in $APP_PID; do</span><br><span class="line">    echo &quot;Kill PID [ $APP_PID ] contains $APP_PARAMS&quot;</span><br><span class="line">    kill -9 $APP_PID</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">cd ~/.jenkins/workspace/choice-doctor/code/backend/java</span><br><span class="line">mvn package -Dmaven.test.skip=true</span><br><span class="line"></span><br><span class="line">nohup java -jar choice-doctor-provider/target/choice-doctor-provider-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line">sleep 1m</span><br><span class="line">nohup java -jar choice-doctor-consumer/target/choice-doctor-consumer-0.0.1-SNAPSHOT.jar &amp; </span><br></pre></td></tr></table></figure>
+<p>在jenkins时构建时Execute shell运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/ichoice/workspace/</span><br><span class="line">./jenkins-doctor.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果要以端口号的方式啥进程，脚本见jenkins-doctor-port.sh</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%EF%BC%9AJenkins-maven-svn-IntelliJ-IDEA/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

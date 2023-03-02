@@ -1,0 +1,209 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Goolge-Java-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-text">Goolge Java 编码规范</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-text">1 Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Terminology-notes"><span class="toc-text">1.1 Terminology notes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Guide-notes"><span class="toc-text">1.2 Guide notes</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Source-file-basics"><span class="toc-text">2 Source file basics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-File-name"><span class="toc-text">2.1 File name</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-File-encoding-UTF-8"><span class="toc-text">2.2 File encoding: UTF-8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Special-characters"><span class="toc-text">2.3 Special characters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-Whitespace-characters"><span class="toc-text">2.3.1 Whitespace characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-Special-escape-sequences"><span class="toc-text">2.3.2 Special escape sequences</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-Non-ASCII-characters"><span class="toc-text">2.3.3 Non-ASCII characters</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Source-file-structure"><span class="toc-text">3 Source file structure</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-License-or-copyright-information-if-present"><span class="toc-text">3.1 License or copyright information, if present</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Package-statement"><span class="toc-text">3.2 Package statement</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-Import-statements"><span class="toc-text">3.3 Import statements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-No-wildcard-imports"><span class="toc-text">3.3.1 No wildcard imports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-No-line-wrapping"><span class="toc-text">3.3.2 No line-wrapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-Ordering-and-spacing"><span class="toc-text">3.3.3 Ordering and spacing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-Class-declaration"><span class="toc-text">3.4 Class declaration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-Exactly-one-top-level-class-declaration"><span class="toc-text">3.4.1 Exactly one top-level class declaration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-Class-member-ordering"><span class="toc-text">3.4.2 Class member ordering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-1-Overloads-never-split"><span class="toc-text">3.4.2.1 Overloads: never split</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Formatting"><span class="toc-text">4 Formatting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Braces"><span class="toc-text">4.1 Braces</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-Braces-are-used-where-optional"><span class="toc-text">4.1.1 Braces are used where optional</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-Nonempty-blocks-K-amp-R-style"><span class="toc-text">4.1.2 Nonempty blocks: K &amp; R style</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-Empty-blocks-may-be-concise"><span class="toc-text">4.1.3 Empty blocks: may be concise</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Block-indentation-2-spaces"><span class="toc-text">4.2 Block indentation: +2 spaces</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-One-statement-per-line"><span class="toc-text">4.3 One statement per line</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-Column-limit-80-or-100"><span class="toc-text">4.4 Column limit: 80 or 100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-Line-wrapping"><span class="toc-text">4.5 Line-wrapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-1-Where-to-break"><span class="toc-text">4.5.1 Where to break</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-2-Indent-continuation-lines-at-least-4-spaces"><span class="toc-text">4.5.2 Indent continuation lines at least +4 spaces</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-Whitespace"><span class="toc-text">4.6 Whitespace</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-1-Vertical-Whitespace"><span class="toc-text">4.6.1 Vertical Whitespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-2-Horizontal-whitespace"><span class="toc-text">4.6.2 Horizontal whitespace</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="Goolge-Java-编码规范"><a href="#Goolge-Java-编码规范" class="headerlink" title="Goolge Java 编码规范"></a>Goolge Java 编码规范</h1><p>标签（空格分隔）： java</p>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>代码是写给人看的,不是写给机器看的</li>
+<li>程序员的编程水平＝编程规范＋编程效率</li>
+<li>一个软件的生命周期，80%的花费用于维护</li>
+<li>几乎没有任何一个软件，在其整个生命周期中，均由最初的作者来维护</li>
+<li>程序首先正确,其次优美</li>
+<li>与其各种花拳秀腿,不如练好基本功</li>
+</ul>
+<p>[TOC]</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>This document serves as the complete definition of Google’s coding standards for source code in the Java™ Programming Language. A Java source file is described as being in Google Style if and only if it adheres to the rules herein.</p>
+<p>Like other programming style guides, the issues covered span not only aesthetic issues of formatting, but other types of conventions or coding standards as well. However, this document focuses primarily on the hard-and-fast rules that we follow universally, and avoids giving advice that isn’t clearly enforceable (whether by human or tool).</p>
+<h2 id="1-1-Terminology-notes"><a href="#1-1-Terminology-notes" class="headerlink" title="1.1 Terminology notes"></a>1.1 Terminology notes</h2><p>In this document, unless otherwise clarified:</p>
+<ol>
+<li>The term <code>class</code> is used inclusively to mean an “ordinary” class, enum class, interface or annotation type (<code>@interface</code>).</li>
+<li>The term <code>comment</code> always refers to implementation comments. We do not use the phrase “documentation comments”, instead using the common term “Javadoc.”</li>
+</ol>
+<p>Other “terminology notes” will appear occasionally throughout the document.</p>
+<h2 id="1-2-Guide-notes"><a href="#1-2-Guide-notes" class="headerlink" title="1.2 Guide notes"></a>1.2 Guide notes</h2><p>Example code in this document is non-normative. That is, while the examples are in Google Style, they may not illustrate the only stylish way to represent the code. Optional formatting choices made in examples should not be enforced as rules.</p>
+<h1 id="2-Source-file-basics"><a href="#2-Source-file-basics" class="headerlink" title="2 Source file basics"></a>2 Source file basics</h1><h2 id="2-1-File-name"><a href="#2-1-File-name" class="headerlink" title="2.1 File name"></a>2.1 File name</h2><p>The source file name consists of the case-sensitive name of the top-level class it contains, plus the <code>.java</code> extension.</p>
+<h2 id="2-2-File-encoding-UTF-8"><a href="#2-2-File-encoding-UTF-8" class="headerlink" title="2.2 File encoding: UTF-8"></a>2.2 File encoding: UTF-8</h2><p>Source files are encoded in <code>UTF-8</code>.</p>
+<h2 id="2-3-Special-characters"><a href="#2-3-Special-characters" class="headerlink" title="2.3 Special characters"></a>2.3 Special characters</h2><h3 id="2-3-1-Whitespace-characters"><a href="#2-3-1-Whitespace-characters" class="headerlink" title="2.3.1 Whitespace characters"></a>2.3.1 Whitespace characters</h3><p>Aside from the line terminator sequence, the <code>ASCII</code> horizontal space character (0x20) is the only whitespace character that appears anywhere in a source file. This implies that:</p>
+<ol>
+<li>All other whitespace characters in string and character literals are escaped.</li>
+<li>Tab characters are not used for indentation.</li>
+</ol>
+<h3 id="2-3-2-Special-escape-sequences"><a href="#2-3-2-Special-escape-sequences" class="headerlink" title="2.3.2 Special escape sequences"></a>2.3.2 Special escape sequences</h3><p>For any character that has a special escape sequence (\b, \t, \n, \f, \r, &quot;, &#39; and \), that sequence is used rather than the corresponding octal (e.g. <code>\012</code>) or Unicode (e.g. <code>\u000a</code>) escape.</p>
+<h3 id="2-3-3-Non-ASCII-characters"><a href="#2-3-3-Non-ASCII-characters" class="headerlink" title="2.3.3 Non-ASCII characters"></a>2.3.3 Non-ASCII characters</h3><p>For the remaining <code>non-ASCII</code> characters, either the actual Unicode character (e.g. <code>∞</code>) or the equivalent Unicode escape (e.g. <code>\u221e</code>) is used, depending only on which makes the code easier to read and understand.</p>
+<p>Tip: In the Unicode escape case, and occasionally even when actual Unicode characters are used, an explanatory comment can be very helpful.</p>
+<p>Examples:</p>
+<p>Example	Discussion</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//Best: perfectly clear even without a comment. </span><br><span class="line">String unitAbbrev = &quot;μs&quot;;	</span><br><span class="line"></span><br><span class="line">//&quot;μs&quot;	Allowed, but there&#x27;s no reason to do this.</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;; </span><br><span class="line"></span><br><span class="line">//Greek letter mu, &quot;s&quot;	Allowed, but awkward and prone to mistakes.</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;; </span><br><span class="line"></span><br><span class="line">//Poor: the reader has no idea what this is.</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;;	</span><br><span class="line"></span><br><span class="line">//byte order mark	Good: use escapes for non-printable characters, //and comment if necessary.</span><br><span class="line">return &#x27;\ufeff&#x27; + content; </span><br></pre></td></tr></table></figure>
+
+<p>Tip: Never make your code less readable simply out of fear that some programs might not handle non-ASCII characters properly. If that should happen, those programs are broken and they must be fixed.</p>
+<h1 id="3-Source-file-structure"><a href="#3-Source-file-structure" class="headerlink" title="3 Source file structure"></a>3 Source file structure</h1><p>A source file consists of, in order:</p>
+<blockquote>
+</blockquote>
+<ol>
+<li>License or copyright information, if present</li>
+<li>Package statement</li>
+<li>Import statements</li>
+<li>Exactly one top-level class</li>
+</ol>
+<p>Exactly one blank line separates each section that is present.</p>
+<h2 id="3-1-License-or-copyright-information-if-present"><a href="#3-1-License-or-copyright-information-if-present" class="headerlink" title="3.1 License or copyright information, if present"></a>3.1 License or copyright information, if present</h2><p>If license or copyright information belongs in a file, it belongs here.</p>
+<h2 id="3-2-Package-statement"><a href="#3-2-Package-statement" class="headerlink" title="3.2 Package statement"></a>3.2 Package statement</h2><p>The package statement is not line-wrapped. The column limit (Section 4.4, Column limit: 80 or 100) does not apply to package statements.</p>
+<h2 id="3-3-Import-statements"><a href="#3-3-Import-statements" class="headerlink" title="3.3 Import statements"></a>3.3 Import statements</h2><h3 id="3-3-1-No-wildcard-imports"><a href="#3-3-1-No-wildcard-imports" class="headerlink" title="3.3.1 No wildcard imports"></a>3.3.1 No wildcard imports</h3><p>Wildcard imports, static or otherwise, are not used.</p>
+<h3 id="3-3-2-No-line-wrapping"><a href="#3-3-2-No-line-wrapping" class="headerlink" title="3.3.2 No line-wrapping"></a>3.3.2 No line-wrapping</h3><p>Import statements are not line-wrapped. The column limit (Section 4.4, Column limit: 80 or 100) does not apply to import statements.</p>
+<h3 id="3-3-3-Ordering-and-spacing"><a href="#3-3-3-Ordering-and-spacing" class="headerlink" title="3.3.3 Ordering and spacing"></a>3.3.3 Ordering and spacing</h3><p>Import statements are divided into the following groups, in this order, with each group separated by a single blank line:</p>
+<ol>
+<li>All static imports in a single group</li>
+<li><code>com.google</code> imports (only if this source file is in the <code>com.google</code> package space)</li>
+<li>Third-party imports, one group per top-level package, in ASCII sort order<blockquote>
+<p>for example: android, com, junit, org, sun</p>
+</blockquote>
+</li>
+<li>java imports</li>
+<li>javax imports</li>
+</ol>
+<p>Within a group there are no blank lines, and the imported names appear in ASCII sort order. (Note: this is not the same as the import statements being in ASCII sort order; the presence of semicolons warps the result.)</p>
+<h2 id="3-4-Class-declaration"><a href="#3-4-Class-declaration" class="headerlink" title="3.4 Class declaration"></a>3.4 Class declaration</h2><h3 id="3-4-1-Exactly-one-top-level-class-declaration"><a href="#3-4-1-Exactly-one-top-level-class-declaration" class="headerlink" title="3.4.1 Exactly one top-level class declaration"></a>3.4.1 Exactly one top-level class declaration</h3><p>Each top-level class resides in a source file of its own.</p>
+<h3 id="3-4-2-Class-member-ordering"><a href="#3-4-2-Class-member-ordering" class="headerlink" title="3.4.2 Class member ordering"></a>3.4.2 Class member ordering</h3><p>The ordering of the members of a class can have a great effect on learnability, but there is no single correct recipe for how to do it. Different classes may order their members differently.</p>
+<p>What is important is that each class order its members in some logical order, which its maintainer could explain if asked. For example, new methods are not just habitually added to the end of the class, as that would yield “chronological by date added” ordering, which is not a logical ordering.</p>
+<h4 id="3-4-2-1-Overloads-never-split"><a href="#3-4-2-1-Overloads-never-split" class="headerlink" title="3.4.2.1 Overloads: never split"></a>3.4.2.1 Overloads: never split</h4><p>When a class has multiple constructors, or multiple methods with the same name, these appear sequentially, with no intervening members.</p>
+<h1 id="4-Formatting"><a href="#4-Formatting" class="headerlink" title="4 Formatting"></a>4 Formatting</h1><p>Terminology Note: <code>block-like</code> construct refers to the body of a class, method or constructor. Note that, by Section 4.8.3.1 on array initializers, any array initializer may optionally be treated as if it were a block-like construct.</p>
+<h2 id="4-1-Braces"><a href="#4-1-Braces" class="headerlink" title="4.1 Braces"></a>4.1 Braces</h2><h3 id="4-1-1-Braces-are-used-where-optional"><a href="#4-1-1-Braces-are-used-where-optional" class="headerlink" title="4.1.1 Braces are used where optional"></a>4.1.1 Braces are used where optional</h3><p>Braces are used with <code>if, else, for, do and while</code> statements, even when the body is empty or contains only a single statement.</p>
+<h3 id="4-1-2-Nonempty-blocks-K-amp-R-style"><a href="#4-1-2-Nonempty-blocks-K-amp-R-style" class="headerlink" title="4.1.2 Nonempty blocks: K &amp; R style"></a>4.1.2 Nonempty blocks: K &amp; R style</h3><p>Braces follow the Kernighan and Ritchie style (<code>&quot;Egyptian brackets&quot;</code>) for nonempty blocks and block-like constructs:</p>
+<ul>
+<li>No line break before the opening brace.</li>
+<li>Line break after the opening brace.</li>
+<li>Line break before the closing brace.</li>
+<li>Line break after the closing brace if that brace terminates a statement or the body of a method, constructor or named class. For example, there is no line break after the brace if it is followed by else or a comma.<br>Example:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">return new MyClass() &#123;</span><br><span class="line">  @Override public void method() &#123;</span><br><span class="line">    if (condition()) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        something();</span><br><span class="line">      &#125; catch (ProblemException e) &#123;</span><br><span class="line">        recover();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+A few exceptions for enum classes are given in Section 4.8.1, Enum classes.</li>
+</ul>
+<h3 id="4-1-3-Empty-blocks-may-be-concise"><a href="#4-1-3-Empty-blocks-may-be-concise" class="headerlink" title="4.1.3 Empty blocks: may be concise"></a>4.1.3 Empty blocks: may be concise</h3><p>An empty block or block-like construct may be closed immediately after it is opened, with no characters or line break in between ({}), unless it is part of a multi-block statement (one that directly contains multiple blocks: if&#x2F;else-if&#x2F;else or try&#x2F;catch&#x2F;finally).</p>
+<p>Example:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void doNothing() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-Block-indentation-2-spaces"><a href="#4-2-Block-indentation-2-spaces" class="headerlink" title="4.2 Block indentation: +2 spaces"></a>4.2 Block indentation: +2 spaces</h2><p>Each time a new block or block-like construct is opened, the indent increases by two spaces. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block. (See the example in Section 4.1.2, Nonempty blocks: K &amp; R Style.)</p>
+<h2 id="4-3-One-statement-per-line"><a href="#4-3-One-statement-per-line" class="headerlink" title="4.3 One statement per line"></a>4.3 One statement per line</h2><p>Each statement is followed by a line-break.</p>
+<h2 id="4-4-Column-limit-80-or-100"><a href="#4-4-Column-limit-80-or-100" class="headerlink" title="4.4 Column limit: 80 or 100"></a>4.4 Column limit: 80 or 100</h2><p>Projects are free to choose a column limit of either 80 or 100 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in Section 4.5, Line-wrapping.</p>
+<p>Exceptions:</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Lines where obeying the column limit is not possible (for example, a long <code>URL</code> in <code>Javadoc</code>, or a long <code>JSNI</code> method reference).</li>
+<li>package and import statements (see Sections 3.2 Package statement and 3.3 Import statements).</li>
+<li>Command lines in a comment that may be cut-and-pasted into a shell.</li>
+</ul>
+<h2 id="4-5-Line-wrapping"><a href="#4-5-Line-wrapping" class="headerlink" title="4.5 Line-wrapping"></a>4.5 Line-wrapping</h2><p>Terminology Note: When code that might otherwise legally occupy a single line is divided into multiple lines, typically to avoid overflowing the column limit, this activity is called <code>line-wrapping</code>.</p>
+<p>There is no comprehensive, deterministic formula showing exactly how to line-wrap in every situation. Very often there are several valid ways to line-wrap the same piece of code.</p>
+<p>Tip: Extracting a method or local variable may solve the problem without the need to line-wrap.</p>
+<h3 id="4-5-1-Where-to-break"><a href="#4-5-1-Where-to-break" class="headerlink" title="4.5.1 Where to break"></a>4.5.1 Where to break</h3><p>The prime directive of line-wrapping is: prefer to break at a higher syntactic level. Also:</p>
+<ul>
+<li><p>When a line is broken at a non-assignment operator the break comes before the symbol. (Note that this is not the same practice used in Google style for other languages, such as C++ and JavaScript.)<br>This also applies to the following “operator-like” symbols: the dot separator (.), the ampersand in type bounds (&lt;T extends Foo &amp; Bar&gt;), and the pipe in catch blocks (catch (FooException | BarException e)).</p>
+</li>
+<li><p>When a line is broken at an assignment operator the break typically comes after the symbol, but either way is acceptable.<br>This also applies to the “assignment-operator-like” colon in an enhanced for (“foreach”) statement.</p>
+</li>
+<li><p>A method or constructor name stays attached to the open parenthesis (() that follows it.</p>
+</li>
+<li><p>A comma (,) stays attached to the token that precedes it.</p>
+</li>
+</ul>
+<h3 id="4-5-2-Indent-continuation-lines-at-least-4-spaces"><a href="#4-5-2-Indent-continuation-lines-at-least-4-spaces" class="headerlink" title="4.5.2 Indent continuation lines at least +4 spaces"></a>4.5.2 Indent continuation lines at least +4 spaces</h3><p>When line-wrapping, each line after the first (each continuation line) is indented at least <code>+4</code> from the original line.</p>
+<p>When there are multiple continuation lines, indentation may be varied beyond +4 as desired. In general, two continuation lines use the same indentation level if and only if they begin with syntactically parallel elements.</p>
+<p>Section 4.6.3 on Horizontal alignment addresses the discouraged practice of using a variable number of spaces to align certain tokens with previous lines.</p>
+<h2 id="4-6-Whitespace"><a href="#4-6-Whitespace" class="headerlink" title="4.6 Whitespace"></a>4.6 Whitespace</h2><h3 id="4-6-1-Vertical-Whitespace"><a href="#4-6-1-Vertical-Whitespace" class="headerlink" title="4.6.1 Vertical Whitespace"></a>4.6.1 Vertical Whitespace</h3><p>A single blank line appears:</p>
+<ul>
+<li><p>Between consecutive members (or initializers) of a class: fields, constructors, methods, nested classes, static initializers, instance initializers.</p>
+<blockquote>
+<p>Exception: A blank line between two consecutive fields (having no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.</p>
+</blockquote>
+</li>
+<li><p>Within method bodies, as needed to create logical groupings of statements.</p>
+</li>
+<li><p>Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).</p>
+</li>
+<li><p>As required by other sections of this document (such as Section - 3.3, Import statements).</p>
+</li>
+</ul>
+<p>Multiple consecutive blank lines are permitted, but never required (or encouraged).</p>
+<h3 id="4-6-2-Horizontal-whitespace"><a href="#4-6-2-Horizontal-whitespace" class="headerlink" title="4.6.2 Horizontal whitespace"></a>4.6.2 Horizontal whitespace</h3><p>Beyond where required by the language or other style rules, and apart from literals, comments and Javadoc, a single ASCII space also appears in the following places only.</p>
+<ul>
+<li>Separating any reserved word, such as if, for or catch, from an open parenthesis (() that follows it on that line</li>
+<li>Separating any reserved word, such as else or catch, from a closing curly brace (}) that precedes it on that line</li>
+<li>Before any open curly brace ({), with two exceptions:</li>
+</ul>
+<ol>
+<li>@SomeAnnotation({a, b}) (no space is used)</li>
+<li>String[][] x &#x3D; foo; (no space is required between</li>
+</ol>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/Goolge%20Java%20%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

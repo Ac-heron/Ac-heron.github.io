@@ -1,0 +1,91 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PageHelper%E8%87%AA%E5%8A%A8%E5%A2%9E%E5%8A%A0limit%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98"><span class="toc-text">PageHelper自动增加limit分页问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E6%9F%A5"><span class="toc-text">排查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%8E%B0"><span class="toc-text">重现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol></li></ol> -->
+<h1 id="PageHelper自动增加limit分页问题"><a href="#PageHelper自动增加limit分页问题" class="headerlink" title="PageHelper自动增加limit分页问题"></a>PageHelper自动增加limit分页问题</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用<code>PageHelperi</code>分页,报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: com.alibaba.druid.sql.parser.ParserException: syntax error, error in :&#x27;limi1 1 limit ?,?&#x27;,expect LIMIT, actual LIMIT limit</span><br></pre></td></tr></table></figure>
+
+<p>原始查询sql(<code>select * from t limit 1</code>)后面有limit1，结果报错显示自动添加上上limit ?,?:</p>
+<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>见PageHelper 安全调用:<br><a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/blob/master/wikis/zh/HowToUse.md#3-pagehelper-%E5%AE%89%E5%85%A8%E8%B0%83%E7%94%A8">https://github.com/pagehelper/Mybatis-PageHelper/blob/master/blob/master/wikis/zh/HowToUse.md#3-pagehelper-安全调用</a></p>
+<p>PageHelper 方法使用了静态的 ThreadLocal 参数，分页参数和线程是绑定的。</p>
+<p>只要你可以保证在 PageHelper 方法调用后紧跟 MyBatis 查询方法，这就是安全的。因为 PageHelper 在 finally 代码段中自动清除了 ThreadLocal 存储的对象。</p>
+<p>线程中start的page 不能保证线程在当前执行退出时清理完page变量</p>
+<h2 id="重现"><a href="#重现" class="headerlink" title="重现"></a>重现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">XXXServiceImpl &#123;</span><br><span class="line">	XX method(Object xx, int pageNum, int pageSize) &#123;</span><br><span class="line">		PageHelper.start(pageNum,pageSize);</span><br><span class="line">		if(xx!=null)&#123;</span><br><span class="line">	   		return XX;</span><br><span class="line">		&#125;</span><br><span class="line">    xxxMapper.find();</span><br><span class="line">    ....</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在执行PageHelper.start(pageNum,pageSize);方法后，参数page变量，如xx!&#x3D;null,直接返回XX,则page没有被消费，这个参数就会一直保留在这个线程上。当这个线程再次被使用时，如果接下来执行其它sql，就可能导致不该分页的方法去消费这个分页参数，这就产生了莫名其妙的分页。</p>
+<p>如果PageHelper.start(pageNum,pageSize);之后的方法加了缓存，也会有这个问题。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>1.使用参数方式是极其安全的<br>2.保证在 PageHelper 方法调用后紧跟 MyBatis 查询方法,必须保证分页和查询同时有效。<br>3.调PageHelper.clearPage(); 可以手动清理 ThreadLocal 存储的分页参，这个是新版本里的方法<br>  其中5.0之后版本注意：<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 配置文件中PageHelper变为了PageInterceptor   </span><br><span class="line">&lt;plugin interceptor=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;</span><br><span class="line">2. 不需要&lt;property name=&quot;dialect&quot; value=&quot;mysql&quot;/&gt;,自动识别数据库</span><br></pre></td></tr></table></figure></p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/PageHelper%E8%87%AA%E5%8A%A8%E5%A2%9E%E5%8A%A0limit%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

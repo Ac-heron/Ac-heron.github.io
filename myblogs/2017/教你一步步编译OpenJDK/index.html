@@ -1,0 +1,119 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2017年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%99%E4%BD%A0%E4%B8%80%E6%AD%A5%E6%AD%A5%E7%BC%96%E8%AF%91OpenJDK"><span class="toc-text">教你一步步编译OpenJDK</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDOpenJDK%E6%BA%90%E7%A0%81"><span class="toc-text">下载OpenJDK源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol> -->
+<h1 id="教你一步步编译OpenJDK"><a href="#教你一步步编译OpenJDK" class="headerlink" title="教你一步步编译OpenJDK"></a>教你一步步编译OpenJDK</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="下载OpenJDK源码"><a href="#下载OpenJDK源码" class="headerlink" title="下载OpenJDK源码"></a>下载OpenJDK源码</h2><ul>
+<li><p>方法一：获取仓库中的源码<br>Mercurial:<a href="https://www.mercurial-scm.org/">https://www.mercurial-scm.org/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hg clone http://hg.openjdk.java.net/jdk8u/jdk8u-dev</span><br><span class="line">cd jdk8u-dev</span><br><span class="line">chmod 755 get_source.sh</span><br><span class="line">./get_source.sh </span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>方法二：直接下载打包好的<br>下载：<br><a href="http://jdk.java.net/java-se-ri/8">http://jdk.java.net/java-se-ri/8</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RI Source Code</span><br><span class="line">The source code of the RI binaries is available under the GPLv2 in a single [zip](http://download.java.net/openjdk/jdk9/ri/openjdk-9_src.zip) file (md5) 121 MB.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压： <code>unzip openjdk-8u40-src-b25-10_feb_2015.zip</code><br>解压后400多兆</p>
+</li>
+</ul>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>在编译之前，先执行一下如下命令，检测一下你的各种配置是否正确：<br>bash .&#x2F;configure</p>
+<p>第一个坑：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: GCC compiler is required. Try setting --with-tools-dir.</span><br></pre></td></tr></table></figure>
+
+<p>第二个坑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: Could not find freetype!</span><br></pre></td></tr></table></figure>
+<p>brew install freetype<br>brew unlink freetype</p>
+<p>生成：&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;freetype&#x2F;2.8.1</p>
+<p>运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash ./configure --with-freetype=/usr/local/Cellar/freetype/2.8.1 --enable-debug --with-target-bits=64 --disable-warnings-as-errors</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>终于成功</p>
+<p>jdk9:<br>make</p>
+<ul>
+<li><ol>
+<li><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/acheron/Work/software/openjdk/make/Init.gmk:226: *** Cannot continue.  Stop.</span><br></pre></td></tr></table></figure>
+我直接将226行注释了。。。。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jdk9/hotspot/src/share/vm/utilities/hashtable.hpp:336:50: error: instantiation of variable &#x27;RehashableHashtable&lt;oopDesc *, MemoryType::mtSymbol&gt;::_seed&#x27; required here, but no definition is available [-Werror,-Wundefined-var-template]</span><br><span class="line">  static bool use_alternate_hashcode()  &#123; return _seed != 0; &#125;</span><br><span class="line">   ... (rest of output omitted)</span><br></pre></td></tr></table></figure>
+提示&#96;_seed’没有定义，打开hashtable.hpp,我把第352行定义的_seed,移到了336等上面<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private:static junit _seed;</span><br><span class="line">static bool use_alternate_hashcode() (return _seed != 0 ;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="3">
+<li><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hotspot/src/share/vm/memory/binaryTreeDictionary.hpp:167:12: error: instantiation of variable &#x27;TreeChunk&lt;FreeChunk, AdaptiveFreeList&lt;FreeChunk&gt; &gt;::_min_tree_chunk_size&#x27; required here, but no definition is available [-Werror,-Wundefined-var-template]</span><br></pre></td></tr></table></figure>
+我将148行的定义移到167行上面</li>
+</ol>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://yoncise.com/2017/05/21/Mac-%E7%BC%96%E8%AF%91-OpenJDK-7/">http://yoncise.com/2017/05/21/Mac-%E7%BC%96%E8%AF%91-OpenJDK-7/</a><br><a href="http://blog.csdn.net/luonanqin/article/details/41449887">http://blog.csdn.net/luonanqin/article/details/41449887</a><br><a href="https://github.com/hgomez/obuildfactory/wiki">https://github.com/hgomez/obuildfactory/wiki</a><br><a href="http://gvsmirnov.ru/blog/tech/2014/02/07/building-openjdk-8-on-osx-maverick.html">http://gvsmirnov.ru/blog/tech/2014/02/07/building-openjdk-8-on-osx-maverick.html</a><br><a href="http://www.jianshu.com/p/26bd050610a4">http://www.jianshu.com/p/26bd050610a4</a></p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2017/%E6%95%99%E4%BD%A0%E4%B8%80%E6%AD%A5%E6%AD%A5%E7%BC%96%E8%AF%91OpenJDK/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

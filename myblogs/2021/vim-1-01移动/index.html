@@ -1,0 +1,124 @@
+<html>
+<head>
+	
+	<title>vim命令</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">vim命令</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2021年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!--  -->
+<p>移动</p>
+<p>移动到下一个词首<br> w<br> 3w</p>
+<p>移动到上一个词首<br> b</p>
+<p>移动到下一个词尾<br> e</p>
+<p>移动到上一个词尾<br> ge</p>
+<p>用空白字符分隔的 “字串” 移动<br>大写的移动命令：W<br>如这段文字观察用w和W移动的区别：<br>This is-a line, with special&#x2F;separated&#x2F;words (and some more) </p>
+<p>把光标移动到当前行行尾<br> $</p>
+<p>加计数前缀-移动到下一行的行尾<br> 2$</p>
+<p>把光标移动到当前行行收第一个非空字符<br> ^</p>
+<p>把光标移动到当前行行收第一个字符<br> 0</p>
+<p>向右移动到一个指定的字符 f<br> f+字符<br> 如 fx 向前查找本行中的字符 x<br> tx 命令与 fx 相似，但它只把光标移动到目标字符的前一个字符上<br> tx反向命令 Tx<br> 重复查找移动命令 ;</p>
+<p>向左移动到一个指定的字符 F<br> Fx</p>
+<p>括号匹配<br> %<br> 如果光标在 “(“ 上，它移动到对应的 “)” 上,也可适用于 [] 和 {}<br> 当光标不在一个有用的字符上，会先正向查找找到一个,再匹配。</p>
+<p>移动到33行<br>33G</p>
+<p>移动到文件末<br>G</p>
+<p>移动到文件首<br>gg</p>
+<p>移动到文件百分比位置<br> 移动到文件中间 50%<br> 移动到文件”90%”的文职 90%</p>
+<p>移动到视野内的位置<br>  “H” 表示 High (高)，”M” 表示 Middle (中) 而 “L” 表示 Low (低)。</p>
+<p>确定当前位置</p>
+<ol>
+<li>使用 CTRL-G 命令<br>  2.给每行加上行号 :set number<br>  3.关闭行号 :set nonumber<br>  4.在窗口的右下角显示当前光标的位置 :set ruler</li>
+</ol>
+<p>向下滚动半屏<br> CTRL-U</p>
+<p>向上滚动半屏<br> CTRL-D</p>
+<p>每次滚一行<br> CTRL-E (上滚)<br> CTRL-Y (下滚)</p>
+<p>滚动一整屏<br> CTRL-F (向下)<br> CTRL-B (向上)</p>
+<p>光标所在行移动到屏幕的中间<br> zz</p>
+<p>光标所在行移动到屏幕的顶部<br> zt</p>
+<p>光标所在行移动到屏幕的底部<br> zb</p>
+<p>查找<br>  &#x2F;word</p>
+<p>查找中有特殊字符<br>  需要在前面加上一个 “&quot;</p>
+<p>反向查找<br>  ?word</p>
+<p>查找后重复前一次查找<br> n</p>
+<p>查找后在反方向重复前一次查找<br> N</p>
+<p>开启忽略大小写查找<br> :set ignorecase</p>
+<p>关闭忽略大小写查找<br> :set noignorecase</p>
+<p>显示查找历史记录<br>  &#x2F;<Up> (上箭头)<br>  “&#x2F;o<Up>“ 显示o开头的查找历史</p>
+<p>找到下一个相同的单词<br>  把光标移到那个单词下面使用 “*” 命令</p>
+<p>找到上一个相同的单词<br>  把光标移到那个单词下面使用 “#” 命令</p>
+<p>匹配单词的开头查找<br>  &#x2F;&lt;the</p>
+<p>匹配单词的末尾查找<br>  &#x2F;the&gt;</p>
+<p>查找vim的启动配置文件在哪里<br>  :scriptnames</p>
+<p>使用标记-来回跳<br>  单引号 ‘’<br>  跳到一个较老的地方 CTRL-O<br>  跳到一个较新的地方 CTRL-I</p>
+<p>输出一个你可以跳往的位置的列表<br>  :jumps</p>
+<p>显示所有自定义标记<br>  :marks</p>
+<p>在当前位置加上一个自定义标记<br>  ma 表示用a标记当前位置<br>  ‘a 表示移动到a标记位置</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2021/vim-1-01%E7%A7%BB%E5%8A%A8/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

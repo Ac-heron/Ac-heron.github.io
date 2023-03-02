@@ -1,0 +1,171 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2017年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0Apollo%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97"><span class="toc-text">配置管理平台Apollo搭建指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-text">一、环境要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4"><span class="toc-text">二、部署步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%9F%E6%88%90%E8%84%9A%E6%9C%AC"><span class="toc-text">2.1 导入数据库生成脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Apollo%E8%87%AA%E8%BA%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE"><span class="toc-text">2.2 Apollo自身的一些配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E9%85%8D%E7%BD%AEApolloPortalDB-ServerConfig"><span class="toc-text">2.2.1 配置ApolloPortalDB.ServerConfig</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF"><span class="toc-text">2.3 配置数据库连接信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%85%8D%E7%BD%AE%E5%90%84%E7%8E%AF%E5%A2%83meta-service%E5%9C%B0%E5%9D%80"><span class="toc-text">2.4 配置各环境meta service地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91%E3%80%81%E6%89%93%E5%8C%85"><span class="toc-text">2.5 执行编译、打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8C"><span class="toc-text">2.6 部署运行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-%E9%83%A8%E7%BD%B2apollo-configservice"><span class="toc-text">2.6.1 部署apollo-configservice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-2-%E9%83%A8%E7%BD%B2apollo-adminservice"><span class="toc-text">2.6.2 部署apollo-adminservice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-3-%E9%83%A8%E7%BD%B2apollo-portal"><span class="toc-text">2.6.3 部署apollo-portal</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Java%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8"><span class="toc-text">三、Java客户端使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%85%8D%E7%BD%AEAppid"><span class="toc-text">3.1 配置Appid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%85%8D%E7%BD%AEEnvironment"><span class="toc-text">3.2 配置Environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E8%B7%AF%E5%BE%84"><span class="toc-text">3.3 配置本地缓存路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%9C%B0%E5%9D%80"><span class="toc-text">3.4 配置日志地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Maven-Dependency"><span class="toc-text">3.5 Maven Dependency</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E4%BD%BF%E7%94%A8"><span class="toc-text">3.6 使用</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="配置管理平台Apollo搭建指南"><a href="#配置管理平台Apollo搭建指南" class="headerlink" title="配置管理平台Apollo搭建指南"></a>配置管理平台Apollo搭建指南</h1><p>Acheron注：</p>
+<p>Apollo 的官方文档写得非常友好全面，官方地址：<a href="https://github.com/ctripcorp/apollo/wiki">https://github.com/ctripcorp/apollo/wiki</a></p>
+<p>这里只是记录一下我在服务器上搭建的过程。</p>
+<h2 id="一、环境要求"><a href="#一、环境要求" class="headerlink" title="一、环境要求"></a>一、环境要求</h2><ul>
+<li>Java： 1.8+<ul>
+<li>检查：<code>java -version</code></li>
+</ul>
+</li>
+<li>MySql：5.6.5+<ul>
+<li>检查：<code>SHOW VARIABLES WHERE Variable_name = &#39;version&#39;;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="二、部署步骤"><a href="#二、部署步骤" class="headerlink" title="二、部署步骤"></a>二、部署步骤</h2><h3 id="2-1-导入数据库生成脚本"><a href="#2-1-导入数据库生成脚本" class="headerlink" title="2.1 导入数据库生成脚本"></a>2.1 导入数据库生成脚本</h3><p>官方提供的数据库脚本有两个，在<code>scripts/sql</code>下，<code>apolloportaldb.sql</code>和<code>apolloconfigdb.sql</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 创建：ApolloPortalDB</span><br><span class="line">source /your_local_path/sql/apolloportaldb.sql</span><br><span class="line">// 创建：ApolloConfigDB</span><br><span class="line">source /your_local_path/sql/apolloconfigdb.sql</span><br><span class="line">// 检查是否导入成功：</span><br><span class="line">select `Id`, `Key`, `Value`, `Comment` from `ApolloPortalDB`.`ServerConfig` limit 1;</span><br><span class="line">select `Id`, `Key`, `Value`, `Comment` from `ApolloConfigDB`.`ServerConfig` limit 1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-Apollo自身的一些配置"><a href="#2-2-Apollo自身的一些配置" class="headerlink" title="2.2 Apollo自身的一些配置"></a>2.2 Apollo自身的一些配置</h3><h4 id="2-2-1-配置ApolloPortalDB-ServerConfig"><a href="#2-2-1-配置ApolloPortalDB-ServerConfig" class="headerlink" title="2.2.1 配置ApolloPortalDB.ServerConfig"></a>2.2.1 配置ApolloPortalDB.ServerConfig</h4><ul>
+<li>1.apollo.portal.envs - 可支持的环境列表:</li>
+</ul>
+<p>默认值是dev，多个以逗号分隔即可（大小写不敏感），如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEV,FAT,UAT,PRO</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：只在数据库添加环境是不起作用的，需要配合修改scripts&#x2F;build.sh，添加新增环境对应的meta server地址。</p>
+</blockquote>
+<ul>
+<li>organizations - 部门列表:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;orgId&quot;:&quot;TEST1&quot;,&quot;orgName&quot;:&quot;样例部门1&quot;&#125;,&#123;&quot;orgId&quot;:&quot;TEST2&quot;,&quot;orgName&quot;:&quot;样例部门2&quot;&#125;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>wiki.address: portal上“帮助”链接的地址，默认是Apollo github的wiki首页。</li>
+</ul>
+<p>####2.2.2 配置ApolloConfigDB.ServerConfig</p>
+<ul>
+<li>1.eureka.service.url - Eureka服务Url，如有多个，用逗号分隔（注意不要忘了&#x2F;eureka&#x2F;后缀）：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://1.1.1.1:8080/eureka/,http://2.2.2.2:8080/eureka/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-配置数据库连接信息"><a href="#2-3-配置数据库连接信息" class="headerlink" title="2.3 配置数据库连接信息"></a>2.3 配置数据库连接信息</h3><ul>
+<li>vim scripts&#x2F;build.sh</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#apollo config db info</span><br><span class="line">apollo_config_db_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8</span><br><span class="line">apollo_config_db_username=用户名</span><br><span class="line">apollo_config_db_password=密码（如果没有密码，留空即可）</span><br><span class="line"></span><br><span class="line"># apollo portal db info</span><br><span class="line">apollo_portal_db_url=jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8</span><br><span class="line">apollo_portal_db_username=用户名</span><br><span class="line">apollo_portal_db_password=密码（如果没有密码，留空即可）</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-4-配置各环境meta-service地址"><a href="#2-4-配置各环境meta-service地址" class="headerlink" title="2.4 配置各环境meta service地址"></a>2.4 配置各环境meta service地址</h3><ul>
+<li>vim scripts&#x2F;build.sh：修改各环境meta service服务地址。 如果某个环境不需要，也可以直接删除对应的配置项</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dev_meta=http://localhost:8080</span><br><span class="line">fat_meta=http://localhost:8080</span><br><span class="line">uat_meta=http://localhost:8080</span><br><span class="line">pro_meta=http://localhost:8080</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-执行编译、打包"><a href="#2-5-执行编译、打包" class="headerlink" title="2.5 执行编译、打包"></a>2.5 执行编译、打包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh </span><br></pre></td></tr></table></figure>
+<h3 id="2-6-部署运行"><a href="#2-6-部署运行" class="headerlink" title="2.6 部署运行"></a>2.6 部署运行</h3><h4 id="2-6-1-部署apollo-configservice"><a href="#2-6-1-部署apollo-configservice" class="headerlink" title="2.6.1 部署apollo-configservice"></a>2.6.1 部署apollo-configservice</h4><p>将<code>apollo-configservice/target/</code>目录下的<code>apollo-configservice-x.x.x-github.zip</code>上传到服务器上，解压后执行scripts&#x2F;startup.sh即可。如需停止服务，执行scripts&#x2F;shutdown.sh.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd apollo-configservice/target/</span><br><span class="line">scp apollo-configservice-x.x.x-github.zip 209:/opt/apollo/config</span><br><span class="line">ssh 209</span><br><span class="line">cd /opt/apollo/config</span><br><span class="line">unzip apollo-configservice-x.x.x-github.zip</span><br><span class="line">运行：./scripts/startup.sh</span><br><span class="line">停止：./scripts/shutdown.sh</span><br></pre></td></tr></table></figure>
+
+<p>注：如要调整服务的监听端口，可以修改startup.sh中的<code>SERVER_PORT</code>。另外apollo-configservice同时承担meta server职责，如果要修改端口，注意要同时修改scripts&#x2F;build.sh中的meta server url信息以及ApolloConfigDB.ServerConfig表中的<code>eureka.service.url</code>配置项。</p>
+<h4 id="2-6-2-部署apollo-adminservice"><a href="#2-6-2-部署apollo-adminservice" class="headerlink" title="2.6.2 部署apollo-adminservice"></a>2.6.2 部署apollo-adminservice</h4><p>同上：</p>
+<p>将<code>apollo-adminservice/target/</code>目录下的<code>apollo-adminservice-x.x.x-github.zip</code>上传到服务器上，解压后执行scripts&#x2F;startup.sh即可。如需停止服务，执行scripts&#x2F;shutdown.sh.</p>
+<blockquote>
+<p>注：如要调整服务的监听端口，可以修改startup.sh中的<code>SERVER_PORT</code>。</p>
+</blockquote>
+<h4 id="2-6-3-部署apollo-portal"><a href="#2-6-3-部署apollo-portal" class="headerlink" title="2.6.3 部署apollo-portal"></a>2.6.3 部署apollo-portal</h4><p>同上：</p>
+<p>将<code>apollo-portal/target/</code>目录下的<code>apollo-portal-x.x.x-github.zip</code>上传到服务器上，解压后执行scripts&#x2F;startup.sh即可。如需停止服务，执行scripts&#x2F;shutdown.sh.</p>
+<p>apollo-portal的默认端口是8080，和apollo-configservice一致，所以如果需要在一台机器上同时启动apollo-portal和apollo-configservice的话，需要修改apollo-portal的端口。直接修改startup.sh中的<code>SERVER_PORT</code>即可，如<code>SERVER_PORT=8070</code>。</p>
+<h2 id="三、Java客户端使用"><a href="#三、Java客户端使用" class="headerlink" title="三、Java客户端使用"></a>三、Java客户端使用</h2><h3 id="3-1-配置Appid"><a href="#3-1-配置Appid" class="headerlink" title="3.1 配置Appid"></a>3.1 配置Appid</h3><p>classpath:&#x2F;META-INF&#x2F;app.properties文件：</p>
+<blockquote>
+<p>app.id&#x3D;YOUR-APP-ID</p>
+</blockquote>
+<h3 id="3-2-配置Environment"><a href="#3-2-配置Environment" class="headerlink" title="3.2 配置Environment"></a>3.2 配置Environment</h3><ul>
+<li><p>对于Mac&#x2F;Linux，文件位置为<code>/opt/settings/server.properties</code></p>
+</li>
+<li><p>对于Windows，文件位置为<code>C:\opt\settings\server.properties</code></p>
+</li>
+</ul>
+<p>保证settings目录文件权限：chmod 777 &#x2F;opt&#x2F;settings</p>
+<p>文件内容形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env=DEV</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-配置本地缓存路径"><a href="#3-3-配置本地缓存路径" class="headerlink" title="3.3 配置本地缓存路径"></a>3.3 配置本地缓存路径</h3><p>本地缓存路径位于以下路径，所以请确保<code>/opt/data</code>或<code>C:\opt\data\</code>目录存在，且应用有读写权限。</p>
+<ul>
+<li><strong>Mac&#x2F;Linux</strong>: &#x2F;opt&#x2F;data&#x2F;{<em>appId</em>}&#x2F;config-cache</li>
+<li><strong>Windows</strong>: C:\opt\data{<em>appId</em>}\config-cache</li>
+</ul>
+<p>保证data目录文件权限：chmod 777 &#x2F;opt&#x2F;data</p>
+<h3 id="3-4-配置日志地址"><a href="#3-4-配置日志地址" class="headerlink" title="3.4 配置日志地址"></a>3.4 配置日志地址</h3><p>保证logs目录文件权限：chmod 777 &#x2F;opt&#x2F;logs</p>
+<h3 id="3-5-Maven-Dependency"><a href="#3-5-Maven-Dependency" class="headerlink" title="3.5 Maven Dependency"></a>3.5 Maven Dependency</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.ctrip.framework.apollo&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;apollo-client&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;0.7.0&lt;/version&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-使用"><a href="#3-6-使用" class="headerlink" title="3.6 使用"></a>3.6 使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableApolloConfig</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@ApolloConfig</span><br><span class="line">private Config config;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void testApollo()&#123;</span><br><span class="line">	String name = config.getProperty(&quot;name&quot;, &quot;hello&quot;);</span><br><span class="line">    assertEquals(name,&quot;Acheron&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2017/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0Apollo%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

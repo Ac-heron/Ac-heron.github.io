@@ -1,0 +1,139 @@
+<html>
+<head>
+	
+	<title>编程神器VIM安装美化</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">编程神器VIM安装美化</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2015年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E7%A5%9E%E5%99%A8VIM%E5%AE%89%E8%A3%85%E7%BE%8E%E5%8C%96"><span class="toc-text">编程神器VIM安装美化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-text">安装：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E8%89%B2%E4%B8%BB%E9%A2%98"><span class="toc-text">安装配色主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">原始方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8pathogen%E6%9D%A5%E5%AE%89%E8%A3%85%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">用pathogen来安装（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E8%8F%9C%E5%8D%95%E5%B7%A5%E5%85%B7%E6%9D%A1%E7%AD%89"><span class="toc-text">去菜单工具条等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">全屏设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%BE%85%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="toc-text">添加辅助信息</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="编程神器VIM安装美化"><a href="#编程神器VIM安装美化" class="headerlink" title="编程神器VIM安装美化"></a>编程神器VIM安装美化</h1><hr>
+<blockquote>
+<p>天下武功，唯快不破。编程器对于程序员，犹如剑对于剑客。什么样的剑配什么样的剑客，什么样的编程器配什么样的程序员。VIM、Emacs、Sublime Text、textmate、notepad等，这里面我最喜欢的是VIM和SublimeText,sublime Text近几年才流行起来，而VIM历史悠久，学习成本高，很多人望而生畏，但一旦上手熟悉后，能极大提高编程效率，VIM可以说是第一编程神器。</p>
+</blockquote>
+<p>##效果图<br><img src="http://www.herohuang.com/wp-content/uploads/2015/01/vim-full.png" alt="趋势图"></p>
+<h2 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h2><p>在windows系统下，VIM称为GVIM，在官网<a href="http://www.vim.org/download.php">下载</a>。安装后，在安装目录下，有三部分：</p>
+<ul>
+<li><code>vim74</code>：安装目录，我这里安装的7.4版本。</li>
+<li><code>vimfiles</code>：用户自己的一个配置文件夹，vim74中的plugin和vimfiles中的plugin作用是一样的，插件放到这2个文件夹都会起作用。</li>
+<li><code>_vimrc</code>：VIM的个性化配置文件，快捷键、主题、字体等都在这里配置。</li>
+</ul>
+<p>##安装<a href="https://github.com/tpope/vim-pathogen">Pathogen</a>（管理插件的插件）<br>VIM的一个强大的地方在于它有无数方便的插件，在Pathogen或Vundle出现之前，VIM的插件管理非常混乱，安装好VIM后的第一步事就应该是安装Pathogen或Vundle,管理插件的插件，以<a href="https://github.com/tpope/vim-pathogen">Pathogen</a>为例,首先在<code>vimfiles</code>目录下手工新建两个文件夹，名字分别为<code>autoload</code>和<code>bundle</code>，然后下载<a href="https://github.com/tpope/vim-pathogen">Pathogen</a>为一个ZIP文件，解压后将其中<code>pathogen.vim</code>文件拷贝到<code>\Vim\vimfiles\autoload</code>目录下。之后在配置文件<code>_vimrc</code>中加上如下代码，安装成功。以后通过pathogen安装的插件都会放在<code>bundle</code>目录下，不需要时删除即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; pathogen插件管理</span><br><span class="line">execute pathogen#infect()</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装配色主题"><a href="#安装配色主题" class="headerlink" title="安装配色主题"></a>安装配色主题</h2><p>VIM原始界面朴素得就像TXT记事本，VIM内置了10多种配色方案可供选择，可以通过菜单（Edit -&gt; ColorScheme）试用不同方案。在github上有许多漂亮的主题方案，推荐两款：<a href="https://github.com/altercation/vim-colors-solarized">solarized</a> &amp;  <a href="https://github.com/tomasr/molokai">molokai</a>。以<a href="https://github.com/altercation/vim-colors-solarized">solarized</a>为例，用两种方法来安装。</p>
+<h3 id="原始方法："><a href="#原始方法：" class="headerlink" title="原始方法："></a>原始方法：</h3><p>下载之后解压，将其中的solarized.vim文件拷贝至Vim\vimfiles\colors,然后在<code>_vimrc</code>中设定选用其作为默认主题，如下。其中，不同主题都有暗&#x2F;亮色系之分，dark或light。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 配色主题</span><br><span class="line">set background=dark</span><br><span class="line">colorscheme solarized</span><br></pre></td></tr></table></figure>
+<h3 id="用pathogen来安装（推荐）"><a href="#用pathogen来安装（推荐）" class="headerlink" title="用pathogen来安装（推荐）"></a>用pathogen来安装（推荐）</h3><p>一个简单的方法是下载后，将解压后的文件夹拷贝到’vimfiles\bundle’目录，或者用git客户断，切到<code>bundle</code>目录，运行<code>git clone</code>命令即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.vimfiles/bundle</span><br><span class="line">$ git clone https://github.com/altercation/vim-colors-solarized</span><br></pre></td></tr></table></figure>
+<p>之后在<code>_vimrc</code>的配置同上面方法一样。</p>
+<h3 id="去菜单工具条等"><a href="#去菜单工具条等" class="headerlink" title="去菜单工具条等"></a>去菜单工具条等</h3><p>为了专注编程，不受干扰，不应该有工具条、菜单、滚动条浪费空间的元素，在<code>_vimrc</code>中配置如下即可去掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 禁止光标闪烁</span><br><span class="line">set gcr=a:block-blinkon0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot; 禁止显示滚动条</span><br><span class="line">set guioptions-=l</span><br><span class="line">set guioptions-=L</span><br><span class="line">set guioptions-=r</span><br><span class="line">set guioptions-=R</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot; 禁止显示菜单和工具条,并绑定到快捷键F2</span><br><span class="line">set guioptions-=m</span><br><span class="line">set guioptions-=T</span><br><span class="line">map &lt;silent&gt; &lt;F2&gt; :if &amp;guioptions =~# &#x27;T&#x27; &lt;Bar&gt;</span><br><span class="line">        \set guioptions-=T &lt;Bar&gt;</span><br><span class="line">        \set guioptions-=m &lt;bar&gt;</span><br><span class="line">    \else &lt;Bar&gt;</span><br><span class="line">        \set guioptions+=T &lt;Bar&gt;</span><br><span class="line">        \set guioptions+=m &lt;Bar&gt;</span><br><span class="line">    \endif&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="全屏设置"><a href="#全屏设置" class="headerlink" title="全屏设置"></a>全屏设置</h3><p>设置全屏需要插件，在这里<a href="http://www.vim.org/scripts/script.php?script_id=2596">下载</a>。下载得到的是一个zip压缩包，解压将gvimfullscreen.dll文件复制到安装目录下gvim.exe所在的文件夹，和gvim.exe同目录，打开Vim配置文件_vimrc，将其绑定到<code>F11</code>快捷键，配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; F11 为Vim全屏切换快捷键</span><br><span class="line">map &lt;F11&gt; &lt;Esc&gt;:call libcallnr(&quot;gvimfullscreen.dll&quot;, &quot;ToggleFullScreen&quot;, 0)&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 在插入模式下也设置F11全屏</span><br><span class="line">imap &lt;F11&gt; &lt;Esc&gt;:call libcallnr(&quot;gvimfullscreen.dll&quot;, &quot;ToggleFullScreen&quot;, 0)&lt;CR&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 启动 vim 时自动全屏</span><br><span class="line">au GUIEnter * simalt ~x</span><br></pre></td></tr></table></figure>
+
+<p>五、字体编码等<br>默认字体不好看，挑个自己喜欢的，前提是你的电脑得先安装好该字体。我用的是Mono</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 指定语言，由于字体名存在空格，需要用“\”进行转义，最后的12指字体大小</span><br><span class="line">set guifont=DejaVu\ Sans\ Mono:h12</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 设置编码</span><br><span class="line">set encoding=utf-8</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 解决consle输出乱码</span><br><span class="line">language messages zh_CN.utf-8</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 设置文件编码检测类型及支持格式</span><br><span class="line">set fencs=utf-8,gbk,ucs-bom,gb18030,gb2312,cp936</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot; 指定菜单语言</span><br><span class="line">set langmenu=zh_CN.utf-8</span><br><span class="line">source $VIMRUNTIME/delmenu.vim</span><br><span class="line">source $VIMRUNTIME/menu.vim</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加辅助信息"><a href="#添加辅助信息" class="headerlink" title="添加辅助信息"></a>添加辅助信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 总是显示状态栏</span><br><span class="line">set laststatus=2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 显示光标当前位置</span><br><span class="line">set ruler</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 开启行号显示</span><br><span class="line">set number</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot; 高亮显示当前行/列</span><br><span class="line">set cursorline</span><br><span class="line">set cursorcolumn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 高亮显示搜索结果</span><br><span class="line">set hlsearch</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 禁止折行</span><br><span class="line">set nowrap</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 开启语法高亮功能</span><br><span class="line">syntax enable</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot; 允许用指定语法高亮配色方案替换默认方案</span><br><span class="line">syntax on</span><br></pre></td></tr></table></figure>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2015/%E7%BC%96%E7%A8%8B%E7%A5%9E%E5%99%A8VIM%E5%AE%89%E8%A3%85%E7%BE%8E%E5%8C%96/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

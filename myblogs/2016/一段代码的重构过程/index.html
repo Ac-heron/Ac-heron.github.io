@@ -1,0 +1,100 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81%E7%9A%84%E9%87%8D%E6%9E%84%E8%BF%87%E7%A8%8B"><span class="toc-text">一段代码的重构过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">原始代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E4%B8%80%E2%80%94%E6%8B%86%E5%88%86%E6%8B%86%E5%88%86%E5%86%8D%E6%8B%86%E5%88%86"><span class="toc-text">重构一—拆分拆分再拆分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E4%BA%8C-%E2%80%94%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="toc-text">重构二 —模板方法模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E4%B8%89%E2%80%94%E6%8A%BD%E8%B1%A1%E6%8A%BD%E8%B1%A1%E5%86%8D%E6%8A%BD%E8%B1%A1"><span class="toc-text">重构三—抽象抽象再抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84%E4%B9%8B%E5%90%8E"><span class="toc-text">重构之后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol> -->
+<h1 id="一段代码的重构过程"><a href="#一段代码的重构过程" class="headerlink" title="一段代码的重构过程"></a>一段代码的重构过程</h1><p>标签（空格分隔）：java </p>
+<hr>
+<h2 id="原始代码"><a href="#原始代码" class="headerlink" title="原始代码"></a>原始代码</h2><p>一个<code>UserDb</code>类中有一个<code>populate</code>方法,这是一个使用JDBC连接数据库,获取相关数据信息的方法,这段代码承担了太多的职责,而且重用性差,一个方法体中代码行数也太多,该如何对它进行重构.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">populate</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    <span class="type">Connection</span> <span class="variable">c</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class.forName(DRIVER_CLASS);</span><br><span class="line">        c = DriverManager.getConnection(DB_URL, USER, PASSWORD);</span><br><span class="line">        <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> c.createStatement();</span><br><span class="line">        <span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> stmt.executeQuery(SQL);</span><br><span class="line">        <span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">            <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">            user.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            user.setAge(rs.getInt(<span class="string">&quot;age&quot;</span>));</span><br><span class="line">            userList.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        c.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重构一—拆分拆分再拆分"><a href="#重构一—拆分拆分再拆分" class="headerlink" title="重构一—拆分拆分再拆分"></a>重构一—拆分拆分再拆分</h2><p>可以看出上述代码主要有四个步骤:<br>1.获得数据库连接<br>2.通过数据库连接获取结果集<br>3.遍历结果集,把每一项添加到User列表<br>4.关闭数据库连接</p>
+<p>可以根据这四个步骤,将代码拆分,将其中相关代码抽取成私有方法,最后得到代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void populate() throws Exception &#123;</span><br><span class="line">      Connection c = null;</span><br><span class="line">      try &#123;</span><br><span class="line">          c = getDatabaseConnection();</span><br><span class="line">          ResultSet rs = createResultSet(c);</span><br><span class="line">          while (rs.next())</span><br><span class="line">              addUserToList(rs);               </span><br><span class="line">      &#125; finally &#123;</span><br><span class="line">          c.close();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>提取出来的三个私有方法如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//获得数据库连接</span><br><span class="line">private Connection getDatabaseConnection() throws SQLException, ClassNotFoundException &#123;</span><br><span class="line">    Connection c = null;</span><br><span class="line">    Class.forName(DRIVER_CLASS);</span><br><span class="line">    c = DriverManager.getConnection(DB_URL, USER, PASSWORD);</span><br><span class="line">    return c;</span><br><span class="line">&#125;</span><br><span class="line">//创建结果集    </span><br><span class="line">private ResultSet createResultSet(Connection c) throws SQLException &#123;</span><br><span class="line">    return c.createStatement().executeQuery(SQL);</span><br><span class="line">&#125;</span><br><span class="line">//将结果集中的数据封装成User对象    </span><br><span class="line">private void addUserToList(ResultSet rs) throws SQLException &#123;</span><br><span class="line">    User user = new User();</span><br><span class="line">    user.setName(rs.getString(&quot;name&quot;));</span><br><span class="line">    user.setAge(rs.getInt(&quot;age&quot;));</span><br><span class="line">    userList.add(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重构二-—模板方法模式"><a href="#重构二-—模板方法模式" class="headerlink" title="重构二 —模板方法模式"></a>重构二 —模板方法模式</h2><p>上面的方法是否还可以重构,观察可发现,<code>getDatabaseConnection</code>方法和<code>createResultSet</code>方法,前者只是用来取得数据库连接,和结果列表没有什么关系,后者只要传入SQL语句就可以成为通用方法,可以把这两个方法放到一个父类中去,<code>createResultSet</code>方法可以根据<code>模板方法模式</code>,将其设为抽象方法,让子类根据不同的SQL来实现.<code>createResultSet</code>方法被分解成两个方法:一个保留原来的名字,另一个是让子类提供SQL的新的抽象方法(<code>getSql</code>).最终得到<code>AbstractDbBase</code>类如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public abstract class AbstractDbBase &#123;</span><br><span class="line">    private static final String DRIVER_CLASS = &quot;com.mysql.jdbc.Driver&quot;;</span><br><span class="line">    private static final String DB_URL = &quot;jdbc://mysql://localhost/&quot;;</span><br><span class="line">    private static final String USER = &quot;test&quot;;</span><br><span class="line">    private static final String PASSWORD = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">    private Connection getDatabaseConnection() throws SQLException, ClassNotFoundException &#123;</span><br><span class="line">        Connection c = null;</span><br><span class="line">        Class.forName(DRIVER_CLASS);</span><br><span class="line">        c = DriverManager.getConnection(DB_URL, USER, PASSWORD);</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    abstract protected String getSql(); </span><br><span class="line">    </span><br><span class="line">     protected ResultSet createResultSet(Connection c) throws SQLException &#123;</span><br><span class="line">        return c.createStatement().executeQuery(getSql());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重构三—抽象抽象再抽象"><a href="#重构三—抽象抽象再抽象" class="headerlink" title="重构三—抽象抽象再抽象"></a>重构三—抽象抽象再抽象</h2><p>继续观察发现,<code>populate</code>方法只有在while循环里信赖于特定的实体类,从结果集中取出每一项再填充到实体列表,可以抽象出这部分,使用<code>模板方法模式</code>,将<code>populate</code>方法和<code>addEntityToList</code>也移到<code>AbstractDbBase</code>类中.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">abstract protected void addEntityToList(ResultSet rs) throws SQLException;</span><br><span class="line"></span><br><span class="line">public void populate() throws Exception &#123;</span><br><span class="line">    Connection c = null;</span><br><span class="line">    try &#123;</span><br><span class="line">        c = getDatabaseConnection();</span><br><span class="line">        ResultSet rs = createResultSet(c);</span><br><span class="line">        while (rs.next())</span><br><span class="line">            addEntityToList(rs);</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        c.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重构之后"><a href="#重构之后" class="headerlink" title="重构之后"></a>重构之后</h2><p>根据上述几个步骤重构后,<code>UserDb</code>类变成了如下结构:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class UserDb extends AbstractDbBase&#123;</span><br><span class="line">    private static final String SQL = &quot;select name,age from user&quot;;</span><br><span class="line">    private ArrayList userList;</span><br><span class="line"></span><br><span class="line">    public UserDb() &#123;</span><br><span class="line">        userList = new ArrayList();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void addEntityToList(ResultSet rs) throws SQLException &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setName(rs.getString(&quot;name&quot;));</span><br><span class="line">        user.setAge(rs.getInt(&quot;age&quot;));</span><br><span class="line">        userList.add(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected String getSql() &#123;</span><br><span class="line">        return SQL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可见重构之后,<code>UserDb</code>类中最后留下的都是跟<code>User</code>实体相关的方法,变量等,其它可以公用的方法都被抽取到了<code>AbstractDbBase</code>类中,可以被其它实体共用.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>1.可复用的代码隐藏在代码的任何地方<br>2.把代码分解成一步步后,可复用的代码就会暴露出来<br>3.上述一步步的重构是一种测试驱动开发模式(TDD)<br>4.尽量做到一个方法代码行数不超过15行<br>5.每个方法中所有的代码应该处于同一抽象层次<br>6.抽象,抽象,再抽象,再再抽象……</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/%E4%B8%80%E6%AE%B5%E4%BB%A3%E7%A0%81%E7%9A%84%E9%87%8D%E6%9E%84%E8%BF%87%E7%A8%8B/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2017年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8A%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE"><span class="toc-text">SSH免密码及别名登录设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-text">1. 免密登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95"><span class="toc-text">2. 别名登录</span></a></li></ol></li></ol></li></ol> -->
+<h1 id="SSH免密码及别名登录设置"><a href="#SSH免密码及别名登录设置" class="headerlink" title="SSH免密码及别名登录设置"></a>SSH免密码及别名登录设置</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>众所周知，在用SSH远程登录linux服务器时，可以用下面的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.1.209 </span><br></pre></td></tr></table></figure>
+
+<p>但麻烦的是，每次都要输入服务器地址和密码，有没有方法不用每次都输入密码，甚至可以给服务器设置一个容易记住的别名，例如可以<code>ssh 209</code>直接登录。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>使用”公钥登录”的方法可以解决这个问题。“公钥登录”的原理很简单，用户将自己的公钥储存在远程服务器上。登录的时候，远程服务器会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。远程主机用事先储存的公钥进行解密，如果成功，就证明用户是可信的，直接允许登录。</p>
+<h3 id="1-免密登录"><a href="#1-免密登录" class="headerlink" title="1. 免密登录"></a>1. 免密登录</h3><p>在用户的<code>~/.ssh</code>目录下有文件<code>id_rsa</code>，<code>id_rsa.pub</code>，前者表示本机的私钥，后者表示本机的公钥。如果没有这两个文件，则可以运行下面的命令生成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的命令以后，系统会出现一系列提示，一路按回车即可，运行结束在<code>.ssh</code>目录会生成上述两个文件。</p>
+<p>然后用<code>ssh-copy-id</code>或<code>scp</code>命令将生成的公钥<code>id_rsa.pub</code>传到远程机器上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id root@192.168.1.209</span><br></pre></td></tr></table></figure>
+
+<p>因为公钥只是一串字符器，<strong>所以可以不用上面这个命令</strong>，可以直接拷贝本机的公钥里的字符串，附加到远程主机的<code>~/.ssh/authorized_keys</code>里，这样就可以免密登录了。</p>
+<h3 id="2-别名登录"><a href="#2-别名登录" class="headerlink" title="2. 别名登录"></a>2. 别名登录</h3><p>按上面第一步设置后，可以用<code>ssh root@192.168.1.209</code>不用输入密码就可以直接登录了，现在设置将<code>root@192.168.1.209</code>用<code>209</code>代替，直接用<code>ssh 209</code>就可以登录。</p>
+<p>在本机的 <code>~/.ssh </code>目录下创建 <code>config </code>文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim ~/.ssh/config</span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host 209</span><br><span class="line">User root</span><br><span class="line">HostName 192.168.1.209</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<p>其中内容说明如下（端口默认为22）：</p>
+<ul>
+<li>Host 209 ：自己定的别名</li>
+<li>User root ：远程主机的用户名</li>
+<li>HostName 192.168.1.209：远程主机的地址</li>
+<li>IdentityFile ~&#x2F;.ssh&#x2F;id_rsa：本地私钥</li>
+</ul>
+<p><em>当前如果要登录多个主机，可以设置多个：</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Host herohuang</span><br><span class="line">HostName herohuang.com</span><br><span class="line">User acheron</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_a</span><br><span class="line">Host github</span><br><span class="line">HostName github.com</span><br><span class="line">User github</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_b</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2017/SSH%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8A%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

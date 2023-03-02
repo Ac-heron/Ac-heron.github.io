@@ -1,0 +1,88 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2019年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RPC%E8%BF%94%E5%9B%9EByte%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%9D%91"><span class="toc-text">RPC返回Byte类型的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC%E6%8E%A5%E5%8F%A3"><span class="toc-text">RPC接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8"><span class="toc-text">调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99"><span class="toc-text">报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E6%9F%A5"><span class="toc-text">排查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a></li></ol></li></ol> -->
+<h1 id="RPC返回Byte类型的坑"><a href="#RPC返回Byte类型的坑" class="headerlink" title="RPC返回Byte类型的坑"></a>RPC返回Byte类型的坑</h1><h2 id="RPC接口"><a href="#RPC接口" class="headerlink" title="RPC接口"></a>RPC接口</h2><p>接入其它系统RPC接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RpcResult&lt;Byte&gt; findRecipeTypeById(Long id);</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   public Byte getRecipeTypeById(Long recipeId) &#123;</span><br><span class="line">       RpcResult&lt;Byte&gt; rpcResult = null;</span><br><span class="line">       try &#123;</span><br><span class="line">           rpcResult = recipeCommonFacadeService.findRecipeTypeById(recipeId);</span><br><span class="line">       &#125; catch (Exception e) &#123;</span><br><span class="line">           return null;</span><br><span class="line">       &#125;</span><br><span class="line">       if (null == rpcResult || rpcResult.isSuccess() == false) &#123;</span><br><span class="line">           return null;</span><br><span class="line">       &#125;</span><br><span class="line">       return rpcResult.getResult();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>调用成功，到        return rpcResult.getResult();这行报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Byte</span><br></pre></td></tr></table></figure>
+
+<h2 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h2><p>断点执行，发现返的rpcResult中的类型是Integer类型，Byte被自动转化为了Integer</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>rcp返回改为Integer类型</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2019/RPC%E8%BF%94%E5%9B%9EByte%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%9D%91/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

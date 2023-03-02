@@ -1,0 +1,118 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2016年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E4%B8%AD%E7%9A%84%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B-enum-type"><span class="toc-text">Java中的枚举类型(enum type)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">枚举是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#int-%E6%9E%9A%E4%B8%BE%E6%A8%A1%E5%BC%8F-int-enum-pattern"><span class="toc-text">int 枚举模式(int enum pattern)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">枚举的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%9E%9A%E4%B8%BE"><span class="toc-text">定义枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%B0%86%E6%96%B9%E6%B3%95%E5%92%8C%E5%9F%9F%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%E4%B8%AD"><span class="toc-text">为什么要将方法和域添加到枚举类型中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">枚举中常用的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#toString-NaN"><span class="toc-text">toString()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#valueOf-String"><span class="toc-text">valueOf(String)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#values"><span class="toc-text">values()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ordinal"><span class="toc-text">ordinal()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">枚举的基本思想</span></a></li></ol></li></ol> -->
+<h1 id="Java中的枚举类型-enum-type"><a href="#Java中的枚举类型-enum-type" class="headerlink" title="Java中的枚举类型(enum type)"></a>Java中的枚举类型(enum type)</h1><hr>
+<h2 id="枚举是什么"><a href="#枚举是什么" class="headerlink" title="枚举是什么"></a>枚举是什么</h2><p>枚举是在JDK5.0加入的，主要用来表示一组相同类型的常量。枚举类本质上是一个Java类，经过编译之后产生的就是一个class文件，所有的枚举类型都继承<code>java.lang.Enum</code>类。</p>
+<h2 id="int-枚举模式-int-enum-pattern"><a href="#int-枚举模式-int-enum-pattern" class="headerlink" title="int 枚举模式(int enum pattern)"></a>int 枚举模式(int enum pattern)</h2><p>在没有引入枚举之前，定义常量的方法一般是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">STATUS_START</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">STATUS_END</span> <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>这种方法称作<code>int 枚举模式</code>，与枚举类型相比，这种方法有许多不足:</p>
+<ul>
+<li>无类型安全性,将上面<code>STATUS_START</code>的值传入需要<code>STATUS_END</code>的方法中，编译器不会出现警告。</li>
+<li>使用不便，如果有多个常量，需要每个类型成员声明一个常量。</li>
+<li>int枚举是编译时常量，如果int值发生了变化，客户端就心須重新编译。</li>
+<li>遍历int枚举常量，没有可靠的办法。</li>
+</ul>
+<p>与<code>int枚举模式</code>相同情况的，比如<code>String枚举模式</code>，也有相同的不足。</p>
+<h2 id="枚举的优点"><a href="#枚举的优点" class="headerlink" title="枚举的优点"></a>枚举的优点</h2><ul>
+<li>编译时的类型安全</li>
+<li>增加或重新排列枚举中的常量，无需重新编译客户端代码</li>
+<li>紧凑有效的枚举数值定义</li>
+<li>运行的高效率</li>
+<li>允许添加任意的方法和域，并实现任意的接口</li>
+</ul>
+<h2 id="定义枚举"><a href="#定义枚举" class="headerlink" title="定义枚举"></a>定义枚举</h2><p>使用枚举定义常量的方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">statusEnum</span> &#123; </span><br><span class="line">    START,END;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过括号赋值,每个枚举常量后面括号中的数值就是传递给构造器的参数，而且必须带有一个参构造器和一个属性跟方法，否则编译出错，赋值必须都赋值或都不赋值，不能一部分赋值一部分不赋值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SexEnum</span> &#123; </span><br><span class="line">    male(<span class="string">&quot;男&quot;</span>),female(<span class="string">&quot;女&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> String sex; </span><br><span class="line">    </span><br><span class="line">    SexEnum(String sex) &#123;</span><br><span class="line">        <span class="built_in">this</span>.sex = sex; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getSex</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> sex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上，这个声明定义的类型是一个类，它刚好有2个实例，因此比较两个字符串枚举类型的值时，不需要使用<code>equals</code>,而直接使用<code>==</code>就可以了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sexEnum.male.toString()==<span class="string">&quot;男&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么要将方法和域添加到枚举类型中"><a href="#为什么要将方法和域添加到枚举类型中" class="headerlink" title="为什么要将方法和域添加到枚举类型中"></a>为什么要将方法和域添加到枚举类型中</h2><p>因为很可能需要将数据和枚举常量关联起来，对于以后的扩展，可以利用适当的方法来增强枚举类型。枚举类型可以先作为枚举常量的一个简单集合，随着时间的推移再演变为全功能的抽象。</p>
+<h2 id="枚举中常用的方法"><a href="#枚举中常用的方法" class="headerlink" title="枚举中常用的方法"></a>枚举中常用的方法</h2><h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString()"></a>toString()</h3><p>说明：：返回枚举常量名，SexEnum.male.toString()将返回<code>male</code></p>
+<h3 id="valueOf-String"><a href="#valueOf-String" class="headerlink" title="valueOf(String)"></a>valueOf(String)</h3><p>说明：toString的逆方法，返回某一个具体的枚举实例,将常量的名字转换为常量本身，如下面的语句将打印出<code>女</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(SexEnum.valueOf(<span class="string">&quot;女&quot;</span>).toString()); </span><br></pre></td></tr></table></figure>
+
+<h3 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h3><p>说明：返回一个包含全部枚举值的数组,如下面的语句将打印出<code>男 女</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(SexEnum e : SexEnum.values())&#123;</span><br><span class="line">    System.out.print(e); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ordinal"><a href="#ordinal" class="headerlink" title="ordinal()"></a>ordinal()</h3><p>说明：返回枚举常量的位置，从0开始计数，在jdk源码中，有写道：</p>
+<blockquote>
+<p>  Most programmers will have no use for this method.  It is designed for use by sophisticated enum-based data structures, such as {@link java.util.EnumSet} and {@link java.util.EnumMap}.</p>
+</blockquote>
+<p>这个方法是设计成用于像<code>EnumSet</code>和<code>EnumMap</code>这种基于枚举的通用数据结构的，除非在编写的是这种数据结构，否则最好避免使用这个方法。<em><strong>永远不要根据枚举的序数导出与它关联的值，而是要将它保存在一个实例域中。</strong></em></p>
+<h2 id="枚举的基本思想"><a href="#枚举的基本思想" class="headerlink" title="枚举的基本思想"></a>枚举的基本思想</h2><p>枚举类型是真正的final，因为客户端既不能创建枚举类型的实例，也不能对它进行扩展，因此很可能没有实例，而只有声明过的常量，<em><strong>枚举是单例的泛型化，它们就是通过公有的静态final域为每个枚举常量导出实例的类</strong></em>。</p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2016/Java%E4%B8%AD%E7%9A%84%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B(enum%20type)/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<html>
+<head>
+	
+	<title>title</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+
+<h2 class="title">title</h2>
+<!--
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月31日
+
+
+
+
+ </div>
+-->
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A6%81%E5%81%9A%E5%93%AA%E4%BA%9B%E4%BA%8B"><span class="toc-text">重装系统后程序员要做哪些事</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-Pro-%E8%AE%BE%E7%BD%AE"><span class="toc-text">Mac Pro 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">开发工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="toc-text">常用工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E8%BD%AF%E4%BB%B6"><span class="toc-text">网络软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE"><span class="toc-text">一些配置</span></a></li></ol></li></ol> -->
+<h1 id="重装系统后程序员要做哪些事"><a href="#重装系统后程序员要做哪些事" class="headerlink" title="重装系统后程序员要做哪些事"></a>重装系统后程序员要做哪些事</h1><p>上周我的笔记本主板坏掉了，因为还在保修期内，在apple官方店免费换了主板，也重新安装了系统，花了一天时间，尽量把电脑还原到原先工作状态，我有一套自己熟悉的工作环境，各种常用的设置、工具、软件，大致列个清单，记在这里。</p>
+<h2 id="Mac-Pro-设置"><a href="#Mac-Pro-设置" class="headerlink" title="Mac Pro 设置"></a>Mac Pro 设置</h2><ul>
+<li>同步iCloud</li>
+<li>自定义touchbar</li>
+<li>自定义Trachpad</li>
+<li>配置dock</li>
+<li>配置Notifications</li>
+<li>设置夜览</li>
+<li>关闭蓝牙和Siri</li>
+<li>设置时间显示</li>
+<li>设置keyboard</li>
+<li>设置Users &amp; Groups</li>
+<li>设置Spotlight</li>
+<li>设置输入法</li>
+</ul>
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><ul>
+<li>安装JDK</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0/Contents/Home</span><br><span class="line">export JAVA_HOME=$JAVA_HOME</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>配置自定义vimrc<br>sudo cp  &#x2F;usr&#x2F;share&#x2F;vim&#x2F;vimrc  ~&#x2F;.vimrc</p>
+</li>
+<li><p>安装homebrew</p>
+<ul>
+<li>nba-live</li>
+</ul>
+</li>
+<li><p>安装node</p>
+<ul>
+<li>http-server</li>
+<li>fy：<a href="https://github.com/afc163/fanyi">https://github.com/afc163/fanyi</a></li>
+</ul>
+</li>
+<li><p>安装Python</p>
+</li>
+<li><p>安装oh-my-zsh</p>
+<ul>
+<li>wd</li>
+<li>zsh-autosuggestions</li>
+<li>extract</li>
+<li>vi-mode<ul>
+<li>ZSH_THEME&#x3D;”ys”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><ul>
+<li>安装Intellij IDEA<ul>
+<li>maven</li>
+<li>Imports</li>
+<li>File Types</li>
+<li>plugins</li>
+<li>Comand+c&#x2F;option+m&#x2F;F1</li>
+</ul>
+</li>
+<li>安装DataGrip</li>
+<li>安装WebStorm</li>
+<li>安装Sourcetree:google帐号登录</li>
+<li>安装jemter</li>
+<li>安装nginx</li>
+<li>安装tomcat</li>
+<li>安装mysql</li>
+<li>安装docker</li>
+<li>安装redis</li>
+<li>安装MongoDB:brew install mongodb</li>
+<li>安装zookeeper</li>
+<li>安装Visual Studio Code </li>
+<li>安装maven，配置settings.xml</li>
+<li>安装Postman:google账号登陆</li>
+<li>安装StarUML</li>
+<li>安装vmware</li>
+<li>安装canal</li>
+<li>安装charles</li>
+</ul>
+<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h2><ul>
+<li>安装item2<br>  option+space<br>theme:rainglow</li>
+<li>安装git<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;email&quot;</span><br><span class="line">git config --global user.name &quot;Acheron&quot;</span><br></pre></td></tr></table></figure></li>
+<li>安装mycli<br>alias</li>
+<li>安装spacevim</li>
+<li>安装Hexo</li>
+</ul>
+<h2 id="网络软件"><a href="#网络软件" class="headerlink" title="网络软件"></a>网络软件</h2><ul>
+<li>安装chrome<ul>
+<li>我所有的设置，扩展，书签都存在google</li>
+</ul>
+</li>
+<li>安装mumu</li>
+<li>安装MindNode</li>
+<li>安装钉钉 工作用</li>
+<li>安装pomotodo</li>
+<li>安装坚果云</li>
+<li>安装typora</li>
+<li>安装teamviewer</li>
+<li>安装lantern</li>
+<li>安装ShadowsocksX</li>
+<li>安装Unarchiver</li>
+<li>安装LICECap</li>
+<li>安装Jump desktop</li>
+<li>安装Clipy</li>
+<li>安装AirServer</li>
+</ul>
+<h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><ul>
+<li>安装ssh<ul>
+<li>配置config</li>
+</ul>
+</li>
+<li>安装rime<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">brew cask install squirrel</span><br><span class="line">cd /Library/Input Methods/Squirrel.app/Contents/SharedSupport</span><br><span class="line">cp wubi_pinyin.schema.yaml /Users/acheron/Library/Rime</span><br><span class="line">cd /Users/acheron/Library/Rime</span><br><span class="line">vim default.yaml</span><br><span class="line">在schema_list下增加  - schema: wubi_pinyin</span><br><span class="line">重新deploy</span><br><span class="line">在打字过程中按`Ctrl+`` 选择</span><br></pre></td></tr></table></figure></li>
+<li>配置apollo<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">/opt/settings/server.properties</span><br><span class="line">/opt/data</span><br><span class="line">2.</span><br><span class="line">chmod 777 /opt/settings</span><br><span class="line">chmod 777 /opt/data</span><br><span class="line">3.</span><br><span class="line">env=FAT</span><br><span class="line">idc=test</span><br></pre></td></tr></table></figure></li>
+<li>Git项目导入<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add upstream http://xxx.git</span><br><span class="line">git fetch upstream</span><br><span class="line">git branch -av</span><br><span class="line">git merge upstream/develop  </span><br></pre></td></tr></table></figure></li>
+<li>新建目录Work:<ul>
+<li>software :wd add s</li>
+<li>IdeaProjects :wd add i<ul>
+<li>FrontEnd </li>
+<li>choice </li>
+<li>life </li>
+<li>opensource</li>
+</ul>
+</li>
+<li>ichoice:wd add c</li>
+</ul>
+</li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2018/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A6%81%E5%81%9A%E5%93%AA%E4%BA%9B%E4%BA%8B/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
