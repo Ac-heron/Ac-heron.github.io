@@ -1,7 +1,7 @@
 <html>
 <head>
 	
-	<title>title</title>
+	<title>将springboot应用注册为windows服务</title>
 	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -34,7 +34,7 @@
 <body>
 
 
-<h2 class="title">title</h2>
+<h2 class="title">将springboot应用注册为windows服务</h2>
 
 <div style="text-align:center;margin-top: -10px;">
 <div class="article-category">
@@ -46,8 +46,8 @@
 
 </div>
 
-<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%86springboot%E5%BA%94%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%BAwindows%E6%9C%8D%E5%8A%A1"><span class="toc-text">将springboot应用注册为windows服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winsw"><span class="toc-text">winsw</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol></li></ol> -->
-<h1 id="将springboot应用注册为windows服务"><a href="#将springboot应用注册为windows服务" class="headerlink" title="将springboot应用注册为windows服务"></a>将springboot应用注册为windows服务</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>springboot</code>应用可以打包成可运行的jar包运行，用<code>java -jar myapp.jar</code>命令就可启动项目，但是在生产环境下，不可能启动项目就要开一个命令窗口，一般的方案是将应用设置成服务启动，如果打包成<code>war</code>包形式，放在tomcat等web服务器里启动，则将tomcat设为服务即可，如果是<code>jar</code>包，则该如何设置，<code>spring</code><a href="http://docs.spring.io/spring-boot/docs/1.4.1.BUILD-SNAPSHOT/reference/htmlsingle/#deployment-windows">官方文档</a>里推荐的是用<code>winsw</code>这款工具。</p>
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#winsw"><span class="toc-text">winsw</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol> -->
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>springboot</code>应用可以打包成可运行的jar包运行，用<code>java -jar myapp.jar</code>命令就可启动项目，但是在生产环境下，不可能启动项目就要开一个命令窗口，一般的方案是将应用设置成服务启动，如果打包成<code>war</code>包形式，放在tomcat等web服务器里启动，则将tomcat设为服务即可，如果是<code>jar</code>包，则该如何设置，<code>spring</code><a href="http://docs.spring.io/spring-boot/docs/1.4.1.BUILD-SNAPSHOT/reference/htmlsingle/#deployment-windows">官方文档</a>里推荐的是用<code>winsw</code>这款工具。</p>
 <h2 id="winsw"><a href="#winsw" class="headerlink" title="winsw"></a>winsw</h2><p><code>winsw</code>是一款可将可执行程序安装成<code>Windows Service</code>的开源小工具，官网地址：<a href="https://github.com/kohsuke/winsw">https://github.com/kohsuke/winsw</a>   </p>
 <pre><code>注意： 要使用winsw，电脑上必须已经安装`.NET framework`
 </code></pre>

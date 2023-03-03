@@ -1,7 +1,7 @@
 <html>
 <head>
 	
-	<title>title</title>
+	<title>Java的链式调用</title>
 	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -34,7 +34,7 @@
 <body>
 
 
-<h2 class="title">title</h2>
+<h2 class="title">Java的链式调用</h2>
 
 <div style="text-align:center;margin-top: -10px;">
 <div class="article-category">
@@ -46,8 +46,8 @@
 
 </div>
 
-<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E7%9A%84%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">Java的链式调用</span></a></li></ol> -->
-<h1 id="Java的链式调用"><a href="#Java的链式调用" class="headerlink" title="Java的链式调用"></a>Java的链式调用</h1><p>当实例化一个Java对象时,常常会看到如下结构的代码:</p>
+<!--  -->
+<p>当实例化一个Java对象时,常常会看到如下结构的代码:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User user = new User();</span><br><span class="line">user.setName(&quot;Acheron&quot;);</span><br><span class="line">user.setAge(25);</span><br><span class="line">user.setSex(&quot;男&quot;);</span><br><span class="line">user.setAddress(&quot;some where&quot;);</span><br></pre></td></tr></table></figure>
 <p>怎样去除上面代码中Java API风格中令人反感的冗余,用链式调用法,让所有的属性设置方法返回this而不是void,User类就该是这样的:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private Integer age;</span><br><span class="line">    private String sex;</span><br><span class="line">    private String address;</span><br><span class="line"></span><br><span class="line">    public static User instance()&#123;</span><br><span class="line">        return new User();</span><br><span class="line">    &#125;</span><br><span class="line">    public User name(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

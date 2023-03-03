@@ -1,7 +1,7 @@
 <html>
 <head>
 	
-	<title>title</title>
+	<title>SpringMvc返回Json时的日期格式处理</title>
 	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -34,7 +34,7 @@
 <body>
 
 
-<h2 class="title">title</h2>
+<h2 class="title">SpringMvc返回Json时的日期格式处理</h2>
 
 <div style="text-align:center;margin-top: -10px;">
 <div class="article-category">
@@ -46,8 +46,8 @@
 
 </div>
 
-<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringMvc%E8%BF%94%E5%9B%9EJson%E6%97%B6%E7%9A%84%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%A4%84%E7%90%86"><span class="toc-text">SpringMvc返回Json时的日期格式处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-text">原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-text">解决 方法一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AACustomerObjectMapper%E7%B1%BB%E7%BB%A7%E6%89%BFObjectMapper%E7%B1%BB"><span class="toc-text">第一步：新建一个CustomerObjectMapper类继承ObjectMapper类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%9C%A8springmvc%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%A6%82%E4%B8%8B%E6%B3%A8%E5%85%A5"><span class="toc-text">第二步：在springmvc的配置文件中如下注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-text">解决 方法二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven%E5%BC%95%E5%85%A5"><span class="toc-text">Maven引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#springmvc%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9B%B4%E6%8D%A2%E5%8E%9Fjackson%E6%96%B9%E5%BC%8F"><span class="toc-text">springmvc配置文件中更换原jackson方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="toc-text">其它问题</span></a></li></ol></li></ol> -->
-<h1 id="SpringMvc返回Json时的日期格式处理"><a href="#SpringMvc返回Json时的日期格式处理" class="headerlink" title="SpringMvc返回Json时的日期格式处理"></a>SpringMvc返回Json时的日期格式处理</h1><p>标签（空格分隔）： java</p>
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-text">原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-text">解决 方法一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AACustomerObjectMapper%E7%B1%BB%E7%BB%A7%E6%89%BFObjectMapper%E7%B1%BB"><span class="toc-text">第一步：新建一个CustomerObjectMapper类继承ObjectMapper类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%9C%A8springmvc%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%A6%82%E4%B8%8B%E6%B3%A8%E5%85%A5"><span class="toc-text">第二步：在springmvc的配置文件中如下注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-text">解决 方法二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven%E5%BC%95%E5%85%A5"><span class="toc-text">Maven引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#springmvc%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9B%B4%E6%8D%A2%E5%8E%9Fjackson%E6%96%B9%E5%BC%8F"><span class="toc-text">springmvc配置文件中更换原jackson方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="toc-text">其它问题</span></a></li></ol> -->
+<p>标签（空格分隔）： java</p>
 <hr>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>SpringMvc使用<code>@ResponseBody</code>时返回json的日期是一个<code>long </code>值的时间戳，怎么样才能返回自定义的<code>yyyy-MM-dd HH :mm:ss</code> 的格式。</p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><code>@ResponseBody</code>返回Json字符串的核心类是<code>MappingJacksonHttpMessageConverter </code>，它使用了<code>Jackson</code>这个开源的第三方类库,<code>jackson</code>如何转换，spring不作多干涉。</p>

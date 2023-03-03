@@ -46,8 +46,8 @@
 
 </div>
 
-<!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSH%E5%85%8D%E5%AF%86%E7%A0%81%E5%8F%8A%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE"><span class="toc-text">SSH免密码及别名登录设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-text">1. 免密登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95"><span class="toc-text">2. 别名登录</span></a></li></ol></li></ol></li></ol> -->
-<h1 id="SSH免密码及别名登录设置"><a href="#SSH免密码及别名登录设置" class="headerlink" title="SSH免密码及别名登录设置"></a>SSH免密码及别名登录设置</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>众所周知，在用SSH远程登录linux服务器时，可以用下面的命令：</p>
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-text">1. 免密登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%AB%E5%90%8D%E7%99%BB%E5%BD%95"><span class="toc-text">2. 别名登录</span></a></li></ol></li></ol> -->
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>众所周知，在用SSH远程登录linux服务器时，可以用下面的命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.1.209 </span><br></pre></td></tr></table></figure>
 
 <p>但麻烦的是，每次都要输入服务器地址和密码，有没有方法不用每次都输入密码，甚至可以给服务器设置一个容易记住的别名，例如可以<code>ssh 209</code>直接登录。</p>
