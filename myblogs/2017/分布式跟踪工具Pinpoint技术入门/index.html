@@ -1,7 +1,7 @@
 <html>
 <head>
 	
-	<title>title</title>
+	<title>分布式跟踪工具Pinpoint技术入门</title>
 	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -34,7 +34,7 @@
 <body>
 
 
-<h2 class="title">title</h2>
+<h2 class="title">分布式跟踪工具Pinpoint技术入门</h2>
 
 <div style="text-align:center;margin-top: -10px;">
 <div class="article-category">
@@ -131,6 +131,17 @@
 <li><a href="http://www.cnblogs.com/yyhh/p/6106472.html#yy02">pinpoint安装部署</a></li>
 <li><a href="https://skyao.gitbooks.io/leaning-pinpoint/content/">官网翻译</a></li>
 </ul>
+<p>nohup java -javaagent:&#x2F;Users&#x2F;acheron&#x2F;Work&#x2F;software&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId&#x3D;choice-doctor -Dpinpoint.applicationName&#x3D;choice-doctor-1.1 -jar choice-doctor-concumer.jar &amp;</p>
+<p>CATALINA_OPTS&#x3D;”$CATALINA_OPTS -javaagent:&#x2F;Users&#x2F;acheron&#x2F;Work&#x2F;software&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar”<br>CATALINA_OPTS&#x3D;”$CATALINA_OPTS -Dpinpoint.agentId&#x3D;pp20170224”<br>CATALINA_OPTS&#x3D;”$CATALINA_OPTS -Dpinpoint.applicationName&#x3D;MyTestPP”</p>
+<hr>
+<p>nohup java -javaagent:&#x2F;opt&#x2F;data&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId&#x3D;choice-doctor-provider -Dpinpoint.applicationName&#x3D;choice-doctor-provider -jar choice-doctor-provider-0.0.1-SNAPSHOT.jar &amp;</p>
+<p>nohup java -javaagent:&#x2F;opt&#x2F;data&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId&#x3D;choice-doctor-consumer -Dpinpoint.applicationName&#x3D;choice-doctor-consumer -jar choice-doctor-consumer-0.0.1-SNAPSHOT.jar &amp;</p>
+<p>金华：</p>
+<p>nohup java -javaagent:&#x2F;usr&#x2F;local&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId&#x3D;choice-channel-provider -Dpinpoint.applicationName&#x3D;choice-channel-provider -jar choice-channel-provider-0.0.1-SNAPSHOT.jar &amp;</p>
+<p>nohup java -javaagent:&#x2F;usr&#x2F;local&#x2F;pinpoint&#x2F;pp-agent&#x2F;pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId&#x3D;choice-channel-consumer -Dpinpoint.applicationName&#x3D;choice-channel-consumer -jar choice-channel-consumer-0.0.1-SNAPSHOT.jar &amp;</p>
+<pre><code>                 ?,                       ?,                       ? )
+</code></pre>
+<p>mvn deploy:deploy-file -DgroupId&#x3D;com.umanage.base -DartifactId&#x3D;base -Dversion&#x3D;0.0.2 -Dpackaging&#x3D;aar -DrepositoryId&#x3D;releases -Dfile&#x3D;&#x2F;Users&#x2F;acheron&#x2F;Downloads&#x2F;com.umanage.base_0.0.2.aar -Durl&#x3D;<a href="http://192.168.1.209:9081/repository/maven-releases/">http://192.168.1.209:9081/repository/maven-releases/</a>	</p>
 
 
 <!--<a href="http://ac-heron.github.io/myblogs/2017/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B7%9F%E8%B8%AA%E5%B7%A5%E5%85%B7Pinpoint%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/#disqus_thread" class="article-comment-link">Comments</a>
