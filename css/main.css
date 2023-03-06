@@ -88,6 +88,11 @@ table th {
   border: 1px solid #8e908c;
   padding: 3px 7px 2px 7px;
 }
+table td a,
+table th a {
+  color: #428bca;
+  text-decoration: none;
+}
 table th {
   font-size: 1.1em;
   text-align: left;
