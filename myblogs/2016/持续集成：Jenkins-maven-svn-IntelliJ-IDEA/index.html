@@ -94,17 +94,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
 
 <p>另一种是用web服务器来启动,将<code>jenkins.war</code>包放于tomcat的webapps目录下,启动tomcat即可。</p>
-<p>我用tomcat来启动，启动成功后，打开浏览器访问<code>http://localhost:8080/jenkins</code>即可进入jenkins配置页面，如下图：<br><img src="/../images/jenkins-start-page.png" alt="Jenkins初始页"></p>
+<p>我用tomcat来启动，启动成功后，打开浏览器访问<code>http://localhost:8080/jenkins</code>即可进入jenkins配置页面，如下图：<br><img src="/images/jenkins-start-page.png" alt="Jenkins初始页"></p>
 <p>Jenkins启动成功后，在<code>C:\Users\username\</code>下会有一个<code>.jenkins</code>文件夹，用于存放Jenkins的任务，插件，配置等信息。</p>
-<h2 id="二-创建第一个任务"><a href="#二-创建第一个任务" class="headerlink" title="二. 创建第一个任务"></a>二. 创建第一个任务</h2><p>在Jenkins中创建第一个任务这前，先在IntelliJ IDEA中建一个Maven项目:<code>helloJenkins</code>，并将上传至svn中:<code> https://herohuang/svn/myProjects/helloJenkins/trunk</code>。<br><img src="/../images/helloJenkins-project.png" alt="helloJenkins项目"></p>
-<p>接着点击<code>创建一个新任务</code>，进入如下所示页面，<code>Item名称</code>随便取，这里我取为<code>helloJenkins</code>，下面选择第一个选项，构建一个自由风格的软件项目。<br><img src="/../images/create-a-item.png" alt="创建item"></p>
+<h2 id="二-创建第一个任务"><a href="#二-创建第一个任务" class="headerlink" title="二. 创建第一个任务"></a>二. 创建第一个任务</h2><p>在Jenkins中创建第一个任务这前，先在IntelliJ IDEA中建一个Maven项目:<code>helloJenkins</code>，并将上传至svn中:<code> https://herohuang/svn/myProjects/helloJenkins/trunk</code>。<br><img src="/images/helloJenkins-project.png" alt="helloJenkins项目"></p>
+<p>接着点击<code>创建一个新任务</code>，进入如下所示页面，<code>Item名称</code>随便取，这里我取为<code>helloJenkins</code>，下面选择第一个选项，构建一个自由风格的软件项目。<br><img src="/images/create-a-item.png" alt="创建item"></p>
 <h2 id="三-进入配置界面"><a href="#三-进入配置界面" class="headerlink" title="三. 进入配置界面"></a>三. 进入配置界面</h2><p>进入当前项目配置的详细页面，假设现在要执行的构建动作是使得<code>helloJenkins</code>项目定时期自动打成war包，则需要在这个页面的以下几个地方作配置：</p>
-<h3 id="1-高级项目选项"><a href="#1-高级项目选项" class="headerlink" title="1. 高级项目选项"></a>1. 高级项目选项</h3><p>高级项目选项，选择<code>使用自定义的工作空间</code>，目录填写当前项目所在的本地目录，显示名称可以不填。<br><img src="/../images/helloJenkins_gaojixiangmuxuanxiang.png" alt="高级项目选项"> </p>
-<h3 id="2-源码管理"><a href="#2-源码管理" class="headerlink" title="2. 源码管理"></a>2. 源码管理</h3><p>我用的是svn，所以这里选择<code>Subversion</code>，<code>Repository URL</code>填写项目的svn地址，其它默认。<br><img src="/../images/helloJenkins_svn.png" alt="svn地址"></p>
-<h3 id="3-构建触发器"><a href="#3-构建触发器" class="headerlink" title="3. 构建触发器"></a>3. 构建触发器</h3><p>构建触发器有三种方式，我选择<code>Build periodically</code>表示定时地触发构建，<code>日程表</code>填写定时的规则，使用<code>crontab</code>表达式，为了方便测试，这里我填<code>* * * * *</code>，注意中间有空格，表示每隔一分种就构建一次。<br><img src="/../images/helloJenkins_biuld.png" alt="构建触发器"></p>
-<h3 id="4-构建"><a href="#4-构建" class="headerlink" title="4. 构建"></a>4. 构建</h3><p>构建的方式，因为我用得是<code>maven</code>，这里选择<code>Invoke top level Maven targets</code>,<code>Goals</code>填写maven命令：<code>clean package</code>打包项目。<br><img src="/../images/helloJenkins_maven.png" alt="构建"></p>
-<h3 id="5-查看构建结果"><a href="#5-查看构建结果" class="headerlink" title="5. 查看构建结果"></a>5. 查看构建结果</h3><p>根据上面设置的规则，每隔一分种就会自动构建一次，在左侧栏下的<code>Build History</code>面板可以看到构建历史，或则点击立即构建来查看结果。<br><img src="/../images/helloJenkins_buildhistory.png" alt="构建历史"></p>
-<p>点击某个构建版本，进入可查看详细的构建结果<br><img src="/../images/helloJenkins_consoleoutput.png" alt="控制台输出"><br>如果构建成功，则在项目目录下会发现多出一个target目录(编译目录设为此目录),其中会有maven<code>clean package</code>命令生成的war包。</p>
+<h3 id="1-高级项目选项"><a href="#1-高级项目选项" class="headerlink" title="1. 高级项目选项"></a>1. 高级项目选项</h3><p>高级项目选项，选择<code>使用自定义的工作空间</code>，目录填写当前项目所在的本地目录，显示名称可以不填。<br><img src="/images/helloJenkins_gaojixiangmuxuanxiang.png" alt="高级项目选项"> </p>
+<h3 id="2-源码管理"><a href="#2-源码管理" class="headerlink" title="2. 源码管理"></a>2. 源码管理</h3><p>我用的是svn，所以这里选择<code>Subversion</code>，<code>Repository URL</code>填写项目的svn地址，其它默认。<br><img src="/images/helloJenkins_svn.png" alt="svn地址"></p>
+<h3 id="3-构建触发器"><a href="#3-构建触发器" class="headerlink" title="3. 构建触发器"></a>3. 构建触发器</h3><p>构建触发器有三种方式，我选择<code>Build periodically</code>表示定时地触发构建，<code>日程表</code>填写定时的规则，使用<code>crontab</code>表达式，为了方便测试，这里我填<code>* * * * *</code>，注意中间有空格，表示每隔一分种就构建一次。<br><img src="/images/helloJenkins_biuld.png" alt="构建触发器"></p>
+<h3 id="4-构建"><a href="#4-构建" class="headerlink" title="4. 构建"></a>4. 构建</h3><p>构建的方式，因为我用得是<code>maven</code>，这里选择<code>Invoke top level Maven targets</code>,<code>Goals</code>填写maven命令：<code>clean package</code>打包项目。<br><img src="/images/helloJenkins_maven.png" alt="构建"></p>
+<h3 id="5-查看构建结果"><a href="#5-查看构建结果" class="headerlink" title="5. 查看构建结果"></a>5. 查看构建结果</h3><p>根据上面设置的规则，每隔一分种就会自动构建一次，在左侧栏下的<code>Build History</code>面板可以看到构建历史，或则点击立即构建来查看结果。<br><img src="/images/helloJenkins_buildhistory.png" alt="构建历史"></p>
+<p>点击某个构建版本，进入可查看详细的构建结果<br><img src="/images/helloJenkins_consoleoutput.png" alt="控制台输出"><br>如果构建成功，则在项目目录下会发现多出一个target目录(编译目录设为此目录),其中会有maven<code>clean package</code>命令生成的war包。</p>
 <hr>
 <blockquote>
 </blockquote>
