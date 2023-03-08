@@ -56,7 +56,7 @@ a {
   cursor: crosshair;
   border-bottom: 0px dashed Red;
   padding: 1px;
-  color: #000;
+  color: #428bca;
 }
 a:hover {
   background-color: LightGrey;
