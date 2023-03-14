@@ -1,0 +1,222 @@
+<html>
+<head>
+	
+	<title>搭建prometheus+grafana监控系统</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+        
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+
+
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" style="opacity: .9" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">HeroHuang&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav nav-tabs navbar-right">
+            
+                
+                    <li >
+                        <a href="/"> 首页</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/read"> 读书</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/shufa"> 书法</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/code"> 代码</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/life"> 生活</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/about"> 我是</a>
+                    </li>
+                
+            
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<br/>
+
+
+<h2 class="title">搭建prometheus+grafana监控系统</h2>
+
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category" style="text-align:right;">
+
+2022年10月25日
+
+
+
+
+<!--  -->
+ </div>
+
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAgrafana"><span class="toc-text">搭建grafana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAprometheus"><span class="toc-text">搭建prometheus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%85%B6%E4%BB%96%E7%9B%91%E6%8E%A7%EF%BC%8C%E6%AD%A5%E9%AA%A4%E5%90%8C%E4%B8%8A"><span class="toc-text">安装其他监控，步骤同上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85redis%E7%9B%91%E6%8E%A7"><span class="toc-text">安装redis监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85postGresql%E7%9B%91%E6%8E%A7"><span class="toc-text">安装postGresql监控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85mmongodb"><span class="toc-text">安装mmongodb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8Prometheus-Grafana%E7%9B%91%E6%8E%A7Springboot%E5%BA%94%E7%94%A8"><span class="toc-text">用Prometheus+Grafana监控Springboot应用</span></a></li></ol> -->
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>这篇文章主要记录我搭建grafana监控的过程，首先明白几个要点：grafana可视化数据，数据从哪里来，从prometheus取，prometheus怎么取，prometheus 从各个端点取</p>
+<h2 id="搭建grafana"><a href="#搭建grafana" class="headerlink" title="搭建grafana"></a>搭建grafana</h2><p>1.下载地址：<a href="https://grafana.com/grafana/download?pg=get&plcmt=selfmanaged-box1-cta1">grafana-download</a></p>
+<p>官网有各种下载方式，推荐下载独立包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.grafana.com/enterprise/release/grafana-enterprise-8.5.4.linux-amd64.tar.gz</span><br><span class="line">tar -zxvf grafana-enterprise-8.5.4.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>2.解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf grafana-enterprise-8.5.4.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>3.启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/grafana-server web</span><br></pre></td></tr></table></figure>
+
+<p>4.启动成功，<a href="http://localhost:3000/%EF%BC%8C%E7%99%BB%E5%BD%95admin/admin">http://localhost:3000/，登录admin/admin</a></p>
+<h2 id="搭建prometheus"><a href="#搭建prometheus" class="headerlink" title="搭建prometheus"></a>搭建prometheus</h2><p>文档：<a href="https://prometheus.io/docs/introduction/first_steps/">prometheus-doc</a></p>
+<p>1.下载：<a href="https://prometheus.io/download/">https://prometheus.io/download/</a></p>
+<p>2.解压：tar zxvf prometheus-2.36.0.linux-amd64.tar.gz</p>
+<p>3.启动：.&#x2F;prometheus –config.file&#x3D;prometheus.yml</p>
+<p>4.访问:<a href="http://localhost:9090,等30秒收集自己的信息，看端点：http://localhost:9090/targets">http://localhost:9090,等30秒收集自己的信息，看端点：http://localhost:9090/targets</a></p>
+<p>5.真正使用：监控服务器：在服务器上安装node-exporter：</p>
+<p>  5.1安装node-exporter:<a href="https://prometheus.io/docs/guides/node-exporter/">https://prometheus.io/docs/guides/node-exporter/</a></p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v*/node_exporter-*.*-amd64.tar.gz</span><br><span class="line">tar xvfz node_exporter-*.*-amd64.tar.gz</span><br><span class="line">cd node_exporter-*.*-amd64</span><br><span class="line">./node_exporter</span><br></pre></td></tr></table></figure>
+
+node_exporter端口默认9100
+</code></pre>
+<p>  5.2怎么把数据传到prometheus，修改prometheus配置文件prometheus.yml，新增配置：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- job_name: node</span><br><span class="line">  static_configs:</span><br><span class="line">  - targets: [&#x27;192.168.1.1:9100&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>  5.3.重启prometheus，看<a href="http://localhost:9090/targets?search=%EF%BC%8C%E8%83%BD%E7%9C%8B%E5%88%B0%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E5%88%B0%E4%BA%86%EF%BC%8C%E6%80%8E%E4%B9%88%E6%8E%A5%E5%85%A5grafana%E5%8F%AF%E8%A7%86%E5%8C%96">http://localhost:9090/targets?search=，能看到数据收集到了，怎么接入grafana可视化</a></p>
+<p>6.grafana 里新增数据源：prometheus</p>
+<p>7.grafana导入dashboard，可以在这里搜索，<a href="https://grafana.com/grafana/dashboards/%EF%BC%8C%E6%AF%94%E5%A6%82node_exporter%E4%B8%AD%E6%96%87%E7%89%88%E6%9C%AC%EF%BC%9Ahttps://grafana.com/grafana/dashboards/8919%EF%BC%8C%E8%BE%93%E5%85%A58919%EF%BC%8C%E5%AF%BC%E5%85%A5%E4%BF%9D%E5%AD%98%E6%88%90%E5%8A%9F%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0%E7%9B%91%E6%8E%A7%E9%9D%A2%E6%9D%BF%E3%80%82">https://grafana.com/grafana/dashboards/，比如node_exporter中文版本：https://grafana.com/grafana/dashboards/8919，输入8919，导入保存成功即可看到监控面板。</a></p>
+<h2 id="安装其他监控，步骤同上"><a href="#安装其他监控，步骤同上" class="headerlink" title="安装其他监控，步骤同上"></a>安装其他监控，步骤同上</h2><h3 id="安装redis监控"><a href="#安装redis监控" class="headerlink" title="安装redis监控"></a>安装redis监控</h3><p><strong>3.3.1 下载redis_exporter</strong>：<a href="https://github.com/oliver006/redis_exporter">https://github.com/oliver006/redis_exporter</a></p>
+<p>官网上没有redis_exporter, 可以从github上获取，另外redis插件无需放在redis机器上也可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**  下载  */</span><br><span class="line">wget https://github.com/oliver006/redis_exporter/releases/download/v0.30.0/redis_exporter-v0.30.0.linux-amd64.tar.gz</span><br><span class="line">/**  解压  */</span><br><span class="line">tar -zxvf  redis_exporter-v0.30.0.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.3.2 启动redis_exporter</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**  redis无密码 */</span><br><span class="line">nohup  ./redis_exporter -redis.addr=192.168.56.118:6379 -web.listen-address 0.0.0.0:9121  &amp;</span><br><span class="line"></span><br><span class="line">/**  redis有密码  */</span><br><span class="line">nohup  ./redis_exporter -redis.addr=192.168.56.118:6479 -redis.password 123456   -web.listen-address 0.0.0.0:9122 &amp; </span><br><span class="line"></span><br><span class="line">/**   </span><br><span class="line"> -web.listen-address  可以自定义监控端口</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<p>redis_exporter启动成功后，其他步骤同上面，现在prometheus.yml配置job，然后grafana里搜索一个好用的redis仪表盘显示即可：</p>
+<p>比如：<a href="https://grafana.com/grafana/dashboards/11835">https://grafana.com/grafana/dashboards/11835</a></p>
+<h3 id="安装postGresql监控"><a href="#安装postGresql监控" class="headerlink" title="安装postGresql监控"></a>安装postGresql监控</h3><p>参考：<a href="https://www.cnblogs.com/ilifeilong/p/10543876.html">https://www.cnblogs.com/ilifeilong/p/10543876.html</a></p>
+<p>1.下载postgres_exporter：<a href="https://github.com/wrouesnel/postgres_exporter/releases">https://github.com/wrouesnel/postgres_exporter/releases</a></p>
+<p>2.启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export DATA_SOURCE_NAME=&quot;postgresql://user:password@127.0.0.1:1234/database?sslmode=disable&quot;</span><br><span class="line">./postgres_exporter &amp;</span><br></pre></td></tr></table></figure>
+
+<p>3.其他同上。dashboard可以用<a href="https://grafana.com/grafana/dashboards/9628">https://grafana.com/grafana/dashboards/9628</a></p>
+<h2 id="安装mmongodb"><a href="#安装mmongodb" class="headerlink" title="安装mmongodb"></a>安装mmongodb</h2><p>启动监听mongo：<br>&#x2F;mongodb_exporter  –web.listen-address&#x3D;”:35117” –mongodb.uri&#x3D;mongodb:&#x2F;&#x2F;acheron_adm:<a href="mailto:&#x31;&#50;&#x33;&#x34;&#53;&#54;&#115;&#x64;&#x66;&#115;&#100;&#x66;&#55;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#49;&#46;&#x31;">&#x31;&#50;&#x33;&#x34;&#53;&#54;&#115;&#x64;&#x66;&#115;&#100;&#x66;&#55;&#64;&#x31;&#x39;&#50;&#x2e;&#49;&#54;&#56;&#46;&#49;&#46;&#x31;</a>:8080&#x2F;db_name</p>
+<p>配置prome..:</p>
+<ul>
+<li>job_name: mongodb<br>static_configs:<ul>
+<li>targets: [‘192.168.2.2:35117’]</li>
+</ul>
+</li>
+</ul>
+<h2 id="用Prometheus-Grafana监控Springboot应用"><a href="#用Prometheus-Grafana监控Springboot应用" class="headerlink" title="用Prometheus+Grafana监控Springboot应用"></a>用Prometheus+Grafana监控Springboot应用</h2><p>参考：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/106036485">https://zhuanlan.zhihu.com/p/106036485</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1863250">https://cloud.tencent.com/developer/article/1863250</a></p>
+<p>1.pom.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.micrometer&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.application.properties</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=springboot2demo</span><br><span class="line"># 打开所有 Actuator 服务</span><br><span class="line">management.endpoints.web.exposure.include=*</span><br><span class="line"># 将应用名称添加到计量器的 tag 中去</span><br><span class="line"># 以便 Prometheus 根据应用名区分不同服务</span><br><span class="line">management.metrics.tags.application=$&#123;spring.application.name&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.启动类application.java,在启动类中添加Bean，用于监控JVM性能指标：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(Springboot2demoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    MeterRegistryCustomizer&lt;MeterRegistry&gt; <span class="title function_">configurer</span><span class="params">(</span></span><br><span class="line"><span class="params">            <span class="meta">@Value(&quot;$&#123;spring.application.name&#125;&quot;)</span> String applicationName)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (registry) -&gt; registry.config().commonTags(<span class="string">&quot;application&quot;</span>, applicationName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.启动成功，查看监控端点：localhost:8080&#x2F;actuator&#x2F;prometheus</p>
+<p>5.配置prometheus.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;springboot_app&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">5s</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">&#x27;/actuator/prometheus&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.31.6:8080&#x27;</span>]</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<p>6.整合到grafana，原理同上</p>
+<p>参考资料</p>
+<p><a href="https://www.prometheus.wang/quickstart/why-monitor.html">https://www.prometheus.wang/quickstart/why-monitor.html</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1595811">https://cloud.tencent.com/developer/article/1595811</a></p>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2022/%E6%90%AD%E5%BB%BAprometheus+grafana%E7%9B%91%E6%8E%A7/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

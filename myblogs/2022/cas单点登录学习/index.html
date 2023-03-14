@@ -1,0 +1,250 @@
+<html>
+<head>
+	
+	<title>cas单点登录学习</title>
+	<meta name="keywords" content="Acheron,blog,博客,代码,技术,书法,读书" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+        
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+
+
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        
+<script src="/js/util.js"></script>
+
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" style="opacity: .9" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">HeroHuang&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav nav-tabs navbar-right">
+            
+                
+                    <li >
+                        <a href="/"> 首页</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/read"> 读书</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/shufa"> 书法</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/code"> 代码</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/life"> 生活</a>
+                    </li>
+                
+                    <li >
+                        <a href="/myblogs/about"> 我是</a>
+                    </li>
+                
+            
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<br/>
+
+
+<h2 class="title">cas单点登录学习</h2>
+
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category" style="text-align:right;">
+
+2022年7月11日
+
+
+
+
+<!--  -->
+ </div>
+
+</div>
+
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-SSO%E7%AE%80%E4%BB%8B"><span class="toc-text">一.	 SSO简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFSSO"><span class="toc-text">1.1 什么是SSO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SSO%E8%A7%92%E8%89%B2"><span class="toc-text">1.2  SSO角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SSO%E5%88%86%E7%B1%BB"><span class="toc-text">1.3 SSO分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-CAS%E7%AE%80%E4%BB%8B"><span class="toc-text">二. CAS简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E4%BB%80%E4%B9%88%E6%98%AFCAS"><span class="toc-text">2.1	什么是CAS?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-CAS%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-text">2.2 CAS体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%98%E7%BD%91%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%9A"><span class="toc-text">官网架构图：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">官方介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAS%E5%85%B7%E6%9C%89%E4%BB%A5%E4%B8%8B%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">CAS具有以下的特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-cas-%E6%B5%81%E7%A8%8B"><span class="toc-text">2.3 cas 流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E6%90%AD%E5%BB%BACAS"><span class="toc-text">三. 搭建CAS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-CAS-Server%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="toc-text">3.1 CAS Server服务器端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-CAS-Client%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE-%E8%87%AA%E5%B7%B1%E9%A1%B9%E7%9B%AE"><span class="toc-text">3.2 CAS Client客户端配置(自己项目)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">3.3 自定义过滤器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%88%91%E4%BB%AC%E8%87%AA%E5%B7%B1%E6%94%B9%E9%80%A0%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95"><span class="toc-text">四 我们自己改造登录接口实现单点登录</span></a></li></ol> -->
+<p>本文是我对cas单点登录的一个学习记录。</p>
+<p>本文目录</p>
+<p>[toc]</p>
+<h2 id="一-SSO简介"><a href="#一-SSO简介" class="headerlink" title="一.	 SSO简介"></a>一.	 SSO简介</h2><h3 id="1-1-什么是SSO"><a href="#1-1-什么是SSO" class="headerlink" title="1.1 什么是SSO"></a>1.1 什么是SSO</h3><p>单点登录（ Single Sign-On , 简称 SSO ）是目前比较流行的服务于企业业务整合的解决方案之一， SSO 使得在多个应用系统中，用户只需要 登录一次 就可以访问所有相互信任的应用系统。</p>
+<h3 id="1-2-SSO角色"><a href="#1-2-SSO角色" class="headerlink" title="1.2  SSO角色"></a>1.2  SSO角色</h3><p>单点登录一般包括下面三种角色：<br>①用户(多个)<br>②认证中心(一个):SSO Server<br>③Web应用(多个):SSO Client</p>
+<h3 id="1-3-SSO分类"><a href="#1-3-SSO分类" class="headerlink" title="1.3 SSO分类"></a>1.3 SSO分类</h3><p>单点登录实现方式主要可以分为两种：</p>
+<ul>
+<li>基于Cookie，这种比较常见，比如CAS</li>
+<li>基于Session的，只有实现不同子系统之间的会话共享就能实现单点登录</li>
+</ul>
+<h2 id="二-CAS简介"><a href="#二-CAS简介" class="headerlink" title="二. CAS简介"></a>二. CAS简介</h2><h3 id="2-1什么是CAS"><a href="#2-1什么是CAS" class="headerlink" title="2.1	什么是CAS?"></a>2.1	什么是CAS?</h3><p>随着SSO技术的流行，相关产品也比较多，其中CAS就是一套解决方案，CAS（Central Authentication Service）统一身份认证服务，它由服务端和客户端组成，实现SSO。CAS是Yale大学（耶鲁）发起的一个开源项目，旨在为web应用系统提供一种可靠的单点登录方法。</p>
+<p>cas官网：<a href="https://www.apereo.org/projects/cas">https://www.apereo.org/projects/cas</a><br>githup代码：<a href="https://github.com/apereo/cas">https://github.com/apereo/cas</a></p>
+<h3 id="2-2-CAS体系结构"><a href="#2-2-CAS体系结构" class="headerlink" title="2.2 CAS体系结构"></a>2.2 CAS体系结构</h3><p>CAS体系结构分为CAS Server和CAS Client。</p>
+<h4 id="官网架构图："><a href="#官网架构图：" class="headerlink" title="官网架构图："></a>官网架构图：</h4><p><img src="/images/cas_architecture.png"></p>
+<p>从图可以看出，CAS支持多种方式的认证，LDAP、JDBC、Active Directory等等；支持的协议有Custom Protocol 、 CAS 、 OAuth 等。</p>
+<h4 id="官方介绍"><a href="#官方介绍" class="headerlink" title="官方介绍"></a>官方介绍</h4><blockquote>
+<p>CAS Server<br>The CAS server is Java servlet built on the Spring Framework whose primary responsibility is to authenticate users and grant access to CAS-enabled services, commonly called CAS clients, by issuing and validating tickets. An SSO session is created when the server issues a ticket-granting ticket (TGT) to the user upon successful login. A service ticket (ST) is issued to a service at the user’s request via browser redirects using the TGT as a token. The ST is subsequently validated at the CAS server via back-channel communication. These interactions are described in great detail in the CAS Protocol document.</p>
+</blockquote>
+<blockquote>
+<p>CAS Clients<br>The term “CAS client” has two distinct meanings in its common use. A CAS client is any CAS-enabled application that can communicate with the server via a supported protocol. A CAS client is also a software package that can be integrated with various software platforms and applications in order to communicate with the CAS server via some authentication protocol (e.g. CAS, SAML, OAuth). CAS clients supporting a number of software platforms and products have been developed.</p>
+</blockquote>
+<h4 id="CAS具有以下的特点"><a href="#CAS具有以下的特点" class="headerlink" title="CAS具有以下的特点"></a>CAS具有以下的特点</h4><ul>
+<li>开源的企业级单点登录解决方案</li>
+<li>CAS Server为需要独立部署的web应用</li>
+<li>CAS Client支持非常多的客户端（这里指单点登录系统中的各个web应用），包括 Java、.Net 、ISAPI、Php、Perl、uPortal、Acegi、Ruby、VBScript等客户端</li>
+</ul>
+<h3 id="2-3-cas-流程"><a href="#2-3-cas-流程" class="headerlink" title="2.3 cas 流程"></a>2.3 cas 流程</h3><p><img src="/images/cas%E6%B5%81%E7%A8%8B.png"></p>
+<ul>
+<li>1、用户访问CAS Client请求资源</li>
+<li>2、客户端程序做了重定向，重定向到CAS Server</li>
+<li>3、CAS Server会对请求做认证，验证是否有TGC(Ticket Granted Cookie，有TGC说明已经登录过，不需要再登录，没有就返回登录页面</li>
+<li>4、认证通过后会生成一个Service Ticket返回Cas Client，客户端进行Ticket缓存，一般放在Cookie里，我们称之为TGC(Ticket Granted Cookie)</li>
+<li>5、然后Cas Client就带着Ticket再次访问Cas Server，CAS Server进行Ticket验证</li>
+<li>6、CAS Server对Ticket进行验证，通过就返回用户信息，用户拿到信息后就可以登录</li>
+</ul>
+<p>要点：</p>
+<ul>
+<li>TGT(Ticket Granded Ticket)，就是存储认证凭据的Cookie，有TGT说明已经通过认证</li>
+<li>ST(Service Ticket)，是由CAS认证中心生成的一个唯一的不可伪装的票据，用于认证的</li>
+<li>没登录过的或者TGT失效的，访问时候也跳转到认证中心，发现没有TGT，说明没有通过认证，直接重定向登录页面，输入账号密码后，再次重定向到认证中心，验证通过后，生成ST，返回客户端保存到TGC</li>
+<li>登录过的而且TGT没有失效的，直接带着去认证中心认证，认证中心发现有TGT，重定向到客户端，并且带上ST，客户端再带ST去认证中心验证</li>
+</ul>
+<h2 id="三-搭建CAS"><a href="#三-搭建CAS" class="headerlink" title="三. 搭建CAS"></a>三. 搭建CAS</h2><h3 id="3-1-CAS-Server服务器端"><a href="#3-1-CAS-Server服务器端" class="headerlink" title="3.1 CAS Server服务器端"></a>3.1 CAS Server服务器端</h3><p>3.1.1 Server下载<br>下载：<a href="https://github.com/apereo/cas-overlay-template">https://github.com/apereo/cas-overlay-template</a><br>最新版本是用gradle编译的，用maven可以下载老一点的版本，编译打包后得到一个war包，重命名为cas.war</p>
+<p>3.1.2	Server部署<br>将war包放到tomcat的webapp中，然后启动tomcat，访问地址： <a href="http://localhost:8080/cas/login">http://localhost:8080/cas/login</a><br><img src="/images/cas-server%E7%99%BB%E5%BD%95%E5%9C%B0%E5%9D%80.jpg"></p>
+<p>3.1.3	Server登录<br>默认用户名和密码在\webapps\cas\WEB-INF\classes\application.properties里面，默认用户名：casuser 密码：Mellon<br><img src="/images/cas-server%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F.jpg"></p>
+<p>3.1.4	Server配置</p>
+<p>3.1.4.1 去除https认证<br>CAS默认使用的是HTTPS协议，如果使用HTTPS协议需要SSL安全证书。如果对安全要求不高或是在开发测试阶段，可使用HTTP协议。</p>
+<p>修改CAS服务端配置文件：\cas\WEB-INF\classes\application.properties里添加如下内容:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cas.tgc.secure=false</span><br><span class="line">cas.serviceRegistry.initFromJson=true</span><br></pre></td></tr></table></figure>
+
+<p>\cas\WEB-INF\classes\services目录下的HTTPSandIMAPS-10000001.json修改内容如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;serviceId&quot; : &quot;^(https|http|imaps)://.*&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果不想看到到登录页面上的安全提示，可以注释WEB-INF&#x2F;view&#x2F;jsp&#x2F;default&#x2F;ui&#x2F;casLoginView.jsp页面中校验是否是HTTPS协议的标签块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:if test=&quot;$&#123;not pageContext.request.secure&#125;&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;msg&quot; class=&quot;errors&quot;&gt;</span><br><span class="line">        &lt;h2&gt;&lt;spring:message code=&quot;screen.nonsecure.title&quot; /&gt;&lt;/h2&gt;</span><br><span class="line">        &lt;p&gt;&lt;spring:message code=&quot;screen.nonsecure.message&quot; /&gt;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/c:if&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-2-CAS-Client客户端配置-自己项目"><a href="#3-2-CAS-Client客户端配置-自己项目" class="headerlink" title="3.2 CAS Client客户端配置(自己项目)"></a>3.2 CAS Client客户端配置(自己项目)</h3><p>客户端1：</p>
+<p>3.2.1 pom.xml引入依赖<br>这是用的常用的第三方的starter lib来对接，不用单独引入cas-client-core的jar包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;net.unicon.cas&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;cas-client-autoconfig-support&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;2.3.0-GA&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.2.2 application.properties配置文件新增如下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#cas服务端的地址</span><br><span class="line">cas.server-url-prefix=http://127.0.0.1:8080/cas</span><br><span class="line">#cas服务端的登录地址</span><br><span class="line">cas.server-login-url=http://127.0.0.1:8080/cas/login</span><br><span class="line">#cas客户端地址</span><br><span class="line">cas.client-host-url=https://127.0.0.1:8181</span><br><span class="line">cas.validation-type=CAS3</span><br></pre></td></tr></table></figure>
+
+<p>3.2.3 启动类加上CAS的注解@EnableCasClient</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@EnableCasClient</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class AppApplication &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>3.2.4 项目中新建一个测试类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Api(description = &quot;SSO-CAS的测试&quot;)</span><br><span class="line">public class TestController &#123;</span><br><span class="line">    @GetMapping(&quot;/test1&quot;)</span><br><span class="line">    public String test1()&#123;</span><br><span class="line">        return &quot;test1....&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再启动一个客户端2和客户端1基本相同,访问客户端1 <a href="http://localhost:8181/test1">http://localhost:8181/test1</a><br>会重定向到<a href="http://127.0.0.1:8080/cas/login?service=http://localhost:8181/test1">http://127.0.0.1:8080/cas/login?service=http://localhost:8181/test1</a></p>
+<h3 id="3-3-自定义过滤器"><a href="#3-3-自定义过滤器" class="headerlink" title="3.3 自定义过滤器"></a>3.3 自定义过滤器</h3><p>3.3.1 新增自定义过滤器</p>
+<p>有时默认过滤器满足不了需求，比如前会发送预请求，即options请求。然而此时不带cookie，会导致，请求被拦截。此时需要重写过滤器，放过options请求。<br>cas用的默认过滤器是AuthenticationFilter，我们直接复制默认过滤器，CasAuthenticationFilter，只需修改isRequestUrlExcluded方法里的条件即可，这里可以根据需求做调整。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class CasAuthenticationFilter extends AbstractCasFilter </span><br><span class="line"></span><br><span class="line">doFilter里的isRequestUrlExcluded方法</span><br><span class="line">  private boolean isRequestUrlExcluded(HttpServletRequest request) &#123;</span><br><span class="line">        // 自定义路径过滤开始</span><br><span class="line">        String requestUrl = request.getRequestURI();</span><br><span class="line">        String requestQueryStr = request.getQueryString();</span><br><span class="line">        String requestMethod = request.getMethod();</span><br><span class="line"></span><br><span class="line">        if (requestMethod.equals(&quot;OPTIONS&quot;)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        // 自定义路径过滤结束</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.3.2 新增cas配置类 CasConfig ，用我们自定义的过滤器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Component</span><br><span class="line">public class CasConfig extends CasClientConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Value(&quot;$&#123;cas.server-url-prefix&#125;&quot;)</span><br><span class="line">    private String serverUrlPrefix;</span><br><span class="line">    @Value(&quot;$&#123;cas.server-login-url&#125;&quot;)</span><br><span class="line">    private String serverLoginUrl;</span><br><span class="line">    @Value(&quot;$&#123;cas.client-host-url&#125;&quot;)</span><br><span class="line">    private String clientHostUrl;</span><br><span class="line">    @Value(&quot;$&#123;cas.validation-type&#125;&quot;)</span><br><span class="line">    private String validationType;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean authenticationFilterRegistrationBean() &#123;</span><br><span class="line">        FilterRegistrationBean authenticationFilter = new FilterRegistrationBean();</span><br><span class="line">        authenticationFilter.setFilter(new CasAuthenticationFilter());</span><br><span class="line">        Map&lt;String, String&gt; initParams = new HashMap&lt;String, String&gt;();</span><br><span class="line">        initParams.put(&quot;casServerLoginUrl&quot;, serverLoginUrl);</span><br><span class="line">        initParams.put(&quot;serverName&quot;, clientHostUrl);</span><br><span class="line">        authenticationFilter.setInitParameters(initParams);</span><br><span class="line">        authenticationFilter.setOrder(1);</span><br><span class="line">        List&lt;String&gt; urlPatterns = new ArrayList&lt;&gt;();</span><br><span class="line">        urlPatterns.add(&quot;/*&quot;);</span><br><span class="line">        authenticationFilter.setUrlPatterns(urlPatterns);</span><br><span class="line">        return authenticationFilter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean validationFilterRegistrationBean() &#123;</span><br><span class="line">        FilterRegistrationBean authenticationFilter = new FilterRegistrationBean();</span><br><span class="line">        authenticationFilter.setFilter(new Cas20ProxyReceivingTicketValidationFilter());</span><br><span class="line">        Map&lt;String, String&gt; initParams = new HashMap&lt;String, String&gt;();</span><br><span class="line">        initParams.put(&quot;casServerUrlPrefix&quot;, serverUrlPrefix);</span><br><span class="line">        initParams.put(&quot;serverName&quot;, clientHostUrl);</span><br><span class="line">        authenticationFilter.setInitParameters(initParams);</span><br><span class="line">        authenticationFilter.setOrder(2);</span><br><span class="line">        List&lt;String&gt; urlPatterns = new ArrayList&lt;&gt;();</span><br><span class="line">        urlPatterns.add(&quot;/*&quot;);</span><br><span class="line">        authenticationFilter.setUrlPatterns(urlPatterns);</span><br><span class="line">        return authenticationFilter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.3.3 去掉启动类里里的@EnableCasClient</p>
+<h2 id="四-我们自己改造登录接口实现单点登录"><a href="#四-我们自己改造登录接口实现单点登录" class="headerlink" title="四 我们自己改造登录接口实现单点登录"></a>四 我们自己改造登录接口实现单点登录</h2><p>4.1 流程</p>
+<p>访问登录页前端处理跳转到cas统一认证界面，认证通过后cas服务会返回ticket，前端收到ticket传送给后端，后端改造登录接口，拿到ticket的参数, 去跟CAS服务器调serviceValidate换用户信息, 解析返回的xml格式数据，拿到数据查询我们自己表的对应的登录用户, 生成系统需要的token以及其他信息封装后给前端，前端拿到token之后，写入localstorege, 然后正常访问。</p>
+<ul>
+<li><p>第一步: 一旦进入登录就得跳转到CAS认证系统：<a href="http://xxx/cas/login?service=http://127.0.0.1:8080/login">http://xxx/cas/login?service=http://127.0.0.1:8080/login</a></p>
+</li>
+<li><p>第二步: 用户在CAS认证系统输入用户名和密码, 且认证成功, 就会跳转回调地址,并会带上ticket：<a href="http://ip:8080/login?ticket=ST0271953-MUN6nAISDksa1">http://ip:8080/login?ticket=ST0271953-MUN6nAISDksa1</a></p>
+</li>
+<li><p>第三步: 这个时候登录接口比常规情况多了一个ticket的参数。<br>前端拿到ticket，调原先登录接口&#x2F;login，这时登录接口只有ticket，没有用户名，密码等</p>
+</li>
+<li><p>第四步: 后端在登录接口里，拿到ticket，调接口<a href="http://xxx/cas/serviceValidate?ticket=123az1a0d&service=https://xx/user/login">http://xxx/cas/serviceValidate?ticket=123az1a0d&amp;service=https://xx/user/login</a></p>
+</li>
+</ul>
+<p>解析返回的xml<br>Xml可能以下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;cas:serviceResponse xmlns:cas=&#x27;http://www.yale.edu/tp/cas&#x27;&gt;</span><br><span class="line"> &lt;cas:authenticationSuccess&gt;</span><br><span class="line">  &lt;cas:user&gt;890284&lt;/cas:user&gt;</span><br><span class="line">  &lt;cas:attributes&gt;</span><br><span class="line">   &lt;cas:Name&gt;8902&lt;/cas:Name&gt;</span><br><span class="line">   &lt;cas:NotesId&gt;8904&lt;/cas:NotesId&gt;</span><br><span class="line">   &lt;cas:usercode&gt;8984&lt;/cas:usercode&gt;</span><br><span class="line">   &lt;cas:username&gt;张三&lt;/cas:username&gt;</span><br><span class="line">  &lt;/cas:attributes&gt;</span><br><span class="line"> &lt;/cas:authenticationSuccess&gt;</span><br><span class="line">&lt;/cas:serviceResponse&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;cas:serviceResponse xmlns:cas=&#x27;http://www.yale.edu/tp/cas&#x27;&gt;</span><br><span class="line">	  &lt;cas:authenticationSuccess&gt;</span><br><span class="line">	    &lt;cas:user&gt;test&lt;/cas:user&gt;</span><br><span class="line">	    &lt;/cas:authenticationSuccess&gt;</span><br><span class="line">		&lt;/cas:serviceResponse&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第五步: 拿到xml里面的cas:usercode,这个对应我们自己表的的login_name，这样就能查到用户，生成token</li>
+<li>第六步：前端拿到token之后, 写入localstorege, 接下来照常访问</li>
+</ul>
+
+
+<!--<a href="http://ac-heron.github.io/myblogs/2022/cas%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E5%AD%A6%E4%B9%A0/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = ''; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=&web_id=" language="JavaScript"></script>script>
+</div>
+
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>
