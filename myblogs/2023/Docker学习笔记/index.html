@@ -108,7 +108,7 @@
 
 </div>
 
-<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E6%A6%82%E8%BF%B0"><span class="toc-text">Docker概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker%E6%9E%B6%E6%9E%84"><span class="toc-text">Docker架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">几个重要的概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8get-started%E5%BA%94%E7%94%A8%E6%9D%A5%E5%AD%A6%E4%B9%A0docker%E7%9A%84%E5%90%84%E4%B8%AA%E5%8A%9F%E8%83%BD"><span class="toc-text">用get started应用来学习docker的各个功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8-container-image%E6%AD%A5%E9%AA%A4%E7%A4%BA%E4%BE%8B"><span class="toc-text">构建一个应用 container image步骤示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BA%86%E4%BB%A3%E7%A0%81%E5%90%8E%E9%87%8D%E6%96%B0%E6%9B%B4%E6%96%B0"><span class="toc-text">修改了代码后重新更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="toc-text">持久化数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E7%A8%B3%E5%AE%9Alinux%E7%89%88%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="toc-text">静态稳定linux版下载地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E5%AE%89%E8%A3%85ubuntu"><span class="toc-text">docker安装ubuntu</span></a></li></ol> -->
+<!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E6%A6%82%E8%BF%B0"><span class="toc-text">Docker概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker%E6%9E%B6%E6%9E%84"><span class="toc-text">Docker架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">几个重要的概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8get-started%E5%BA%94%E7%94%A8%E6%9D%A5%E5%AD%A6%E4%B9%A0docker%E7%9A%84%E5%90%84%E4%B8%AA%E5%8A%9F%E8%83%BD"><span class="toc-text">用get started应用来学习docker的各个功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8-container-image%E6%AD%A5%E9%AA%A4%E7%A4%BA%E4%BE%8B"><span class="toc-text">构建一个应用 container image步骤示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BA%86%E4%BB%A3%E7%A0%81%E5%90%8E%E9%87%8D%E6%96%B0%E6%9B%B4%E6%96%B0"><span class="toc-text">修改了代码后重新更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE"><span class="toc-text">持久化数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#container%E4%B9%8B%E9%97%B4%E9%80%9A%E8%BF%87network%E4%BA%A4%E4%BA%92"><span class="toc-text">container之间通过network交互</span></a></li></ol></li></ol> -->
 <p>之前对docker只是简单的使用，没有系统的学过，这次把docker官网的文档仔仔细细都读了一遍，这里对一些个人觉得比较重要的一些内容，做一些记录和总结。</p>
 <p><a href="https://docs.docker.com/get-started/overview/">Docker官网文档</a></p>
 <h2 id="Docker概述"><a href="#Docker概述" class="headerlink" title="Docker概述"></a>Docker概述</h2><p>Docker uses a client-server architecture. The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon can run on the same system, or you can connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets or a network interface. Another Docker client is Docker Compose, that lets you work with applications consisting of a set of containers.</p>
@@ -149,8 +149,41 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -dp 3000:3000 \</span><br><span class="line">    -w /app --mount type=bind,src=&quot;$(pwd)&quot;,target=/app \</span><br><span class="line">    node:18-alpine \</span><br><span class="line">    sh -c &quot;yarn install &amp;&amp; yarn run dev&quot;</span><br></pre></td></tr></table></figure>
 <p>参数解释：（参数越来越多了，接下来将会介绍 Docker Compose ）<br>-dp 3000:3000 - same as before. Run in detached (background) mode and create a port mapping<br>-w &#x2F;app - sets the “working directory” or the current directory that the command will run from<br>–mount type&#x3D;bind,src&#x3D;”$(pwd)”,target&#x3D;&#x2F;app - bind mount the current directory from the host into the &#x2F;app directory in the container<br>node:18-alpine - the image to use. Note that this is the base image for our app from the Dockerfile<br>sh -c “yarn install &amp;&amp; yarn run dev” - the command. </p>
 <p>可以用docker logs -f <container-id> 查看上述执行日志<br>18. 执行完我们修改src&#x2F;static&#x2F;js&#x2F;app.js，56行的显示文字，刷新页面发现页面也变化了。说明host机器上的修改同步到了container上。<br>    这样改动后可以直接运行第5步docker build -t getting-started .构建自己的image。</p>
-<h2 id="静态稳定linux版下载地址"><a href="#静态稳定linux版下载地址" class="headerlink" title="静态稳定linux版下载地址"></a>静态稳定linux版下载地址</h2><p><a href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
-<h2 id="docker安装ubuntu"><a href="#docker安装ubuntu" class="headerlink" title="docker安装ubuntu"></a>docker安装ubuntu</h2><p>docker run -i -t ubuntu &#x2F;bin&#x2F;bash</p>
+<h3 id="container之间通过network交互"><a href="#container之间通过network交互" class="headerlink" title="container之间通过network交互"></a>container之间通过network交互</h3><ol start="19">
+<li>创建network：docker network create todo-app</li>
+<li>启动一个mysql 链接上刚环境的network<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">     --network todo-app --network-alias mysql \</span><br><span class="line">     -v todo-mysql-data:/var/lib/mysql \</span><br><span class="line">     -e MYSQL_ROOT_PASSWORD=secret \</span><br><span class="line">     -e MYSQL_DATABASE=todos \</span><br><span class="line">     mysql:8.0</span><br><span class="line">```     </span><br><span class="line"></span><br><span class="line">&gt; Tip:You’ll notice a volume named todo-mysql-data in the above command that is mounted at /var/lib/mysql, which is where MySQL stores its data. However, you never ran a docker volume create command. Docker recognizes you want to use a named volume and creates one automatically for you.</span><br><span class="line"></span><br><span class="line">21. 启动成功后进入mysql：docker exec -it &lt;mysql-container-id&gt; mysql -u root -p</span><br><span class="line">    输入上述的密码：secret</span><br><span class="line">    </span><br><span class="line">22. 成功后可以看到刚创建的todos库：SHOW DATABASES;</span><br><span class="line"></span><br><span class="line">23. 现在其他container怎么链接刚启动的mysql。（ Remember that each container has its own IP address.)</span><br><span class="line">    用到：[https://github.com/nicolaka/netshoot](nicolaka/netshoot) , which ships with a lot of tools that are useful for troubleshooting or debugging networking issues.</span><br><span class="line">    用nicolaka/netshoot image 启动一个新container， Make sure to connect it to the same network：</span><br><span class="line">    docker run -it --network todo-app nicolaka/netshoot</span><br><span class="line">    </span><br><span class="line">24. 看ip，运行下面命令有一个ANSWER SECTION能看到ip：dig mysql</span><br><span class="line">    在20命令中，有一个--network-alias参数，What this means is that your app only simply needs to connect to a host named mysql and it’ll talk to the database.</span><br><span class="line"></span><br><span class="line">25. 现在启动app应用去连接mysql:</span><br></pre></td></tr></table></figure>
+docker run -dp 3000:3000 <br>   -w &#x2F;app -v “$(pwd):&#x2F;app” <br>   –network todo-app <br>   -e MYSQL_HOST&#x3D;mysql <br>   -e MYSQL_USER&#x3D;root <br>   -e MYSQL_PASSWORD&#x3D;secret <br>   -e MYSQL_DB&#x3D;todos <br>   node:18-alpine <br>   sh -c “yarn install &amp;&amp; yarn run dev”<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">运行docker logs -f &lt;container-id&gt;，能看到连接mysql的信息</span><br><span class="line">26. 在页面上添加几个item，然后进入mysql的todos库：docker exec -it &lt;mysql-container-id&gt; mysql -p todos</span><br><span class="line">27. 运行sql，查看你添加的记录有没有存到表里：</span><br></pre></td></tr></table></figure>
+mysql&gt; select * from todo_items;<br> +————————————–+——————–+———–+<br> | id                                   | name               | completed |<br> +————————————–+——————–+———–+<br> | c906ff08-60e6-44e6-8f49-ed56a0853e85 | haha1             |         0 |<br> | 2912a79e-8486-4bc3-a4c5-460793a575ab | haha2             |         0 |<br> +————————————–+——————–+———–+</li>
+</ol>
+<pre><code>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 静态稳定linux版下载地址
+https://download.docker.com/linux/static/stable/x86_64/
+
+
+
+
+
+## docker安装ubuntu
+docker run -i -t ubuntu /bin/bash
+
+</code></pre>
 
 
 <!--<a href="http://ac-heron.github.io/myblogs/2023/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#disqus_thread" class="article-comment-link">Comments</a>
