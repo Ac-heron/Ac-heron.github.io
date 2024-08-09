@@ -153,7 +153,7 @@ node_exporter端口默认9100
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export DATA_SOURCE_NAME=&quot;postgresql://user:password@127.0.0.1:1234/database?sslmode=disable&quot;</span><br><span class="line">./postgres_exporter &amp;</span><br></pre></td></tr></table></figure>
 
 <p>3.其他同上。dashboard可以用<a href="https://grafana.com/grafana/dashboards/9628">https://grafana.com/grafana/dashboards/9628</a></p>
-<h2 id="安装mmongodb"><a href="#安装mmongodb" class="headerlink" title="安装mmongodb"></a>安装mmongodb</h2><p>启动监听mongo：<br>&#x2F;mongodb_exporter  –web.listen-address&#x3D;”:35117” –mongodb.uri&#x3D;mongodb:&#x2F;&#x2F;acheron_adm:<a href="mailto:&#x31;&#50;&#x33;&#52;&#x35;&#54;&#115;&#x64;&#102;&#x73;&#100;&#x66;&#55;&#64;&#49;&#57;&#50;&#46;&#x31;&#54;&#56;&#x2e;&#49;&#x2e;&#49;">&#x31;&#50;&#x33;&#52;&#x35;&#54;&#115;&#x64;&#102;&#x73;&#100;&#x66;&#55;&#64;&#49;&#57;&#50;&#46;&#x31;&#54;&#56;&#x2e;&#49;&#x2e;&#49;</a>:8080&#x2F;db_name</p>
+<h2 id="安装mmongodb"><a href="#安装mmongodb" class="headerlink" title="安装mmongodb"></a>安装mmongodb</h2><p>启动监听mongo：<br>&#x2F;mongodb_exporter  –web.listen-address&#x3D;”:35117” –mongodb.uri&#x3D;mongodb:&#x2F;&#x2F;acheron_adm:<a href="mailto:&#x31;&#50;&#x33;&#52;&#53;&#x36;&#115;&#100;&#102;&#x73;&#100;&#x66;&#x37;&#64;&#x31;&#57;&#50;&#46;&#49;&#x36;&#x38;&#x2e;&#49;&#x2e;&#49;">&#x31;&#50;&#x33;&#52;&#53;&#x36;&#115;&#100;&#102;&#x73;&#100;&#x66;&#x37;&#64;&#x31;&#57;&#50;&#46;&#49;&#x36;&#x38;&#x2e;&#49;&#x2e;&#49;</a>:8080&#x2F;db_name</p>
 <p>配置prome..:</p>
 <ul>
 <li>job_name: mongodb<br>static_configs:<ul>
